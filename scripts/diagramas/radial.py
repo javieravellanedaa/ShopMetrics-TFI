@@ -103,8 +103,8 @@ print("nucleo:", ", ".join("%s(%d)" % (t, gr[t]) for t in nucleo))
 
 # reescribir las posiciones en el XML ya generado
 s = open(ENTRADA).read()
-s = s.replace('edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;',
-              'edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;jumpStyle=arc;jumpSize=7;')
+s = s.replace('edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;',
+              'edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;jumpStyle=arc;jumpSize=7;')
 s = re.sub(r'pageWidth="\d+" pageHeight="\d+"', 'pageWidth="%d" pageHeight="%d"' % (PW, PH), s)
 for t, (x, y, w, h) in pos.items():
     s = re.sub(r'(<mxCell id="%s%s" [^>]*?><mxGeometry )x="[\d.-]+" y="[\d.-]+"' % (PREFIJO, re.escape(nom(t))),
