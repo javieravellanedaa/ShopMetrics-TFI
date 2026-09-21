@@ -2,7 +2,7 @@ $ErrorActionPreference = "Stop"
 $EAP = "D:\Javier\UAI\UAI - SAP\shopMetrics\shopMetrics\enterprise_architect\shopMetrics.eapx"
 $OUT = "D:\Javier\UAI\UAI - SAP\shopMetrics\shopMetrics\enterprise_architect"
 $NOMBRE = "DER - ShopMetrics (integrado)"
-$GRILLA = "C:\Users\javie\AppData\Local\Temp\claude\D--Javier-UAI-UAI---SAP-STF\c435bfd7-fad9-400e-8645-4e6760655262\scratchpad\grilla.json"
+$GRILLA = Join-Path $PSScriptRoot "grilla.json"
 
 $g = Get-Content $GRILLA -Raw -Encoding UTF8 | ConvertFrom-Json
 $rep = New-Object -ComObject EA.Repository

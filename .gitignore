@@ -4,6 +4,7 @@
 !/.gitignore
 !/README.md
 !/scripts/
+!/scripts_enterprise_architect/
 
 !/STF/
 /STF/*

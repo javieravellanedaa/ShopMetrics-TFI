@@ -1,0 +1,610 @@
+A continuación se especifica cada caso de uso conforme al formato de ficha sugerido por la cátedra, agrupados por componente.
+CU-001-001: Monitorear estado de las integraciones
+Objetivo: Permitir al administrador del centro y al equipo de soporte verificar en tiempo real el estado de salud de todos los conectores POS y dispositivos IoT activos, identificando rápidamente las integraciones con problemas y tomando acción correctiva.
+Descripción: El sistema presenta un panel consolidado con el estado de todas las integraciones (conectores POS y dispositivos IoT), indicando para cada una si está operativa, con advertencia o caída. Permite acceder al detalle de cada integración para diagnosticar problemas y reiniciar conexiones cuando corresponda.
+Pre-Condición: El usuario está autenticado con rol de Administrador del Centro o de Soporte Técnico. Existe al menos un conector o dispositivo registrado en el sistema.
+Post-Condición: El usuario obtiene una vista actualizada del estado de las integraciones. Si reinicia o reconfigura alguna integración, queda registrada la acción en el log de auditoría.
+Actores Primarios: Administrador del Centro Comercial / Operador de Soporte Técnico
+Actores Secundarios: Sistemas POS externos, dispositivos IoT físicos, sistema de monitoreo interno
+Evento Disparador: El usuario accede al módulo Integraciones y selecciona la opción "Estado de las integraciones", o el sistema lo redirige automáticamente desde una alerta de integración caída.
+Escenario principal de éxito
+1. Usuario: Navega al módulo Integraciones y selecciona "Estado de las integraciones".
+2. Sistema: Consulta el estado actual de todos los conectores y dispositivos registrados, recuperando el estado del conector (solo lectura, selector [verde/amarillo/rojo], se almacena) y el estado del dispositivo (solo lectura, selector [verde/amarillo/rojo], se almacena).
+3. Sistema: Presenta un tablero con dos secciones (Conectores POS / Dispositivos IoT), mostrando para cada elemento un indicador visual de estado (solo lectura, selector [verde/amarillo/rojo], se almacena) y la fecha y hora de la última sincronización exitosa (solo lectura, fecha y hora, DD/MM/AAAA HH:MM, calculado, no se almacena).
+4. Usuario: Identifica las integraciones con estado en advertencia o caída y hace clic en una de ellas para acceder al detalle.
+5. Sistema: Muestra el detalle de la integración, incluyendo historial de errores recientes (solo lectura, texto, solo visualización), métricas de salud como cantidad de eventos recibidos en la última hora (solo lectura, numérico, >= 0, calculado, no se almacena) y latencia promedio (solo lectura, decimal, en milisegundos, calculado, no se almacena), y opciones de acción.
+6. Usuario: Selecciona una acción correctiva (obligatorio, selector [reintentar conexión/reiniciar conector/suspender temporalmente la ingesta], no se almacena como tal).
+7. Sistema: Ejecuta la acción seleccionada, actualiza el estado de la integración (calculado por el sistema, selector [verde/amarillo/rojo], se almacena) y registra la acción en el log de auditoría con acción (calculado por el sistema, texto, se almacena), recurso (calculado por el sistema, texto, se almacena), usuario (calculado por el sistema, identificador/UUID, se almacena como FK), fecha y hora (calculado por el sistema, fecha y hora, DD/MM/AAAA HH:MM, se almacena) y hash de integridad (calculado por el sistema, texto, se almacena).
+8. Sistema: Notifica al usuario el resultado de la acción correctiva mediante un mensaje (calculado por el sistema, texto, se almacena), tipo (calculado por el sistema, selector, se almacena), canal (calculado por el sistema, selector [push/email/WhatsApp], se almacena) y fecha y hora (calculado por el sistema, fecha y hora, DD/MM/AAAA HH:MM, se almacena).
+Caminos alternativos
+CA-1. La acción correctiva no resuelve el problema.
+CA-2. El usuario decide suspender temporalmente la ingesta de un conector.
+Prototipo de la Interfaz de Usuario
+CU-002-001: Registrar conector POS de un locatario
+Objetivo: Habilitar la ingesta automatizada de datos de facturación de un locatario mediante la configuración del conector hacia su sistema de punto de venta, eliminando las cargas manuales en planillas y permitiendo el procesamiento de la información en tiempo real.
+Descripción: El administrador del centro selecciona el sistema POS que utiliza el locatario, ingresa las credenciales y los parámetros de conexión, y el sistema valida la conexión y comienza la ingesta automatizada de los datos de facturación. Este caso de uso es el primer paso para habilitar la propuesta de valor central del producto: el cruce automatizado entre datos de tráfico y datos POS.
+Pre-Condición: El usuario está autenticado en el sistema con rol de Administrador del Centro. El locatario al cual se le va a configurar el conector está dado de alta en la plataforma. Las credenciales del sistema POS del locatario están disponibles y autorizadas por el locatario.
+Post-Condición: El conector POS queda registrado, validado y activo. El sistema comienza a ingestar los registros de facturación del locatario con la frecuencia configurada. Se registra la acción en el log de auditoría.
+Actores Primarios: Administrador del Centro Comercial
+Actores Secundarios: Locatario (provee credenciales y autorización), Sistema POS externo del locatario
+Evento Disparador: El administrador navega al módulo Integraciones y solicita el alta de un nuevo conector POS para un locatario.
+Escenario principal de éxito
+1. Administrador: Accede al módulo Integraciones y selecciona la opción "Nuevo conector POS".
+2. Sistema: Muestra el formulario con la lista de locatarios sin conector activo, presentando para cada uno el locatario (solo lectura, selector sobre listado precargado, se almacena como FK) con su nombre (solo lectura, texto, solo visualización) y rubro (solo lectura, texto, solo visualización).
+3. Administrador: Selecciona el locatario al cual se asocia el conector (obligatorio, selector sobre listado precargado, se almacena como FK).
+4. Sistema: Despliega la lista de tipos de POS soportados (obligatorio, selector sobre listado precargado [Fiserv/Bejerman/Tango Gestión/Geopagos/Aper/Maxirest/Fudo], se almacena).
+5. Administrador: Selecciona el tipo de POS (obligatorio, selector sobre listado precargado, se almacena) y completa los campos de credenciales: URL del endpoint (obligatorio, texto, formato URL, se almacena), token o usuario y contraseña (obligatorio, texto, se almacena encriptada) e identificador de la cuenta del locatario (obligatorio, texto, se almacena).
+6. Sistema: Valida la conexión contra el sistema POS externo realizando una llamada de prueba.
+7. Sistema: Confirma que la conexión es exitosa, almacena las credenciales encriptadas (calculado por el sistema, texto, se almacena encriptada) y muestra el conector con estado (calculado por el sistema, selector, se almacena) en "Activo" y fecha de alta (calculado por el sistema, fecha, DD/MM/AAAA, se almacena).
+8. Sistema: Inicia la ingesta automatizada de datos POS del locatario y registra la acción en el log de auditoría con acción (calculado por el sistema, texto, se almacena), recurso (calculado por el sistema, texto, se almacena), usuario (calculado por el sistema, identificador/UUID, se almacena como FK), fecha y hora (calculado por el sistema, fecha y hora, DD/MM/AAAA HH:MM, se almacena) y hash de integridad (calculado por el sistema, texto, se almacena).
+9. Administrador: Visualiza el conector con estado (solo lectura, selector, se almacena) en "Activo" en el listado de integraciones.
+Caminos alternativos
+CA-1. La validación de credenciales falla.
+CA-2. El locatario aún no está autorizado a compartir datos.
+Prototipo de la Interfaz de Usuario
+CU-003-001: Registrar dispositivo IoT de conteo
+Objetivo: Incorporar a la plataforma un dispositivo de hardware (cámara de visión computacional, sensor infrarrojo, antena WiFi tracking o barrera de estacionamiento) para que aporte datos de tráfico segmentados por zona del centro comercial.
+Descripción: El administrador del centro registra un nuevo dispositivo IoT seleccionando su tipo y proveedor, ingresa los parámetros de conexión y vincula el dispositivo a una zona específica del centro. El sistema valida la conexión y comienza a ingestar los eventos de tráfico generados.
+Pre-Condición: El usuario está autenticado con rol de Administrador del Centro. El dispositivo físico está instalado y conectado a la red del centro comercial. Las zonas del centro están previamente definidas en el sistema.
+Post-Condición: El dispositivo queda registrado, validado y activo. El sistema comienza a ingestar los eventos de tráfico vinculándolos a la zona correspondiente. Se registra la acción en el log de auditoría.
+Actores Primarios: Administrador del Centro Comercial
+Actores Secundarios: Personal técnico del proveedor de hardware (en caso de configuración asistida), dispositivo IoT físico
+Evento Disparador: El administrador accede al módulo Integraciones y solicita el alta de un nuevo dispositivo IoT.
+Escenario principal de éxito
+1. Administrador: Accede al módulo Integraciones y selecciona "Nuevo dispositivo IoT".
+2. Sistema: Muestra el formulario de alta con los tipos de dispositivos soportados (obligatorio, selector sobre listado precargado [cámara Hikvision/cámara Axis/sensor V-Count/antena WiFi tracking/barrera Skidata/barrera Amano], se almacena).
+3. Administrador: Selecciona el tipo de dispositivo (obligatorio, selector sobre listado precargado, se almacena) y el modelo específico (obligatorio, texto, se almacena).
+4. Sistema: Despliega los campos de configuración correspondientes: dirección IP (obligatorio, texto, formato IPv4, se almacena), puerto (obligatorio, numérico, 1 a 65535, no se almacena), credenciales (obligatorio, texto, se almacena encriptada) e identificador del fabricante (opcional, texto, se almacena).
+5. Administrador: Completa los datos de conexión y selecciona la zona del centro a la cual queda vinculado el dispositivo (obligatorio, selector sobre listado precargado, se almacena como FK).
+6. Sistema: Realiza una conexión de prueba al dispositivo para validar que responde correctamente.
+7. Sistema: Confirma la validación exitosa, registra el dispositivo con estado (calculado por el sistema, selector, se almacena) y fecha de alta (calculado por el sistema, fecha, DD/MM/AAAA, se almacena), y comienza a recibir eventos de tráfico con conteo (calculado por el sistema, numérico, >= 0, se almacena) y marca temporal ts (calculado por el sistema, fecha y hora, DD/MM/AAAA HH:MM, se almacena).
+8. Administrador: Verifica en la pantalla principal que los eventos de tráfico, con conteo (solo lectura, numérico, >= 0, se almacena) y marca temporal (solo lectura, fecha y hora, DD/MM/AAAA HH:MM, se almacena), comienzan a registrarse en tiempo real para la zona seleccionada (solo lectura, selector, se almacena como FK).
+Caminos alternativos
+CA-1. El dispositivo no responde al test de conexión.
+CA-2. El dispositivo entrega un formato de datos no soportado.
+Prototipo de la Interfaz de Usuario
+CU-004-001: Consultar mapa del centro y zonas
+Objetivo: Brindar al administrador una vista espacial del centro con las zonas definidas, los dispositivos de conteo que las cubren y el tráfico por zona, para monitorear la cobertura de sensores y detectar zonas sin medición.
+Descripción: El administrador accede al mapa del centro; el sistema muestra las zonas con un semáforo de cobertura y métricas de tráfico. Al seleccionar una zona ve su detalle (dispositivos, tráfico actual y promedio).
+Pre-Condición: Usuario autenticado como Administrador del Centro. Existen zonas definidas para el centro.
+Post-Condición: El administrador obtiene una vista actualizada de cobertura y tráfico por zona.
+Actores Primarios: Administrador del Centro Comercial
+Actores Secundarios: Servicio de mapa/zonas, dispositivos IoT (fuente de tráfico)
+Evento Disparador: El administrador selecciona "Vista de mapa del centro".
+Escenario principal de éxito
+1. Administrador: Accede a "Vista de mapa del centro".
+2. Sistema: Solicita el layout, las zonas y los dispositivos.
+3. Sistema: Consulta zonas, dispositivos y métricas de tráfico por zona, recuperando para cada zona su nombre (solo lectura, texto, se almacena), superficie (solo lectura, numérico, en m², se almacena) y el conteo de tráfico (solo lectura, numérico, >= 0, calculado, no se almacena).
+4. Sistema: Muestra el mapa con un semáforo de cobertura por zona (solo lectura, selector [verde/amarillo/rojo], calculado, no se almacena).
+5. Administrador: Selecciona una zona (obligatorio, selector sobre listado precargado, se almacena como FK).
+6. Sistema: Muestra el detalle de tráfico (solo lectura, numérico, >= 0, calculado, no se almacena) y dispositivos de la zona, indicando para cada uno su tipo (solo lectura, selector, se almacena), modelo (solo lectura, texto, se almacena) y estado (solo lectura, selector [verde/amarillo/rojo], se almacena).
+Caminos alternativos
+CA-1. Zona sin dispositivos de conteo: el sistema marca cobertura nula y sugiere registrar un dispositivo IoT (CU-003-001).
+Prototipo de la Interfaz de Usuario
+CU-005-001: Gestionar listado y detalle de locatarios
+Objetivo: Permitir al administrador consultar el padrón de locatarios y acceder a la ficha consolidada de cada uno (tráfico/ventas, estado de integración, consentimientos).
+Descripción: El administrador lista los locatarios con filtros (rubro, estado, conector) y abre el detalle de uno para ver su ficha completa.
+Pre-Condición: Usuario autenticado como Administrador del Centro. Existen locatarios dados de alta.
+Post-Condición: El administrador obtiene la ficha consolidada del locatario seleccionado.
+Actores Primarios: Administrador del Centro Comercial
+Actores Secundarios: Servicio de locatarios
+Evento Disparador: El administrador accede a "Listado de locatarios".
+Escenario principal de éxito
+1. Administrador: Accede a "Listado de locatarios".
+2. Sistema: Consulta los locatarios aplicando los filtros: rubro (opcional, selector sobre listado precargado, no se almacena), estado (opcional, selector, no se almacena) y conector (opcional, selector, no se almacena).
+3. Sistema: Muestra el listado con rubro (solo lectura, texto, se almacena), estado (solo lectura, selector, calculado, no se almacena) y conector (solo lectura, selector, se almacena como FK), junto con el nombre del locatario (solo lectura, texto, se almacena).
+4. Administrador: Selecciona un locatario (obligatorio, selector sobre listado precargado, se almacena como FK).
+5. Sistema: Muestra la ficha consolidada con métricas de tráfico y ventas (solo lectura, decimal, calculado, no se almacena), estado de integración del conector (solo lectura, selector [verde/amarillo/rojo], se almacena) y consentimientos con su tipo de uso (solo lectura, selector, se almacena), estado (solo lectura, selector, se almacena) y fecha (solo lectura, fecha y hora, DD/MM/AAAA HH:MM, se almacena).
+Caminos alternativos
+CA-1. Locatario sin conector POS: el sistema ofrece dar de alta un conector (CU-002-001).
+Prototipo de la Interfaz de Usuario
+CU-006-001: Configurar alerta basada en umbral
+Objetivo: Permitir al administrador definir reglas de alerta sobre indicadores específicos (tráfico horario, ventas diarias, conversión por rubro, ocupación de estacionamiento) que se disparen cuando los valores cruzan el umbral configurado, habilitando una respuesta operativa inmediata.
+Descripción: El administrador define una nueva regla de alerta seleccionando el indicador, la condición (mayor que, menor que, dentro de un rango), el valor de corte y los destinatarios que recibirán la notificación cuando la regla se cumpla. El sistema valida la regla y comienza a evaluarla en tiempo real.
+Pre-Condición: El usuario está autenticado con rol de Administrador o de Gerente Operativo. Existen indicadores activos en el sistema (al menos un dispositivo IoT o un conector POS configurado).
+Post-Condición: La regla de alerta queda registrada y activa. El sistema comienza a evaluar la regla contra los datos en tiempo real. Cuando se cumple la condición, se generan y despachan las notificaciones a los destinatarios indicados.
+Actores Primarios: Administrador del Centro Comercial / Gerente Operativo
+Actores Secundarios: Destinatarios de las alertas (otros usuarios del sistema), sistema de notificaciones
+Evento Disparador: El usuario navega al módulo Alertas y solicita la creación de una nueva regla por umbral.
+Escenario principal de éxito
+1. Usuario: Accede al módulo Alertas y selecciona "Nueva alerta por umbral".
+2. Sistema: Despliega el formulario de creación de regla con los campos requeridos: indicador (obligatorio, selector sobre listado precargado, se almacena como FK), condición (obligatorio, selector [mayor que/menor que/igual a], se almacena), valor de corte (obligatorio, decimal, > 0, se almacena) y estado (calculado por el sistema, selector, se almacena).
+3. Usuario: Selecciona el indicador a monitorear (obligatorio, selector sobre listado precargado, se almacena como FK) desde el catálogo de indicadores disponibles, con su nombre (solo lectura, texto, se almacena) y unidad (solo lectura, texto, se almacena).
+4. Sistema: Muestra los rangos típicos del indicador seleccionado (solo lectura, decimal, calculado, no se almacena), basados en el histórico del centro, como referencia para la configuración.
+5. Usuario: Configura la condición (obligatorio, selector [mayor que/menor que/igual a], se almacena) con su valor de corte (obligatorio, decimal, > 0, se almacena), el período de evaluación (obligatorio, selector [por hora/diario/semanal], se almacena dentro de la condición) y los días de aplicación (obligatorio, selector múltiple [lunes a domingo], se almacena dentro de la condición).
+6. Usuario: Selecciona los destinatarios de la alerta (obligatorio, selector múltiple sobre listado precargado, se almacena como FK) y los canales por los cuales se enviará (obligatorio, selector múltiple [push móvil/WhatsApp/correo electrónico], se almacena).
+7. Usuario: Confirma la creación de la regla.
+8. Sistema: Valida la consistencia de la regla, la activa actualizando su estado (calculado por el sistema, selector, se almacena) y comienza a evaluarla contra los datos en tiempo real.
+9. Sistema: Registra la creación de la regla en el log de auditoría con acción (calculado por el sistema, texto, se almacena), recurso (calculado por el sistema, texto, se almacena), usuario (calculado por el sistema, identificador/UUID, se almacena como FK), fecha y hora (calculado por el sistema, fecha y hora, DD/MM/AAAA HH:MM, se almacena) y hash de integridad (calculado por el sistema, texto, se almacena), y notifica al usuario que la alerta está activa mediante un mensaje (calculado por el sistema, texto, se almacena).
+Caminos alternativos
+CA-1. El usuario configura una regla con valor de corte fuera de los rangos históricos del indicador.
+CA-2. El usuario intenta seleccionar un destinatario que no tiene los permisos necesarios.
+Prototipo de la Interfaz de Usuario
+CU-007-001: Recibir y gestionar alerta generada por Machine Learning
+Objetivo: Habilitar la recepción y resolución de alertas de anomalías operativas generadas automáticamente por el modelo de Machine Learning, permitiendo al personal operativo responder rápidamente y al sistema mejorar continuamente la precisión de los modelos a partir del feedback recibido.
+Descripción: El modelo de Machine Learning detecta una anomalía en el patrón de tráfico de una zona del centro y dispara una alerta. El operario recibe la notificación push en la aplicación móvil, accede al detalle, ejecuta un checklist guiado de verificación y registra la resolución (confirma anomalía, descarta o escala). El feedback del operario alimenta el reentrenamiento del modelo.
+Pre-Condición: El operario tiene la aplicación móvil instalada y notificaciones push habilitadas. El modelo de ML está entrenado y activo. Existen al menos dispositivos IoT generando datos en tiempo real.
+Post-Condición: La alerta queda en estado "Resuelta" con el detalle de la acción tomada y el tiempo de respuesta. El feedback del operario se almacena para mejorar la precisión del modelo en futuras evaluaciones.
+Actores Primarios: Operario de Operaciones / Mantenimiento
+Actores Secundarios: Modelo de Machine Learning (ejecución), Gerente del centro (supervisión), sistema de notificaciones push
+Evento Disparador: El modelo de Machine Learning detecta una anomalía en el patrón de tráfico y dispara una alerta automáticamente.
+Escenario principal de éxito
+1. Sistema: El modelo de ML evalúa los datos de tráfico de la última ventana temporal (conteo de eventos de tráfico: solo lectura, numérico, > 0, se almacena en evento_trafico) y detecta que el indicador de una zona (zona: calculado por el sistema, selector sobre listado de zonas del centro, se almacena como FK; indicador: solo lectura, selector sobre catálogo de indicadores, se almacena como FK) está fuera del rango esperado con un nivel de confianza superior al umbral configurado (nivel de confianza: calculado por el sistema, decimal, 0.0 a 1.0, calculado, no se almacena en este paso; valor de corte del umbral: solo lectura, decimal, se almacena en regla_alerta).
+2. Sistema: Genera una alerta con la información de la anomalía (tipo de alerta: calculado por el sistema, selector [umbral/ML], se almacena; zona: calculado por el sistema, selector, se almacena como FK; indicador: solo lectura, selector, se almacena como FK; valor observado: calculado por el sistema, decimal, calculado, no se almacena; valor esperado: calculado por el sistema, decimal, calculado, no se almacena; nivel de confianza: calculado por el sistema, decimal, 0.0 a 1.0, se almacena; severidad: calculado por el sistema, selector [baja/media/alta], se almacena; estado: calculado por el sistema, selector [abierta/en proceso/resuelta], se almacena; fecha: calculado por el sistema, fecha y hora, DD/MM/AAAA HH:MM, se almacena; posibles causas sugeridas: calculado por el sistema, texto, solo visualización) y la encola para distribución.
+3. Sistema: Envía la notificación push (mensaje: calculado por el sistema, texto, se almacena; tipo: calculado por el sistema, selector, se almacena; canal: calculado por el sistema, selector [push/email/WhatsApp], se almacena; fecha: calculado por el sistema, fecha y hora, DD/MM/AAAA HH:MM, se almacena) a los operarios asignados a la zona afectada (usuario destinatario: calculado por el sistema, selector sobre usuarios con acceso al centro, se almacena como FK).
+4. Operario: Recibe la notificación en su aplicación móvil y abre la alerta (identificador de la alerta: solo lectura, UUID, se almacena como FK).
+5. Sistema: Muestra el detalle de la alerta (severidad: solo lectura, selector [baja/media/alta], solo visualización; estado: solo lectura, selector, solo visualización; fecha: solo lectura, fecha y hora, DD/MM/AAAA HH:MM, solo visualización), el gráfico del indicador con el momento de la anomalía resaltado (serie de conteo de tráfico: solo lectura, numérico, calculado, no se almacena), las posibles causas sugeridas (solo lectura, texto, solo visualización) y un checklist guiado de verificación (solo lectura, selector múltiple sobre listado precargado, solo visualización).
+6. Operario: Ejecuta los pasos del checklist (ítems del checklist: solo lectura, selector múltiple sobre listado precargado [verificar escaleras mecánicas / verificar climatización / verificar pasillos bloqueados / verificar dispositivos IoT en la zona], solo visualización).
+7. Operario: Registra el resultado de cada paso del checklist (resultado por ítem: obligatorio, selector [verificado/problema encontrado/no aplica], se almacena) y agrega comentarios (comentarios: opcional, texto, máx 500 caracteres, se almacena).
+8. Operario: Marca la alerta como "Resuelta" indicando la causa identificada (causa identificada: obligatorio, texto, máx 500 caracteres, se almacena) y la acción tomada (acción tomada: obligatorio, texto, máx 500 caracteres, se almacena; estado: calculado por el sistema, selector [resuelta], se almacena).
+9. Sistema: Almacena el resultado, calcula el tiempo de respuesta total (tiempo de respuesta: calculado por el sistema, numérico, en minutos, calculado, no se almacena) y registra la acción en el log de auditoría (usuario: calculado por el sistema, UUID, se almacena como FK; fecha: calculado por el sistema, fecha y hora, DD/MM/AAAA HH:MM, se almacena; acción: calculado por el sistema, texto, se almacena; recurso: calculado por el sistema, texto, se almacena; hash: calculado por el sistema, texto, se almacena).
+10. Sistema: Incorpora el feedback al pipeline de reentrenamiento del modelo (modelo de ML: solo lectura, selector, se almacena como FK; versión del modelo: solo lectura, texto, se almacena) para mejorar la precisión futura.
+Caminos alternativos
+CA-1. El operario considera que la alerta es un falso positivo.
+CA-2. El operario no puede resolver la situación y necesita escalar.
+CA-3. El operario no atiende la alerta dentro del tiempo objetivo de respuesta.
+Prototipo de la Interfaz de Usuario
+CU-008-001: Consultar predicción de riesgo de vacancia de locatario
+Objetivo: Proveer al administrador del centro una estimación, generada por el modelo predictivo de Machine Learning, del riesgo de cierre de cada locatario en un horizonte temporal definido, permitiendo tomar acción correctiva antes de que la salida del locatario sea irreversible.
+Descripción: El sistema ejecuta periódicamente el modelo predictivo de vacancia sobre la base de locatarios activos, calcula un score de riesgo y genera alertas cuando el score supera el umbral. El administrador puede consultar el ranking de locatarios por riesgo, ver los factores que el modelo identificó como críticos en cada caso y registrar acciones de retención.
+Pre-Condición: El usuario está autenticado con rol de Administrador o Gerente Comercial. Existe al menos seis meses de historia de datos para el centro (suficiente para que el modelo predictivo opere con calidad). El modelo de predicción de vacancia está entrenado y activo.
+Post-Condición: El administrador obtiene una vista del ranking de locatarios en riesgo. Si registra acciones de retención, estas quedan asociadas al locatario y al modelo para evaluación posterior del impacto.
+Actores Primarios: Administrador del Centro Comercial / Gerente Comercial
+Actores Secundarios: Modelo predictivo de Machine Learning, locatarios identificados (sujetos al análisis)
+Evento Disparador: El usuario accede al módulo Analítica y selecciona la opción "Predicción de vacancia".
+Escenario principal de éxito
+1. Usuario: Navega al módulo Analítica y selecciona "Predicción de vacancia".
+2. Sistema: Recupera del modelo predictivo (modelo de ML: solo lectura, selector, se almacena como FK; versión: solo lectura, texto, se almacena) el score de riesgo más reciente para cada locatario activo (score: solo lectura, decimal, 0.0 a 1.0, se almacena; locatario: solo lectura, selector, se almacena como FK; fecha de la predicción: solo lectura, fecha, DD/MM/AAAA, se almacena) y los ordena de mayor a menor riesgo.
+3. Sistema: Presenta el ranking con: nombre del locatario (solo lectura, texto, se almacena en locatario), rubro (solo lectura, texto, se almacena en locatario), score de riesgo (solo lectura, decimal, expresado como porcentaje 0% a 100%, se almacena), tendencia respecto del mes anterior (solo lectura, selector [creciente/estable/decreciente], se almacena en prediccion_vacancia) y categoría de riesgo (calculado por el sistema, selector [alto/medio/bajo], derivado del score, calculado, no se almacena).
+4. Usuario: Selecciona un locatario del ranking para acceder al detalle (identificador del locatario: solo lectura, UUID, se almacena como FK).
+5. Sistema: Muestra el detalle del análisis con: gráfico de evolución del tráfico y ventas del locatario en los últimos doce meses (serie de tráfico: solo lectura, numérico, calculado, no se almacena; serie de ventas: solo lectura, decimal, derivada de monto_facturado, calculado, no se almacena), factores que el modelo identifica como críticos (factores críticos: calculado por el sistema, selector múltiple [caída sostenida de tráfico / deterioro de conversión / atrasos en alquileres / antigüedad del contrato / comparación con promedio del rubro], calculado, no se almacena), historia de eventos relevantes (eventos relevantes: solo lectura, texto, solo visualización).
+6. Sistema: Sugiere acciones de retención basadas en casos similares (sugerencias: calculado por el sistema, selector sobre listado [revisar condiciones de alquiler / ofrecer ubicación alternativa / proponer participación en evento promocional], calculado, no se almacena).
+7. Usuario: Selecciona una acción de retención y registra la decisión tomada (tipo de acción: obligatorio, selector sobre listado precargado, se almacena en accion_retencion; estado: calculado por el sistema, selector [ejecutada/pendiente], se almacena; fecha de seguimiento: obligatorio, fecha, DD/MM/AAAA, se almacena; responsable interno: obligatorio, selector sobre usuarios, se almacena como FK).
+8. Sistema: Almacena la acción asociada al locatario (acción de retención: calculado por el sistema, se almacena con FK a la predicción), programa el seguimiento (fecha de seguimiento: solo lectura, fecha, DD/MM/AAAA, se almacena) y registra la decisión en el log de auditoría (usuario: calculado por el sistema, UUID, se almacena como FK; fecha: calculado por el sistema, fecha y hora, DD/MM/AAAA HH:MM, se almacena; acción: calculado por el sistema, texto, se almacena; recurso: calculado por el sistema, texto, se almacena; hash: calculado por el sistema, texto, se almacena).
+9. Sistema: Incorpora el dato al pipeline de evaluación del modelo (modelo de ML: solo lectura, selector, se almacena como FK), midiendo posteriormente si la acción fue exitosa (resultado de la acción: calculado por el sistema, booleano, calculado, no se almacena en este paso).
+Caminos alternativos
+CA-1. El locatario tiene menos de seis meses de historia.
+CA-2. El usuario decide configurar una alerta proactiva sobre el riesgo de un locatario específico.
+Prototipo de la Interfaz de Usuario
+CU-009-001: Consultar recomendación de mix óptimo
+Objetivo: Sugerir, mediante un modelo de optimización, cambios en la combinación de rubros del centro (sumar, reducir, reubicar) con impacto estimado y confianza, para mejorar facturación y circulación.
+Descripción: El sistema ejecuta el modelo de mix sobre ocupación y desempeño por rubro y muestra recomendaciones priorizadas que el gerente puede adoptar o descartar.
+Pre-Condición: Usuario autenticado como Gerente Comercial. Existe histórico suficiente de desempeño por rubro.
+Post-Condición: El gerente obtiene las recomendaciones; su decisión (adoptar/descartar) queda registrada y realimenta el modelo.
+Actores Primarios: Gerente Comercial
+Actores Secundarios: Modelo de optimización de mix
+Evento Disparador: El usuario accede a "Recomendación de mix óptimo".
+Escenario principal de éxito
+1. Usuario: Accede a "Recomendación de mix óptimo".
+2. Sistema: Ejecuta el modelo de optimización (modelo de ML: solo lectura, selector, se almacena como FK; versión: solo lectura, texto, se almacena) sobre la ocupación y el desempeño por rubro (ocupación por zona: solo lectura, numérico, derivada de superficie de local, calculado, no se almacena; desempeño por rubro: solo lectura, decimal, derivado de registro_pos, calculado, no se almacena; rubro: solo lectura, texto, se almacena en locatario).
+3. Sistema: Genera recomendaciones (tipo de recomendación: calculado por el sistema, selector [sumar/reducir/reubicar rubros], calculado, no se almacena; rubro objetivo: calculado por el sistema, texto, calculado, no se almacena) con impacto estimado (impacto estimado: calculado por el sistema, decimal, expresado como porcentaje, calculado, no se almacena) y confianza (nivel de confianza: calculado por el sistema, decimal, 0.0 a 1.0, calculado, no se almacena).
+4. Sistema: Muestra la lista de recomendaciones priorizadas (prioridad: calculado por el sistema, selector [alta/media/baja], solo visualización).
+5. Usuario: Selecciona una recomendación para ver su fundamento (identificador de la recomendación: solo lectura, UUID, calculado, no se almacena).
+6. Sistema: Muestra el detalle (casos similares: solo lectura, texto, solo visualización; datos de soporte: solo lectura, numérico, calculado, no se almacena).
+7. Usuario: Marca la recomendación como adoptada o descartada (decisión: obligatorio, selector [adoptada/descartada], se almacena como feedback en accion_retencion).
+8. Sistema: Registra la decisión (decisión: calculado por el sistema, selector, se almacena; fecha: calculado por el sistema, fecha y hora, DD/MM/AAAA HH:MM, se almacena) y la realimenta al modelo (modelo de ML: solo lectura, selector, se almacena como FK).
+Caminos alternativos
+CA-1. Datos de mercado insuficientes: el sistema muestra recomendaciones de confianza baja y lo advierte explícitamente.
+Prototipo de la Interfaz de Usuario
+CU-010-001: Consultar recomendaciones para mi local
+Objetivo: Ofrecer al locatario sugerencias accionables generadas por ML (horarios, promociones, vidriera, dotación) con impacto estimado, para mejorar su desempeño.
+Descripción: El sistema ejecuta el modelo sobre los datos del local y muestra recomendaciones priorizadas que el locatario puede marcar como aplicadas para medir su resultado.
+Pre-Condición: El locatario tiene cuenta activa y datos suficientes de su local.
+Post-Condición: El locatario obtiene recomendaciones; las que marca como aplicadas quedan registradas para medir resultado.
+Actores Primarios: Locatario
+Actores Secundarios: Modelo de Machine Learning
+Evento Disparador: El locatario accede a "Recomendaciones para mi local".
+Escenario principal de éxito
+1. Locatario: Accede a "Recomendaciones para mi local" (local: solo lectura, selector, se almacena como FK; plan del locatario: solo lectura, selector [Freemium/Pro], se almacena en locatario).
+2. Sistema: Ejecuta el modelo de recomendaciones (modelo de ML: solo lectura, selector, se almacena como FK; versión: solo lectura, texto, se almacena) sobre los datos del local (tráfico del local: solo lectura, numérico, derivado de evento_trafico, calculado, no se almacena; ventas del local: solo lectura, decimal, derivadas de registro_pos, calculado, no se almacena).
+3. Sistema: Genera sugerencias accionables (tipo de sugerencia: calculado por el sistema, selector [horarios/promociones/vidriera], calculado, no se almacena) con impacto estimado (impacto estimado: calculado por el sistema, decimal, expresado como porcentaje, calculado, no se almacena).
+4. Sistema: Muestra las recomendaciones priorizadas (prioridad: calculado por el sistema, selector [alta/media/baja], solo visualización).
+5. Locatario: Marca una sugerencia como aplicada (estado de la sugerencia: obligatorio, selector [aplicada/pendiente], se almacena como feedback).
+6. Sistema: Registra el feedback (estado: calculado por el sistema, selector, se almacena; fecha: calculado por el sistema, fecha y hora, DD/MM/AAAA HH:MM, se almacena) para medir el resultado posteriormente (resultado: calculado por el sistema, decimal, calculado, no se almacena en este paso).
+Caminos alternativos
+CA-1. Plan Freemium: las sugerencias se muestran bloqueadas con vista previa y CTA Pro.
+Prototipo de la Interfaz de Usuario
+CU-011-001: Consultar dashboard general y KPIs del centro
+Objetivo: Brindar a la gerencia una vista ejecutiva de los KPIs del centro (tráfico, conversión, ventas, vacancia), con comparativos y gráficos, y la posibilidad de cambiar el período y profundizar en cada indicador.
+Descripción: El usuario accede al dashboard; el sistema agrega los KPIs del período por defecto, los muestra con gráficos y variaciones, y permite cambiar el período y hacer drill-down.
+Pre-Condición: El usuario está autenticado con rol de Administrador o Gerente. Existen datos de tráfico y ventas para el período.
+Post-Condición: El usuario obtiene la vista de KPIs del período seleccionado.
+Actores Primarios: Administrador / Gerente del Centro
+Actores Secundarios: Servicio de analítica, fuentes de datos (POS e IoT)
+Evento Disparador: El usuario accede al dashboard general.
+Escenario principal de éxito
+1. Usuario: Accede al dashboard general.
+2. Sistema: Agrega los KPIs del centro (tráfico: solo lectura, numérico, agregado de conteo de evento_trafico, calculado, no se almacena; conversión: solo lectura, decimal, expresada como porcentaje, derivada de tráfico y tickets, calculado, no se almacena; ventas: solo lectura, decimal, agregado de monto_facturado de registro_pos, calculado, no se almacena; vacancia: solo lectura, decimal, expresada como porcentaje, calculado, no se almacena) del período por defecto (período: calculado por el sistema, selector [hoy/7 días/30 días], no se almacena).
+3. Sistema: Consulta las series temporales (serie temporal: solo lectura, numérico por intervalo, calculado, no se almacena) y los comparativos contra el período anterior (variación: solo lectura, decimal, expresada como porcentaje, calculado, no se almacena).
+4. Sistema: Muestra los KPIs con sus gráficos y variaciones (valor del KPI: solo lectura, numérico/decimal, solo visualización; variación: solo lectura, decimal, expresada como porcentaje, solo visualización).
+5. Usuario: Cambia el período (período: obligatorio, selector [hoy/7 días/30 días], no se almacena).
+6. Sistema: Recalcula y actualiza los indicadores (KPIs recalculados: solo lectura, numérico/decimal, calculado, no se almacena).
+7. Usuario: Hace drill-down en un KPI para ver su detalle (KPI seleccionado: solo lectura, selector sobre los KPIs visibles, no se almacena).
+Caminos alternativos
+CA-1. Datos incompletos de una fuente: el sistema muestra el KPI con un aviso de "dato parcial" e indica la fuente afectada.
+Prototipo de la Interfaz de Usuario
+CU-012-001: Comparar desempeño entre locatarios
+Objetivo: Permitir a la gerencia comparar lado a lado las métricas clave de varios locatarios para detectar líderes, rezagados y oportunidades de gestión del mix.
+Descripción: El usuario selecciona entre 2 y 4 locatarios; el sistema recupera y normaliza sus métricas y muestra una comparación por tabla y gráfico, con período y métricas configurables.
+Pre-Condición: Usuario autenticado como Administrador o Gerente Comercial. Los locatarios a comparar tienen datos disponibles.
+Post-Condición: El usuario obtiene la comparación; puede exportarla o guardarla.
+Actores Primarios: Administrador / Gerente Comercial
+Actores Secundarios: Servicio de analítica
+Evento Disparador: El usuario accede a "Comparativas de locatarios".
+Escenario principal de éxito
+1. Usuario: Accede a "Comparativas de locatarios".
+2. Usuario: Selecciona entre 2 y 4 locatarios a comparar (locatarios seleccionados: obligatorio, selector múltiple sobre listado de locatarios, mínimo 2 y máximo 4, se almacena como FK; no persistente fuera de la sesión salvo exportación).
+3. Sistema: Recupera las métricas de cada locatario (tráfico: solo lectura, numérico, agregado de evento_trafico, calculado, no se almacena; ventas: solo lectura, decimal, agregado de monto_facturado, calculado, no se almacena; conversión: solo lectura, decimal, expresada como porcentaje, calculado, no se almacena; ticket promedio: solo lectura, decimal, derivado de monto_facturado y tickets, calculado, no se almacena; permanencia: solo lectura, numérico, en minutos, calculado, no se almacena; riesgo: solo lectura, decimal, score de prediccion_vacancia, se almacena).
+4. Sistema: Normaliza los datos y arma la comparación (métricas normalizadas: calculado por el sistema, decimal, escala 0.0 a 1.0, calculado, no se almacena).
+5. Sistema: Muestra la tabla y el gráfico comparativo lado a lado (valores comparados: solo lectura, numérico/decimal, solo visualización).
+6. Usuario: Cambia el período o las métricas mostradas (período: obligatorio, selector [hoy/7 días/30 días], no se almacena; métricas mostradas: opcional, selector múltiple sobre métricas disponibles, no se almacena).
+7. Sistema: Recalcula y actualiza la comparación (valores recalculados: solo lectura, numérico/decimal, calculado, no se almacena).
+8. Usuario: Exporta o guarda la comparación (tipo de reporte: obligatorio, selector, se almacena en reporte; formato: obligatorio, selector [PDF/CSV/JSON], se almacena; hash de integridad: calculado por el sistema, texto, se almacena; fecha: calculado por el sistema, fecha y hora, DD/MM/AAAA HH:MM, se almacena; usuario: calculado por el sistema, UUID, se almacena como FK).
+Caminos alternativos
+CA-1. Un locatario sin datos suficientes: su columna se marca como "datos insuficientes" y se excluye de los promedios.
+Prototipo de la Interfaz de Usuario
+CU-013-001: Comparar mi desempeño contra la categoría
+Objetivo: Permitir al locatario comparar su desempeño contra el promedio anonimizado de su categoría en el centro, conociendo su posición relativa (percentil) y sus brechas.
+Descripción: El sistema calcula el benchmark anonimizado de la categoría y compara las métricas del local, mostrando percentil y brechas, con métrica y período configurables.
+Pre-Condición: El locatario tiene cuenta activa. Su categoría tiene una cantidad mínima de locales para preservar el anonimato.
+Post-Condición: El locatario conoce su posición relativa en la categoría.
+Actores Primarios: Locatario
+Actores Secundarios: Servicio de analítica / benchmarking
+Evento Disparador: El locatario accede a "Comparativa por categoría".
+Escenario principal de éxito
+1. Locatario: Accede a "Comparativa por categoría".
+2. Sistema: Calcula los promedios anonimizados de su rubro/categoría en el centro: rubro (solo lectura, selector sobre listado precargado, derivado del locatario, solo visualización), promedio de tráfico de la categoría (calculado por el sistema, numérico, > 0, calculado, no se almacena), promedio de ventas de la categoría (calculado por el sistema, decimal, monto en pesos, calculado, no se almacena) y promedio de conversión de la categoría (calculado por el sistema, decimal, 0.0 a 1.0, calculado, no se almacena).
+3. Sistema: Compara las métricas del local contra el benchmark de la categoría: tráfico del local (solo lectura, numérico, > 0, calculado a partir de eventos de tráfico, solo visualización), ventas del local (solo lectura, decimal, monto en pesos, calculado a partir de registros POS, solo visualización) y conversión del local (solo lectura, decimal, 0.0 a 1.0, calculado, no se almacena).
+4. Sistema: Muestra la posición relativa (percentil) y las brechas: percentil del local (calculado por el sistema, numérico, 0 a 100, calculado, no se almacena) y brecha respecto del promedio (calculado por el sistema, decimal, porcentaje de diferencia, calculado, no se almacena).
+5. Locatario: Cambia la métrica o el período: métrica (obligatorio, selector [tráfico/ventas/conversión], no se almacena) y período (obligatorio, selector [hoy/7 días/30 días], no se almacena).
+6. Sistema: Recalcula el benchmark con los promedios anonimizados de la categoría (calculado por el sistema, decimal, calculado, no se almacena).
+Caminos alternativos
+CA-1. Plan Freemium: el benchmarking está bloqueado; se muestra una vista previa y un CTA Pro.
+CA-2. Categoría con muy pocos locales: no se muestra el benchmark para preservar el anonimato.
+Prototipo de la Interfaz de Usuario
+CU-014-001: Consultar métricas en vivo y detalle de día
+Objetivo: Mostrar al usuario el tráfico del local/centro en tiempo real y permitir el drill-down al detalle de un día específico (curva horaria, ventas, picos).
+Descripción: El sistema abre un canal en tiempo real para los contadores en vivo y, al seleccionar un día del histórico, muestra su detalle horario.
+Pre-Condición: El usuario tiene cuenta activa. Hay dispositivos de conteo activos aportando datos.
+Post-Condición: El usuario visualiza las métricas en vivo y el detalle del día consultado.
+Actores Primarios: Locatario / Administrador
+Actores Secundarios: Servicio de tiempo real, dispositivos IoT
+Evento Disparador: El usuario accede a "Métricas en vivo".
+Escenario principal de éxito
+1. Usuario: Accede a "Métricas en vivo".
+2. Sistema: Abre un canal de actualización en tiempo real para el tráfico actual (solo lectura, numérico, conteo de eventos de tráfico, > 0, calculado a partir de eventos de tráfico, no se almacena de forma agregada) y los visitantes (solo lectura, numérico, > 0, calculado, no se almacena).
+3. Sistema: Muestra los contadores en vivo y los actualiza periódicamente: tráfico actual (solo lectura, numérico, > 0, solo visualización), visitantes (solo lectura, numérico, > 0, solo visualización) y fecha y hora de la última actualización (solo lectura, fecha y hora, DD/MM/AAAA HH:MM, solo visualización).
+4. Usuario: Selecciona un día específico del histórico: fecha (obligatorio, fecha, DD/MM/AAAA, no se almacena, parámetro de consulta).
+5. Sistema: Recupera el detalle del día: curva horaria de tráfico (solo lectura, numérico por franja horaria, calculado a partir de eventos de tráfico, solo visualización), ventas del día (solo lectura, decimal, monto en pesos, calculado a partir de registros POS, solo visualización) y picos de tráfico (calculado por el sistema, numérico, máximo por franja, calculado, no se almacena).
+6. Sistema: Muestra el detalle del día con la curva horaria, las ventas y los picos (solo lectura, solo visualización).
+Caminos alternativos
+CA-1. Pérdida de conexión en vivo: el sistema muestra el último valor recibido y un indicador "reconectando".
+Prototipo de la Interfaz de Usuario
+CU-015-001: Generar y exportar reportes
+Objetivo: Permitir configurar, previsualizar y exportar reportes del centro (ejecutivo, tráfico, ventas, alertas, auditoría) en distintos formatos, con integridad verificable.
+Descripción: El usuario elige tipo, período, formato y alcance; el sistema arma la vista previa y, al confirmar, genera el archivo con hash de integridad y lo deja disponible para descarga.
+Pre-Condición: Usuario autenticado con permiso de reportes. Existen datos para el período.
+Post-Condición: Se genera el reporte en el formato elegido, con su hash; la acción queda registrada en el log.
+Actores Primarios: Administrador / Gerente del Centro
+Actores Secundarios: Servicio de exportación
+Evento Disparador: El usuario accede al "Generador de reportes".
+Escenario principal de éxito
+1. Usuario: Accede al "Generador de reportes".
+2. Usuario: Selecciona tipo de reporte (obligatorio, selector sobre listado precargado, se almacena), período (obligatorio, rango de fechas, DD/MM/AAAA a DD/MM/AAAA, no se almacena, parámetro de generación), formato (obligatorio, selector [PDF/CSV/JSON firmado], se almacena) y alcance (obligatorio, selector [centro/zona/locatario], no se almacena, parámetro de generación).
+3. Sistema: Valida la configuración y arma la vista previa (calculado por el sistema, booleano de validez, no se almacena).
+4. Sistema: Muestra la vista previa con KPIs (solo lectura, decimal, calculado, solo visualización) y gráficos (solo lectura, solo visualización).
+5. Usuario: Confirma y solicita exportar.
+6. Sistema: Genera el archivo en el formato elegido (obligatorio, archivo, formato según selección [PDF/CSV/JSON firmado], se almacena el reporte con su tipo y formato).
+7. Sistema: Calcula el hash de integridad (calculado por el sistema, texto, hash criptográfico, se almacena) y ofrece la descarga del archivo (solo lectura, archivo, solo visualización).
+8. Sistema: Registra la generación en el log de auditoría: usuario (calculado por el sistema, UUID, se almacena como FK), acción (calculado por el sistema, texto, se almacena), recurso (calculado por el sistema, texto, se almacena), fecha y hora (calculado por el sistema, fecha y hora, DD/MM/AAAA HH:MM, se almacena) y hash (calculado por el sistema, texto, se almacena).
+Caminos alternativos
+CA-1. Período sin datos: el sistema avisa y sugiere otro rango antes de generar.
+Prototipo de la Interfaz de Usuario
+CU-016-001: Exportar datos para auditoría externa
+Objetivo: Permitir a un auditor externo u oficial de cumplimiento exportar conjuntos de datos o registros con garantía de integridad (hash y firma), para auditorías externas.
+Descripción: El usuario solicita la exportación de un conjunto de datos/log; el sistema valida permisos y alcance, genera el paquete en el formato requerido, le calcula hash y firma, y lo entrega con su comprobante.
+Pre-Condición: Usuario autenticado con rol de Auditor Externo, Oficial de Cumplimiento o Administrador. El alcance solicitado está dentro de sus permisos.
+Post-Condición: El usuario obtiene el paquete exportado con su comprobante de integridad; la exportación queda registrada.
+Actores Primarios: Auditor Externo / Oficial de Cumplimiento
+Actores Secundarios: Servicio de Auditoría, servicio de firma digital
+Evento Disparador: El usuario solicita exportar datos para una auditoría externa.
+Escenario principal de éxito
+1. Usuario: Solicita exportar un conjunto de datos o registros para auditoría externa: alcance de la exportación (obligatorio, selector [datos POS/datos de tráfico/log de auditoría], no se almacena, parámetro de la solicitud) y período (obligatorio, rango de fechas, DD/MM/AAAA a DD/MM/AAAA, no se almacena, parámetro de la solicitud).
+2. Sistema: Valida los permisos del usuario (calculado por el sistema, booleano, verificado contra rol y permisos, no se almacena) y el alcance solicitado (calculado por el sistema, booleano de validez, no se almacena).
+3. Sistema: Genera el paquete de exportación en el formato requerido (obligatorio, selector [CSV/JSON firmado], se almacena el reporte con su tipo y formato) como archivo (archivo, se almacena).
+4. Sistema: Calcula el hash de integridad (calculado por el sistema, texto, hash criptográfico, se almacena) y aplica la firma digital (calculado por el sistema, texto, firma sobre el archivo, se almacena junto al reporte).
+5. Sistema: Entrega el paquete (solo lectura, archivo, solo visualización) junto con su comprobante de integridad (solo lectura, texto, hash y firma, solo visualización).
+6. Sistema: Registra la exportación en el log de auditoría: usuario (calculado por el sistema, UUID, se almacena como FK), acción (calculado por el sistema, texto, se almacena), recurso (calculado por el sistema, texto, se almacena), fecha y hora (calculado por el sistema, fecha y hora, DD/MM/AAAA HH:MM, se almacena) y hash (calculado por el sistema, texto, se almacena).
+Caminos alternativos
+CA-1. El alcance excede los permisos del usuario: el sistema rechaza la exportación e informa el motivo.
+Prototipo de la Interfaz de Usuario
+CU-017-001: Autenticarse en la plataforma (multi-rol)
+Objetivo: Permitir que cualquier tipo de usuario (administrador, gerente, operario, locatario) inicie sesión de forma segura, con verificación de rol y del centro asignado, y registro de la actividad.
+Descripción: El usuario ingresa sus credenciales; el sistema las valida, verifica rol y centro, genera la sesión y lo redirige al panel correspondiente, dejando traza en el log.
+Pre-Condición: El usuario tiene una cuenta activa con un rol y al menos un centro asignado.
+Post-Condición: El usuario queda autenticado con una sesión válida y es dirigido al panel de su rol; el inicio de sesión queda registrado.
+Actores Primarios: Usuario de la plataforma (Admin / Gerente / Operario / Locatario)
+Actores Secundarios: Servicio de identidad, proveedor de 2FA
+Evento Disparador: El usuario abre la pantalla de login (web o móvil).
+Escenario principal de éxito
+1. Usuario: Abre la pantalla de login correspondiente a su rol.
+2. Usuario: Ingresa email (obligatorio, texto, formato email, se almacena) y contraseña (obligatorio, texto, mínimo 8 caracteres con una mayúscula y un número, se almacena encriptada como hash, se compara contra el hash almacenado).
+3. Sistema: Valida las credenciales contra el servicio de identidad comparando el email (obligatorio, texto, formato email, se almacena) y el hash de la contraseña (calculado por el sistema, texto, hash, se almacena encriptada).
+4. Sistema: Verifica el rol (solo lectura, selector sobre listado precargado, se almacena como FK en la asignación usuario-rol) y el centro asignado (solo lectura, UUID, se almacena como FK en el acceso al centro).
+5. Sistema: Genera el token de sesión (calculado por el sistema, texto, token de sesión temporal, no se almacena) y redirige al panel del rol.
+6. Sistema: Registra el inicio de sesión en el log de auditoría: usuario (calculado por el sistema, UUID, se almacena como FK), acción (calculado por el sistema, texto, se almacena), fecha y hora (calculado por el sistema, fecha y hora, DD/MM/AAAA HH:MM, se almacena) y hash (calculado por el sistema, texto, se almacena).
+Caminos alternativos
+CA-1. Credenciales inválidas: el sistema muestra el error y ofrece reintentar o recuperar la contraseña.
+CA-2. Se requiere segundo factor (2FA): el sistema solicita el código de verificación antes de crear la sesión.
+Prototipo de la Interfaz de Usuario
+CU-018-001: Configurar permisos granulares de acceso a datos
+Objetivo: Permitir al administrador del centro definir con precisión qué usuarios pueden acceder a qué tipo de información, bajo qué contexto y con qué nivel de detalle, garantizando el principio de mínimo privilegio y soportando el cumplimiento normativo.
+Descripción: El administrador define o modifica un rol del sistema, especifica los permisos que ese rol tiene sobre los distintos recursos (datos POS, datos de tráfico, datos de locatarios, log de auditoría) y asigna usuarios al rol. El sistema valida la consistencia y aplica los permisos en tiempo real.
+Pre-Condición: El usuario está autenticado con rol de Administrador del Centro o de Oficial de Cumplimiento. Existen al menos dos roles preconfigurados en el sistema (Administrador, Operario).
+Post-Condición: El rol queda registrado o actualizado con los permisos definidos. Los usuarios asignados al rol heredan los nuevos permisos en su próxima sesión. La operación queda registrada en el log de auditoría.
+Actores Primarios: Administrador del Centro Comercial / Oficial de Cumplimiento
+Actores Secundarios: Usuarios asignados al rol modificado, sistema de gestión de identidades
+Evento Disparador: El usuario accede al módulo Privacidad y selecciona "Gestionar roles y permisos".
+Escenario principal de éxito
+1. Usuario: Accede al módulo Privacidad y selecciona "Gestionar roles y permisos".
+2. Sistema: Muestra la lista de roles existentes: nombre del rol (solo lectura, texto, máx 50 caracteres, se almacena), descripción (solo lectura, texto, solo visualización) y cantidad de usuarios asignados (calculado por el sistema, numérico, >= 0, calculado, no se almacena).
+3. Usuario: Selecciona la opción "Nuevo rol" o un rol existente para editar: rol (obligatorio, selector sobre listado precargado o nuevo registro, se almacena).
+4. Sistema: Despliega la matriz de permisos organizada por categoría de recurso (solo lectura, selector [datos POS/datos de tráfico/datos de locatarios/log de auditoría/configuración del sistema], se almacena el recurso del permiso) y por nivel de acceso (solo lectura, selector [lectura/escritura/eliminación/exportación], se almacena la operación del permiso).
+5. Usuario: Configura los permisos del rol marcando o desmarcando cada celda de la matriz: permiso asignado (obligatorio, booleano, se almacena como vínculo rol-permiso).
+6. Usuario: Asigna o desasigna usuarios al rol desde la lista lateral de usuarios disponibles: usuario asignado (obligatorio, selector múltiple sobre listado de usuarios, se almacena como vínculo usuario-rol).
+7. Usuario: Confirma la operación.
+8. Sistema: Valida la consistencia: ausencia de conflictos con otros roles del usuario (calculado por el sistema, booleano, no se almacena) y que el usuario ejecutor tenga permisos para asignar el rol (calculado por el sistema, booleano, verificado contra sus permisos, no se almacena).
+9. Sistema: Aplica los nuevos permisos, los hace efectivos en tiempo real y registra la operación en el log de auditoría: usuario (calculado por el sistema, UUID, se almacena como FK), acción (calculado por el sistema, texto, se almacena), recurso (calculado por el sistema, texto, se almacena), fecha y hora (calculado por el sistema, fecha y hora, DD/MM/AAAA HH:MM, se almacena) y hash (calculado por el sistema, texto, se almacena).
+10. Sistema: Notifica a los usuarios afectados sobre el cambio en sus permisos: destinatario (calculado por el sistema, UUID, se almacena como FK), mensaje (calculado por el sistema, texto, se almacena), tipo (calculado por el sistema, texto, se almacena), canal (calculado por el sistema, selector [push/email/WhatsApp], se almacena) y fecha y hora (calculado por el sistema, fecha y hora, DD/MM/AAAA HH:MM, se almacena).
+Caminos alternativos
+CA-1. El usuario intenta otorgar al rol un permiso que excede sus propias atribuciones.
+CA-2. Existe un conflicto de roles para uno de los usuarios asignados.
+Prototipo de la Interfaz de Usuario
+CU-019-001: Seleccionar o cambiar de centro comercial
+Objetivo: Permitir a un usuario con acceso a varios centros elegir o cambiar el centro sobre el cual opera, cambiando el contexto de datos y permisos.
+Descripción: El sistema lista los centros accesibles; al elegir uno, cambia el contexto activo, recarga datos y permisos, y registra el cambio.
+Pre-Condición: El usuario está autenticado y tiene acceso a uno o más centros.
+Post-Condición: El contexto activo queda fijado en el centro seleccionado.
+Actores Primarios: Usuario con acceso multi-centro
+Actores Secundarios: Servicio de contexto / identidad
+Evento Disparador: El usuario abre el selector de centro comercial.
+Escenario principal de éxito
+1. Usuario: Abre el selector de centro comercial.
+2. Sistema: Lista los centros a los que el usuario tiene acceso, mostrando para cada uno: nombre del centro (solo lectura, texto, solo visualización), dirección (solo lectura, texto, solo visualización) y rol del usuario en ese centro (solo lectura, texto, solo visualización; proveniente de centro_acceso.rol).
+3. Usuario: Selecciona un centro comercial (obligatorio, selector sobre el listado de centros habilitados, referencia a centro_comercial.id, se persiste como contexto activo de sesión, no se almacena en base).
+4. Sistema: Cambia el contexto activo al centro seleccionado (centro activo: identificador/UUID, referencia a centro_comercial.id, no se almacena).
+5. Sistema: Recarga los datos y permisos en el contexto del centro, evaluando los accesos del usuario sobre ese centro (rol y permisos: solo lectura, derivados de centro_acceso y rol_permiso, calculado, no se almacena).
+6. Sistema: Registra el cambio de contexto en el log de auditoría con: usuario (identificador/UUID, referencia a usuario.id, se almacena como FK), fecha y hora (fecha y hora, DD/MM/AAAA HH:MM, se almacena), acción (texto, "cambio de centro", se almacena), recurso (texto, centro_comercial, se almacena) y hash de integridad (texto, se almacena).
+Caminos alternativos
+CA-1. El usuario tiene acceso a un solo centro: el sistema entra directo sin mostrar el selector.
+Prototipo de la Interfaz de Usuario
+CU-020-001: Auditar accesos a información sensible
+Objetivo: Proveer al oficial de cumplimiento o al administrador la capacidad de revisar el log auditable de accesos a datos sensibles, filtrarlo por distintos criterios y exportar reportes que permitan demostrar el cumplimiento normativo (Ley 25.326, ISO 27001) ante una auditoría externa o interna.
+Descripción: El usuario accede al visor del log de auditoría, aplica filtros por fecha, usuario, recurso o tipo de acción, revisa el detalle de cada evento registrado y, si lo requiere, exporta el reporte en formato auditable para presentar ante el regulador o ante el locatario.
+Pre-Condición: El usuario está autenticado con rol de Oficial de Cumplimiento, Administrador o Auditor Externo. Existen registros en el log de auditoría correspondientes al período consultado.
+Post-Condición: El usuario obtiene una vista del log filtrado y, si aplica, descarga el reporte exportado. La consulta misma queda registrada en el log de auditoría (auditoría sobre la auditoría).
+Actores Primarios: Oficial de Cumplimiento / Administrador / Auditor Externo
+Actores Secundarios: Usuarios cuyas acciones están siendo auditadas, sistema de exportación de reportes
+Evento Disparador: El usuario accede al módulo Privacidad y selecciona "Visor del log de auditoría".
+Escenario principal de éxito
+1. Usuario: Accede al módulo Privacidad y selecciona "Visor del log de auditoría".
+2. Sistema: Muestra una tabla paginada con los últimos eventos registrados, ordenados cronológicamente del más reciente al más antiguo, mostrando para cada evento: fecha y hora (solo lectura, fecha y hora, DD/MM/AAAA HH:MM, solo visualización; proveniente de evento_auditoria.fecha), usuario (solo lectura, texto, solo visualización; proveniente de evento_auditoria.usuario_id por FK), acción (solo lectura, texto, solo visualización) y recurso (solo lectura, texto, solo visualización).
+3. Usuario: Aplica filtros para acotar la consulta: rango de fechas (opcional, fecha, DD/MM/AAAA desde-hasta, no se almacena), usuario (opcional, selector sobre listado de usuarios, referencia a usuario.id, no se almacena), recurso (opcional, selector/texto, no se almacena), tipo de acción (opcional, selector sobre listado precargado, no se almacena) y dirección IP de origen (opcional, texto, formato IPv4/IPv6, no se almacena).
+4. Sistema: Actualiza la vista mostrando solo los eventos que cumplen los criterios (resultado del filtrado: solo lectura, calculado, no se almacena).
+5. Usuario: Selecciona un evento específico para ver el detalle completo (evento: identificador/UUID, referencia a evento_auditoria.id, no se almacena).
+6. Sistema: Despliega el detalle del evento: usuario (solo lectura, texto, solo visualización; evento_auditoria.usuario_id por FK), fecha y hora con precisión de segundo (solo lectura, fecha y hora, DD/MM/AAAA HH:MM:SS, solo visualización; evento_auditoria.fecha), recurso accedido (solo lectura, texto, solo visualización; evento_auditoria.recurso), acción ejecutada (solo lectura, texto, solo visualización; evento_auditoria.accion), parámetros de la acción (solo lectura, texto, solo visualización), resultado (solo lectura, texto, solo visualización), dirección IP (solo lectura, texto, formato IPv4/IPv6, solo visualización), user-agent (solo lectura, texto, solo visualización) y hash de integridad (solo lectura, texto, solo visualización; evento_auditoria.hash).
+7. Usuario: Decide exportar el reporte y selecciona el formato (obligatorio, selector [PDF / CSV / JSON firmado], referencia a reporte.formato, se almacena): PDF para auditoría externa, CSV para análisis posterior, JSON firmado para presentación regulatoria.
+8. Sistema: Genera el reporte con los eventos filtrados creando un registro de reporte con: usuario (identificador/UUID, referencia a usuario.id, se almacena como FK), tipo (texto, "auditoría", se almacena), formato (texto, según selección, se almacena), fecha (fecha y hora, DD/MM/AAAA HH:MM, se almacena), calcula el hash criptográfico del archivo (texto, se almacena) y permite la descarga (archivo, solo visualización).
+9. Sistema: Registra la consulta y la exportación en el log de auditoría como un nuevo evento con: usuario (identificador/UUID, referencia a usuario.id, se almacena como FK), fecha y hora (fecha y hora, DD/MM/AAAA HH:MM, se almacena), acción (texto, "consulta/exportación de auditoría", se almacena), recurso (texto, se almacena) y hash de integridad (texto, se almacena).
+Caminos alternativos
+CA-1. El usuario intenta consultar registros fuera del período de retención.
+CA-2. Se detecta una alteración del log al validar el hash de integridad.
+Prototipo de la Interfaz de Usuario
+CU-021-001: Gestionar consentimiento del locatario sobre uso de sus datos
+Objetivo: Permitir al locatario otorgar, modificar o revocar el consentimiento de uso de sus datos de facturación por parte de la plataforma, garantizando el cumplimiento de la Ley 25.326 de Protección de Datos Personales y reforzando la confianza necesaria para la adopción del esquema Freemium.
+Descripción: El locatario accede al portal Freemium y, en su sección de Privacidad, revisa los consentimientos otorgados, los modifica o revoca completamente. El sistema ejecuta inmediatamente las consecuencias técnicas (anonimización, suspensión del flujo de datos) y deja registro auditable de la decisión.
+Pre-Condición: El locatario tiene una cuenta activa en el portal Freemium. Existen al menos un conector POS configurado para el locatario o datos previos cargados en la plataforma.
+Post-Condición: El consentimiento del locatario queda registrado o modificado conforme a la decisión tomada. Si revoca el consentimiento, se ejecutan las consecuencias técnicas (suspensión del conector, anonimización de datos históricos según la opción elegida). La acción queda registrada en el log de auditoría.
+Actores Primarios: Locatario
+Actores Secundarios: Administrador del Centro (recibe notificación), Oficial de Cumplimiento, sistema de gestión de datos
+Evento Disparador: El locatario accede al portal Freemium y navega a "Mi privacidad".
+Escenario principal de éxito
+1. Locatario: Accede al portal Freemium con sus credenciales: email (obligatorio, texto, formato email, se almacena; usuario.email) y contraseña (obligatorio, texto, mínimo 8 caracteres con una mayúscula y un número, se almacena encriptada; usuario.password_hash).
+2. Locatario: Navega a la sección "Mi privacidad".
+3. Sistema: Muestra el estado actual de los consentimientos otorgados, organizados por tipo de uso (solo lectura, selector sobre listado precargado, solo visualización; consentimiento.tipo_uso): uso para análisis comercial, uso para benchmarking agregado, uso para entrenamiento de modelos, uso para reportes regulatorios; mostrando para cada uno su estado (solo lectura, selector [otorgado/revocado], solo visualización; consentimiento.estado).
+4. Locatario: Selecciona la opción que desea modificar (obligatorio, selector sobre el listado de consentimientos del locatario, referencia a consentimiento.id, se almacena), por ejemplo, revocar el uso para benchmarking.
+5. Sistema: Muestra un mensaje explicativo describiendo en lenguaje claro las consecuencias de la modificación (solo lectura, texto, solo visualización): qué dejará de funcionar, qué se mantendrá, qué pasará con los datos previos.
+6. Locatario: Confirma la modificación (nuevo estado del consentimiento: obligatorio, selector [otorgado/revocado], se almacena; consentimiento.estado).
+7. Sistema: Aplica la modificación inmediatamente actualizando el consentimiento (estado: texto, se almacena; consentimiento.estado), ejecuta las consecuencias técnicas correspondientes (por ejemplo, exclusión del locatario del próximo cálculo de benchmarking) y notifica al administrador del centro generando una notificación con: usuario destinatario (identificador/UUID, referencia a usuario.id, se almacena como FK), mensaje (texto, se almacena), tipo (texto, se almacena) y canal (texto, se almacena).
+8. Sistema: Registra la modificación en el log de auditoría con timestamp preciso: usuario (identificador/UUID, referencia a usuario.id, se almacena como FK), fecha y hora (fecha y hora, DD/MM/AAAA HH:MM:SS, se almacena; evento_auditoria.fecha), acción (texto, "modificación de consentimiento", se almacena), recurso (texto, consentimiento, se almacena) y hash de integridad (texto, se almacena); y genera un comprobante de cambio que el locatario puede descargar (archivo, solo visualización).
+9. Locatario: Visualiza el estado actualizado de sus consentimientos (solo lectura, selector [otorgado/revocado], solo visualización; consentimiento.estado) y descarga, si lo desea, el comprobante (opcional, archivo, solo visualización).
+Caminos alternativos
+CA-1. El locatario decide revocar todos los consentimientos.
+CA-2. El locatario revoca un consentimiento que requiere de aprobación adicional por su impacto operativo.
+CA-3. El locatario solicita exportar todos sus datos antes de revocar.
+Prototipo de la Interfaz de Usuario
+CU-022-001: Configurar preferencias de notificación
+Objetivo: Permitir a cualquier usuario definir por qué canales y para qué tipos de alerta desea recibir notificaciones, incluyendo ventanas de silencio.
+Descripción: El usuario activa o desactiva canales (push, email, WhatsApp) y tipos de alerta, define el silencio nocturno y guarda; el sistema aplica las preferencias a las notificaciones futuras.
+Pre-Condición: El usuario está autenticado.
+Post-Condición: Las preferencias quedan guardadas y se aplican a las notificaciones siguientes.
+Actores Primarios: Usuario de la plataforma
+Actores Secundarios: Servicio de notificaciones
+Evento Disparador: El usuario accede a "Preferencias de notificación".
+Escenario principal de éxito
+1. Usuario: Accede a "Preferencias de notificación".
+2. Sistema: Muestra los canales (solo lectura, selector múltiple sobre listado precargado [push / email / WhatsApp], solo visualización; preferencia_notificacion.canal) y los tipos de alerta disponibles (solo lectura, selector múltiple sobre listado precargado, solo visualización; preferencia_notificacion.tipo_alerta).
+3. Usuario: Activa o desactiva canales (obligatorio, selector múltiple [push / email / WhatsApp], se almacena; preferencia_notificacion.canal) y tipos de alerta (obligatorio, selector múltiple sobre listado precargado, se almacena; preferencia_notificacion.tipo_alerta), y define el silencio nocturno (opcional, booleano, [activado/desactivado], se almacena; preferencia_notificacion.silencio_nocturno).
+4. Usuario: Guarda los cambios.
+5. Sistema: Valida y persiste las preferencias asociadas al usuario: usuario (identificador/UUID, referencia a usuario.id, se almacena como FK; preferencia_notificacion.usuario_id), canal (texto, se almacena), tipo de alerta (texto, se almacena) y silencio nocturno (booleano, se almacena).
+6. Sistema: Aplica las preferencias a las notificaciones futuras (configuración efectiva: solo lectura, calculado, no se almacena adicionalmente).
+Caminos alternativos
+CA-1. El usuario deshabilita todos los canales para alertas críticas: el sistema lo advierte y pide confirmación.
+Prototipo de la Interfaz de Usuario
+CU-023-001: Gestionar perfil de usuario y notificaciones
+Objetivo: Permitir a cualquier usuario gestionar sus datos personales y sus preferencias de notificación (canales y tipos de alerta que desea recibir).
+Descripción: El usuario edita su perfil (datos, contraseña, avatar) y sus preferencias de notificación; el sistema valida y aplica los cambios.
+Pre-Condición: El usuario está autenticado.
+Post-Condición: Los datos y preferencias quedan actualizados y aplicados.
+Actores Primarios: Usuario de la plataforma
+Actores Secundarios: Servicio de perfil, servicio de notificaciones
+Evento Disparador: El usuario accede a "Mi perfil".
+Escenario principal de éxito
+1. Usuario: Accede a "Mi perfil".
+2. Sistema: Muestra los datos del perfil: nombre (solo lectura editable, texto, solo visualización; usuario.nombre), email (solo lectura editable, texto, formato email, solo visualización; usuario.email); y las preferencias de notificación: canales (solo lectura, selector múltiple [push / email / WhatsApp], solo visualización; preferencia_notificacion.canal) y tipos de alerta (solo lectura, selector múltiple, solo visualización; preferencia_notificacion.tipo_alerta).
+3. Usuario: Edita datos: nombre (opcional, texto, máx 50 caracteres, se almacena; usuario.nombre), contraseña (opcional, texto, mínimo 8 caracteres con una mayúscula y un número, se almacena encriptada; usuario.password_hash), avatar (opcional, archivo, formato imagen, se almacena); o preferencias: canales (opcional, selector múltiple [push / email / WhatsApp], se almacena; preferencia_notificacion.canal) y tipos de alerta (opcional, selector múltiple, se almacena; preferencia_notificacion.tipo_alerta).
+4. Usuario: Guarda los cambios.
+5. Sistema: Valida y persiste actualizando el usuario (nombre: texto, se almacena; password_hash: texto, se almacena encriptada) y las preferencias de notificación asociadas (usuario_id: identificador/UUID, se almacena como FK; canal y tipo de alerta: texto, se almacena).
+6. Sistema: Aplica las preferencias y confirma la operación al usuario (mensaje de confirmación: solo lectura, texto, solo visualización).
+Caminos alternativos
+CA-1. Cambio de contraseña con la contraseña actual incorrecta: el sistema rechaza el cambio y muestra el error.
+Prototipo de la Interfaz de Usuario
+CU-024-001: Configurar parámetros generales del sistema
+Objetivo: Permitir al administrador definir los parámetros generales de la plataforma para el centro: datos del centro, zonas, horarios, integraciones por defecto y branding/tema.
+Descripción: El administrador edita la configuración general; el sistema valida y persiste los cambios, aplicándolos y registrándolos.
+Pre-Condición: Usuario autenticado con rol de Administrador del Centro.
+Post-Condición: La configuración queda actualizada y aplicada; el cambio queda registrado en el log.
+Actores Primarios: Administrador del Centro
+Actores Secundarios: Servicio de configuración
+Evento Disparador: El administrador accede a "Configuración general".
+Escenario principal de éxito
+1. Administrador: Accede a "Configuración general".
+2. Sistema: Carga los parámetros actuales: centro (solo lectura, selector sobre listado de centros, referencia a centro_comercial.id, solo visualización; centro_comercial.nombre), zonas (solo lectura, selector múltiple sobre listado de zonas del centro, referencia a zona.id, solo visualización; zona.nombre), horarios (solo lectura, texto/rango horario HH:MM, solo visualización), integraciones (solo lectura, selector múltiple sobre conectores y dispositivos, solo visualización; conector_pos.estado / dispositivo_iot.estado) y tema (solo lectura, selector [claro/oscuro], solo visualización).
+3. Administrador: Modifica los parámetros necesarios: nombre del centro (opcional, texto, máx 100 caracteres, se almacena; centro_comercial.nombre), dirección (opcional, texto, se almacena; centro_comercial.direccion), zonas (opcional, configuración por zona, nombre y superficie, se almacena; zona.nombre y zona.superficie), horarios (opcional, texto/rango horario HH:MM, no se almacena en el DER, solo visualización), integraciones (opcional, selector múltiple, referencia a conector_pos.id / dispositivo_iot.id, se almacena como FK) y tema (opcional, selector [claro/oscuro], no se almacena en el DER, solo visualización).
+4. Administrador: Guarda los cambios.
+5. Sistema: Valida y persiste la configuración actualizando las entidades correspondientes (centro_comercial: nombre y dirección, texto, se almacena; zona: nombre texto y superficie numérico, se almacena).
+6. Sistema: Aplica los cambios y registra la acción en el log de auditoría con: usuario (identificador/UUID, referencia a usuario.id, se almacena como FK), fecha y hora (fecha y hora, DD/MM/AAAA HH:MM, se almacena), acción (texto, "configuración general", se almacena), recurso (texto, se almacena) y hash de integridad (texto, se almacena).
+Caminos alternativos
+CA-1. Valor inválido en un parámetro: el sistema muestra el error de validación y no guarda hasta corregirlo.
+Prototipo de la Interfaz de Usuario
+CU-025-001: Completar onboarding de nuevo locatario
+Objetivo: Guiar al locatario nuevo en su primer ingreso para completar los datos de su local, aceptar consentimientos y configurar preferencias, dejándolo listo para usar el portal.
+Descripción: El sistema ejecuta un asistente por pasos; el locatario completa datos y consentimientos, y al finalizar se activa su perfil y se muestra el dashboard inicial.
+Pre-Condición: El locatario accede por primera vez con credenciales iniciales válidas.
+Post-Condición: El perfil del local queda activo, los consentimientos registrados y el locatario accede a su dashboard.
+Actores Primarios: Locatario (nuevo)
+Actores Secundarios: Servicio de onboarding, servicio de consentimiento
+Evento Disparador: El locatario accede por primera vez con sus credenciales iniciales.
+Escenario principal de éxito
+1. Locatario: Accede por primera vez con sus credenciales iniciales: email (obligatorio, texto, formato email, se almacena) y contraseña (obligatorio, texto, mínimo 8 caracteres con una mayúscula y un número, se almacena encriptada).
+2. Sistema: Inicia el asistente de onboarding por pasos, mostrando el progreso del onboarding (calculado por el sistema, selector [paso 1/paso 2/.../completado], solo visualización).
+3. Locatario: Completa los datos de su local (superficie (obligatorio, numérico, > 0, se almacena), ubicación (obligatorio, texto, se almacena) y rubro del locatario (obligatorio, texto, listado precargado, se almacena)) y acepta los términos y consentimientos, indicando para cada uno el tipo de uso (obligatorio, selector [análisis comercial/benchmarking agregado/entrenamiento de modelos/reportes regulatorios], se almacena), el estado del consentimiento (obligatorio, selector [otorgado/revocado], se almacena) y la fecha del consentimiento (calculado por el sistema, fecha y hora, DD/MM/AAAA HH:MM, se almacena).
+4. Locatario: Configura sus preferencias iniciales: canal de notificación (obligatorio, selector [push/email/WhatsApp], se almacena), tipo de alerta (obligatorio, selector sobre listado precargado, se almacena) y silencio nocturno (opcional, booleano, [sí/no], se almacena).
+5. Sistema: Crea/activa el perfil del local (vinculado al locatario mediante locatario (obligatorio, selector, se almacena como FK)) y registra los consentimientos asociados al locatario (obligatorio, identificador, se almacena como FK).
+6. Sistema: Muestra el dashboard inicial del locatario con sus KPIs de bienvenida: tráfico (solo lectura, numérico, calculado, no se almacena) y ventas (solo lectura, decimal, calculado, no se almacena).
+Caminos alternativos
+CA-1. El locatario abandona el onboarding: el sistema guarda el progreso y lo retoma en el próximo ingreso.
+Prototipo de la Interfaz de Usuario
+CU-026-001: Monitorear centro de alertas críticas
+Objetivo: Proveer a la gerencia una vista consolidada y priorizada de todas las alertas activas del centro (de umbral y de Machine Learning) para supervisar, reasignar y escalar las situaciones críticas en tiempo real.
+Descripción: El gerente accede al centro de alertas, ve el tablero de alertas activas ordenadas por severidad, filtra por zona o tipo, abre el detalle de una alerta crítica y reasigna el responsable o la escala.
+Pre-Condición: El usuario está autenticado con rol de Administrador o Gerente del Centro. Existe al menos una fuente de alertas activa (reglas de umbral o modelo de ML).
+Post-Condición: El gerente obtiene una vista actualizada de las alertas. Si reasigna o escala una alerta, el cambio queda registrado y se notifica al nuevo responsable.
+Actores Primarios: Gerente del Centro / Administrador
+Actores Secundarios: Motor de Alertas, operarios asignados, sistema de notificaciones
+Evento Disparador: El usuario accede al módulo "Centro de alertas críticas".
+Escenario principal de éxito
+1. Gerente: Accede al módulo "Centro de alertas críticas".
+2. Sistema: Consulta las alertas activas (umbral + ML) filtrando por estado de la alerta (solo lectura, selector [activa/en seguimiento/resuelta], se almacena) y las ordena por severidad (solo lectura, selector [baja/media/alta], se almacena).
+3. Sistema: Muestra el tablero con cada alerta: zona (solo lectura, selector, se almacena como FK), tipo (solo lectura, texto, se almacena), severidad (solo lectura, selector [baja/media/alta], se almacena), antigüedad (calculado por el sistema, numérico, minutos transcurridos desde la fecha de la alerta, calculado, no se almacena) y responsable (solo lectura, selector, se almacena como FK).
+4. Gerente: Aplica filtros por severidad (opcional, selector [baja/media/alta], no se almacena), zona (opcional, selector, no se almacena) o módulo de origen (opcional, selector [umbral/ML], no se almacena).
+5. Gerente: Selecciona una alerta crítica identificada por su id de alerta (solo lectura, identificador/UUID, se almacena).
+6. Sistema: Muestra el detalle: gráfico del indicador (solo lectura, selector, se almacena como FK), causa probable (solo lectura, texto, calculado, no se almacena), SLA (calculado por el sistema, numérico, tiempo restante en minutos, calculado, no se almacena) y responsable (solo lectura, selector, se almacena como FK).
+7. Gerente: Reasigna el responsable (obligatorio, selector sobre listado de usuarios, se almacena como FK) o escala la alerta cambiando su estado (obligatorio, selector [activa/en seguimiento/resuelta], se almacena) y agrega un comentario (opcional, texto, se almacena en el evento de auditoría).
+8. Sistema: Actualiza el estado de la alerta (se almacena), notifica al responsable generando una notificación (mensaje (calculado por el sistema, texto, se almacena), tipo (calculado por el sistema, texto, se almacena), canal (calculado por el sistema, selector [push/email/WhatsApp], se almacena)) y registra la acción en el log de auditoría con usuario (calculado por el sistema, identificador, se almacena como FK), fecha y hora (calculado por el sistema, fecha y hora, DD/MM/AAAA HH:MM, se almacena), acción (calculado por el sistema, texto, se almacena) y recurso (calculado por el sistema, texto, se almacena).
+Caminos alternativos
+CA-1. No hay alertas activas: el sistema muestra el estado "Todo en orden" con la marca del último chequeo.
+CA-2. La alerta ya fue resuelta por otro usuario: el sistema informa el cambio y refresca el tablero.
+Prototipo de la Interfaz de Usuario
+CU-027-001: Consultar dashboard y métricas del local (locatario)
+Objetivo: Dar al locatario una vista clara del desempeño de su local (tráfico, ventas, conversión) con evolución y detalle por día, respetando los límites de su plan.
+Descripción: El locatario accede a su dashboard; el sistema recupera y muestra sus KPIs y evolución, con cambio de período y drill-down a un día; las funciones Pro se muestran bloqueadas en plan Freemium.
+Pre-Condición: El locatario tiene cuenta activa en el portal. Existe al menos un conector que aporta datos del local.
+Post-Condición: El locatario obtiene la vista de métricas de su local para el período elegido.
+Actores Primarios: Locatario
+Actores Secundarios: Servicio de analítica
+Evento Disparador: El locatario inicia sesión y accede a su dashboard.
+Escenario principal de éxito
+1. Locatario: Inicia sesión con email (obligatorio, texto, formato email, se almacena) y contraseña (obligatorio, texto, mínimo 8 caracteres con una mayúscula y un número, se almacena encriptada), y accede a su dashboard.
+2. Sistema: Recupera las métricas de su local del período seleccionado: tráfico (solo lectura, numérico, calculado a partir de eventos de tráfico, no se almacena), ventas (solo lectura, decimal, calculado a partir de registros POS, no se almacena) y conversión (solo lectura, decimal, 0.0 a 1.0, calculado, no se almacena).
+3. Sistema: Muestra los KPIs y la evolución del período: período (solo lectura, selector [hoy/7 días/30 días], no se almacena) y serie temporal de la evolución (solo lectura, numérico, solo visualización).
+4. Locatario: Cambia el período (obligatorio, selector [hoy/7 días/30 días], no se almacena).
+5. Sistema: Recalcula y actualiza los KPIs (solo lectura, decimal, calculado, no se almacena) según el nuevo período.
+6. Locatario: Abre el detalle de un día específico seleccionando la fecha (obligatorio, fecha, DD/MM/AAAA, no se almacena), sobre el cual el sistema muestra la curva horaria, las ventas y los picos del día (solo lectura, numérico/decimal, calculado, no se almacena).
+Caminos alternativos
+CA-1. Funciones Pro en plan Freemium: el dato se muestra con overlay "Pro" y un CTA de upgrade.
+Prototipo de la Interfaz de Usuario
+CU-028-001: Resolver alerta en terreno
+Objetivo: Guiar al operario en la resolución de una alerta en el lugar, mediante un checklist y un formulario de resolución, registrando el resultado y el tiempo de respuesta.
+Descripción: El operario abre la alerta asignada, ve el mapa táctico y el checklist, ejecuta los pasos en la zona, registra el resultado de cada uno, completa el formulario de resolución y confirma.
+Pre-Condición: El operario tiene una alerta asignada y la app instalada. La zona afectada está identificada.
+Post-Condición: La alerta queda en estado "Resuelta" con la causa, la acción y el tiempo de respuesta; el resultado realimenta al modelo de ML.
+Actores Primarios: Operario de Operaciones
+Actores Secundarios: Motor de Alertas, Modelo de Machine Learning
+Evento Disparador: El operario abre una alerta asignada desde su aplicación móvil.
+Escenario principal de éxito
+1. Operario: Abre la alerta asignada desde su app, identificada por su id de alerta (solo lectura, identificador/UUID, se almacena).
+2. Sistema: Muestra el mapa táctico con la zona afectada (solo lectura, selector, se almacena como FK) y el checklist sugerido (solo lectura, selector múltiple sobre listado precargado, solo visualización).
+3. Operario: Se dirige a la zona y ejecuta los pasos del checklist.
+4. Operario: Registra el resultado de cada paso del checklist (obligatorio, selector [verificado/problema/no aplica], no se almacena individualmente).
+5. Operario: Completa el formulario de resolución: causa (obligatorio, texto, se almacena en el evento de auditoría), acción tomada (obligatorio, selector [resolver/escalar/derivar], se almacena como tipo de la alerta) y foto (opcional, archivo, formato imagen JPG/PNG, no se almacena en el modelo de datos).
+6. Operario: Confirma la resolución, fijando el estado de la alerta (obligatorio, selector [resuelta], se almacena).
+7. Sistema: Calcula el tiempo de respuesta (calculado por el sistema, numérico, minutos desde la fecha de la alerta hasta la resolución, calculado, no se almacena), cierra la alerta actualizando su estado (se almacena) y registra la acción en el log de auditoría con usuario (calculado por el sistema, identificador, se almacena como FK), fecha y hora (calculado por el sistema, fecha y hora, DD/MM/AAAA HH:MM, se almacena) y acción (calculado por el sistema, texto, se almacena).
+8. Sistema: Realimenta el resultado al pipeline de reentrenamiento del modelo de ML (calculado por el sistema, no se almacena en el modelo operativo).
+Caminos alternativos
+CA-1. El operario no puede resolver la situación: escala la alerta indicando el motivo y queda pendiente de reasignación.
+Prototipo de la Interfaz de Usuario
+CU-028-002: Consultar historial de turno y estadísticas del operario
+Objetivo: Permitir al operario revisar las alertas que atendió y sus métricas de desempeño (atendidas, resueltas, tiempo promedio de respuesta) durante el turno o un período elegido.
+Descripción: El operario abre su historial; el sistema recupera las alertas del turno y calcula sus estadísticas personales, que puede filtrar por fecha o estado.
+Pre-Condición: El operario está autenticado en la app. Tiene actividad registrada.
+Post-Condición: El operario obtiene su historial y sus estadísticas personales actualizadas.
+Actores Primarios: Operario de Operaciones
+Actores Secundarios: Servicio de métricas
+Evento Disparador: El operario accede a "Historial / Mis alertas".
+Escenario principal de éxito
+1. Operario: Accede a "Historial / Mis alertas".
+2. Sistema: Recupera las alertas atendidas por el operario en el turno actual, filtrando por responsable (solo lectura, identificador, se almacena como FK) y por fecha de la alerta (solo lectura, fecha y hora, DD/MM/AAAA HH:MM, se almacena).
+3. Sistema: Calcula sus métricas: atendidas (calculado por el sistema, numérico, conteo, calculado, no se almacena), resueltas (calculado por el sistema, numérico, conteo, calculado, no se almacena) y tiempo promedio de respuesta (calculado por el sistema, decimal, minutos, calculado, no se almacena).
+4. Sistema: Muestra el historial de alertas (solo lectura, selector, solo visualización) y las estadísticas personales (solo lectura, numérico/decimal, calculado, no se almacena).
+5. Operario: Filtra por rango de fechas (opcional, fecha, DD/MM/AAAA, no se almacena) o por estado de la alerta (opcional, selector [activa/en seguimiento/resuelta], no se almacena).
+6. Sistema: Actualiza la vista con los resultados filtrados (solo lectura, solo visualización).
+Caminos alternativos
+CA-1. Sin alertas en el período: el sistema muestra un estado vacío con el resumen general del turno.
+Prototipo de la Interfaz de Usuario
+CU-029-001: Gestionar alerta crítica desde la app móvil (Admin)
+Objetivo: Permitir al administrador atender y gestionar alertas críticas desde su teléfono, recibiendo notificaciones push y pudiendo reasignar o escalar sin necesidad de estar en el escritorio.
+Descripción: El administrador recibe una notificación push, abre la app, revisa la lista priorizada de alertas críticas, entra al detalle de una y toma una acción (reasignar, escalar o marcar en seguimiento).
+Pre-Condición: El administrador tiene la app instalada y notificaciones habilitadas. Existe una alerta crítica activa.
+Post-Condición: La acción tomada queda aplicada y registrada; los involucrados son notificados.
+Actores Primarios: Administrador del Centro (móvil)
+Actores Secundarios: Motor de Alertas, sistema de notificaciones
+Evento Disparador: El sistema envía una notificación push de alerta crítica al administrador.
+Escenario principal de éxito
+1. Sistema: Envía la notificación push de la alerta crítica al administrador, generando una notificación con mensaje (calculado por el sistema, texto, se almacena), tipo (calculado por el sistema, texto, se almacena), canal (calculado por el sistema, selector [push/email/WhatsApp], se almacena) y fecha (calculado por el sistema, fecha y hora, DD/MM/AAAA HH:MM, se almacena).
+2. Administrador: Abre la app y accede a "Alertas críticas del centro".
+3. Sistema: Muestra la lista priorizada de alertas críticas activas, ordenada por severidad (solo lectura, selector [baja/media/alta], se almacena) y estado (solo lectura, selector [activa/en seguimiento/resuelta], se almacena).
+4. Administrador: Selecciona una alerta identificada por su id de alerta (solo lectura, identificador/UUID, se almacena).
+5. Sistema: Muestra el detalle: indicador (solo lectura, selector, se almacena como FK), zona (solo lectura, selector, se almacena como FK), responsable actual (solo lectura, selector, se almacena como FK) y estado (solo lectura, selector [activa/en seguimiento/resuelta], se almacena).
+6. Administrador: Toma una acción: reasignar el responsable (obligatorio, selector sobre listado de usuarios, se almacena como FK), escalar a gerencia o marcar en seguimiento, fijando el estado de la alerta (obligatorio, selector [activa/en seguimiento/resuelta], se almacena).
+7. Sistema: Aplica la acción actualizando la alerta (se almacena), notifica a los involucrados generando una notificación (mensaje y canal, se almacena) y registra la acción en el log de auditoría con usuario (calculado por el sistema, identificador, se almacena como FK), fecha y hora (calculado por el sistema, fecha y hora, DD/MM/AAAA HH:MM, se almacena) y acción (calculado por el sistema, texto, se almacena).
+Caminos alternativos
+CA-1. Sin conexión: la app muestra los datos cacheados y encola la acción para sincronizarla al recuperar señal.
+Prototipo de la Interfaz de Usuario
+CU-030-001: Consultar mi local desde el móvil
+Objetivo: Dar al locatario una vista rápida y optimizada para móvil del desempeño de su local (tráfico, ventas, alertas) y accesos directos a sus métricas en vivo.
+Descripción: El locatario abre la app móvil, accede a "Mi local" y ve un resumen con accesos rápidos; puede consultar sus alertas o las métricas en vivo.
+Pre-Condición: El locatario tiene la app instalada y sesión iniciada.
+Post-Condición: El locatario obtiene el resumen de su local en el móvil.
+Actores Primarios: Locatario (móvil)
+Actores Secundarios: Servicio de analítica
+Evento Disparador: El locatario abre la app móvil y accede a "Mi local".
+Escenario principal de éxito
+1. Locatario: Abre la app móvil y accede a "Mi local".
+2. Sistema: Recupera las métricas del local optimizadas para móvil: tráfico (solo lectura, numérico, calculado a partir de eventos de tráfico, no se almacena), ventas (solo lectura, decimal, calculado a partir de registros POS, no se almacena) y alertas activas (solo lectura, numérico, conteo, calculado, no se almacena).
+3. Sistema: Muestra el resumen con los KPIs principales (solo lectura, numérico/decimal, solo visualización) y los accesos rápidos (solo lectura, selector, solo visualización).
+4. Locatario: Consulta sus alertas (cada una con zona (solo lectura, selector, se almacena como FK), severidad (solo lectura, selector [baja/media/alta], se almacena) y estado (solo lectura, selector [activa/en seguimiento/resuelta], se almacena)) o sus métricas en vivo (solo lectura, numérico, actualización en tiempo real, calculado, no se almacena).
+Caminos alternativos
+CA-1. Sin conexión: la app muestra el último dato cacheado con un indicador de desactualización.
+Prototipo de la Interfaz de Usuario
+10.5.4 Diagramas de secuencia

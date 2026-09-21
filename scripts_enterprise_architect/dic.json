@@ -1,0 +1,1094 @@
+[
+ {
+  "tabla": "centro_comercial",
+  "desc": "Centro comercial administrado en la plataforma.",
+  "campos": [
+   {
+    "campo": "id",
+    "tipo": "UUID",
+    "clave": "PK",
+    "desc": "Identificador único del centro comercial."
+   },
+   {
+    "campo": "nombre",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Nombre comercial del centro."
+   },
+   {
+    "campo": "direccion",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Domicilio físico del centro."
+   }
+  ]
+ },
+ {
+  "tabla": "zona",
+  "desc": "Sector o área lógica dentro de un centro (ej. planta, ala, patio de comidas).",
+  "campos": [
+   {
+    "campo": "id",
+    "tipo": "UUID",
+    "clave": "PK",
+    "desc": "Identificador único de la zona."
+   },
+   {
+    "campo": "centro_id",
+    "tipo": "UUID",
+    "clave": "FK",
+    "desc": "Centro al que pertenece la zona."
+   },
+   {
+    "campo": "nombre",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Nombre del sector."
+   },
+   {
+    "campo": "superficie",
+    "tipo": "INT",
+    "clave": "",
+    "desc": "Superficie de la zona en m²."
+   }
+  ]
+ },
+ {
+  "tabla": "locatario",
+  "desc": "Comercio inquilino que opera en el centro.",
+  "campos": [
+   {
+    "campo": "id",
+    "tipo": "UUID",
+    "clave": "PK",
+    "desc": "Identificador único del locatario."
+   },
+   {
+    "campo": "centro_id",
+    "tipo": "UUID",
+    "clave": "FK",
+    "desc": "Centro donde opera el locatario."
+   },
+   {
+    "campo": "nombre",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Razón social o nombre comercial."
+   },
+   {
+    "campo": "rubro",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Rubro comercial (indumentaria, gastronomía, etc.)."
+   },
+   {
+    "campo": "plan",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Plan contratado en la plataforma."
+   }
+  ]
+ },
+ {
+  "tabla": "local",
+  "desc": "Unidad física ocupada por un locatario.",
+  "campos": [
+   {
+    "campo": "id",
+    "tipo": "UUID",
+    "clave": "PK",
+    "desc": "Identificador único del local."
+   },
+   {
+    "campo": "locatario_id",
+    "tipo": "UUID",
+    "clave": "FK",
+    "desc": "Locatario que ocupa el local."
+   },
+   {
+    "campo": "superficie",
+    "tipo": "INT",
+    "clave": "",
+    "desc": "Superficie del local en m²."
+   },
+   {
+    "campo": "ubicacion",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Ubicación física dentro del centro."
+   },
+   {
+    "campo": "zona_id",
+    "tipo": "UUID",
+    "clave": "FK",
+    "desc": "Zona del centro donde se ubica el local."
+   }
+  ]
+ },
+ {
+  "tabla": "usuario",
+  "desc": "Persona con acceso al sistema.",
+  "campos": [
+   {
+    "campo": "id",
+    "tipo": "UUID",
+    "clave": "PK",
+    "desc": "Identificador único del usuario."
+   },
+   {
+    "campo": "nombre",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Nombre y apellido del usuario."
+   },
+   {
+    "campo": "email",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Correo electrónico (login)."
+   },
+   {
+    "campo": "password_hash",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Hash de la contraseña (almacenado encriptado)."
+   }
+  ]
+ },
+ {
+  "tabla": "rol",
+  "desc": "Rol funcional que agrupa permisos.",
+  "campos": [
+   {
+    "campo": "id",
+    "tipo": "UUID",
+    "clave": "PK",
+    "desc": "Identificador único del rol."
+   },
+   {
+    "campo": "nombre",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Nombre del rol (Administrador, Soporte, Locatario, etc.)."
+   }
+  ]
+ },
+ {
+  "tabla": "permiso",
+  "desc": "Permiso atómico sobre un recurso y operación.",
+  "campos": [
+   {
+    "campo": "id",
+    "tipo": "UUID",
+    "clave": "PK",
+    "desc": "Identificador único del permiso."
+   },
+   {
+    "campo": "recurso",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Recurso protegido."
+   },
+   {
+    "campo": "operacion",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Operación habilitada (leer, crear, editar, eliminar)."
+   }
+  ]
+ },
+ {
+  "tabla": "usuario_rol",
+  "desc": "tabla asociativa de roles asignados a cada usuario.",
+  "campos": [
+   {
+    "campo": "usuario_id",
+    "tipo": "UUID",
+    "clave": "PK, FK",
+    "desc": "Usuario al que se asigna el rol."
+   },
+   {
+    "campo": "rol_id",
+    "tipo": "UUID",
+    "clave": "PK, FK",
+    "desc": "Rol asignado."
+   }
+  ]
+ },
+ {
+  "tabla": "rol_permiso",
+  "desc": "tabla asociativa de permisos otorgados a cada rol.",
+  "campos": [
+   {
+    "campo": "rol_id",
+    "tipo": "UUID",
+    "clave": "PK, FK",
+    "desc": "Rol que recibe el permiso."
+   },
+   {
+    "campo": "permiso_id",
+    "tipo": "UUID",
+    "clave": "PK, FK",
+    "desc": "Permiso otorgado."
+   }
+  ]
+ },
+ {
+  "tabla": "centro_acceso",
+  "desc": "Acceso de un usuario a un centro (soporte multicentro).",
+  "campos": [
+   {
+    "campo": "usuario_id",
+    "tipo": "UUID",
+    "clave": "PK, FK",
+    "desc": "Usuario con acceso."
+   },
+   {
+    "campo": "centro_id",
+    "tipo": "UUID",
+    "clave": "PK, FK",
+    "desc": "Centro al que accede."
+   },
+   {
+    "campo": "rol_id",
+    "tipo": "UUID",
+    "clave": "PK, FK",
+    "desc": "Rol del usuario dentro de ese centro."
+   }
+  ]
+ },
+ {
+  "tabla": "conector_pos",
+  "desc": "Conector de integración con un sistema POS de un locatario.",
+  "campos": [
+   {
+    "campo": "id",
+    "tipo": "UUID",
+    "clave": "PK",
+    "desc": "Identificador único del conector."
+   },
+   {
+    "campo": "locatario_id",
+    "tipo": "UUID",
+    "clave": "FK",
+    "desc": "Locatario asociado al conector."
+   },
+   {
+    "campo": "tipo",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Tipo o marca de POS."
+   },
+   {
+    "campo": "url_endpoint",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Endpoint de integración."
+   },
+   {
+    "campo": "api_key_enc",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Credencial de API almacenada encriptada."
+   },
+   {
+    "campo": "estado",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Estado del conector (activo, advertencia, caído)."
+   },
+   {
+    "campo": "fecha_alta",
+    "tipo": "DATE",
+    "clave": "",
+    "desc": "Fecha de alta del conector."
+   }
+  ]
+ },
+ {
+  "tabla": "dispositivo_iot",
+  "desc": "Dispositivo IoT de conteo de tráfico instalado en una zona.",
+  "campos": [
+   {
+    "campo": "id",
+    "tipo": "UUID",
+    "clave": "PK",
+    "desc": "Identificador único del dispositivo."
+   },
+   {
+    "campo": "zona_id",
+    "tipo": "UUID",
+    "clave": "FK",
+    "desc": "Zona donde está instalado."
+   },
+   {
+    "campo": "tipo",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Tipo de sensor."
+   },
+   {
+    "campo": "modelo",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Modelo del dispositivo."
+   },
+   {
+    "campo": "ip",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Dirección IP del dispositivo."
+   },
+   {
+    "campo": "estado",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Estado operativo."
+   },
+   {
+    "campo": "fecha_alta",
+    "tipo": "DATE",
+    "clave": "",
+    "desc": "Fecha de alta del dispositivo."
+   }
+  ]
+ },
+ {
+  "tabla": "registro_pos",
+  "desc": "Registro de facturación ingerido desde un conector POS.",
+  "campos": [
+   {
+    "campo": "id",
+    "tipo": "UUID",
+    "clave": "PK",
+    "desc": "Identificador único del registro."
+   },
+   {
+    "campo": "conector_id",
+    "tipo": "UUID",
+    "clave": "FK",
+    "desc": "Conector que originó el registro."
+   },
+   {
+    "campo": "fecha",
+    "tipo": "TIMESTAMP",
+    "clave": "",
+    "desc": "Fecha y hora del registro."
+   },
+   {
+    "campo": "monto_facturado",
+    "tipo": "DECIMAL",
+    "clave": "",
+    "desc": "Importe facturado."
+   },
+   {
+    "campo": "tickets",
+    "tipo": "INT",
+    "clave": "",
+    "desc": "Cantidad de tickets/operaciones."
+   }
+  ]
+ },
+ {
+  "tabla": "evento_trafico",
+  "desc": "Evento de conteo de personas captado por un dispositivo IoT.",
+  "campos": [
+   {
+    "campo": "id",
+    "tipo": "UUID",
+    "clave": "PK",
+    "desc": "Identificador único del evento."
+   },
+   {
+    "campo": "dispositivo_id",
+    "tipo": "UUID",
+    "clave": "FK",
+    "desc": "Dispositivo que generó el evento."
+   },
+   {
+    "campo": "ts",
+    "tipo": "TIMESTAMP",
+    "clave": "",
+    "desc": "Marca temporal del conteo."
+   },
+   {
+    "campo": "conteo",
+    "tipo": "INT",
+    "clave": "",
+    "desc": "Cantidad de personas contabilizadas."
+   }
+  ]
+ },
+ {
+  "tabla": "indicador",
+  "desc": "Indicador o KPI configurable del negocio.",
+  "campos": [
+   {
+    "campo": "id",
+    "tipo": "UUID",
+    "clave": "PK",
+    "desc": "Identificador único del indicador."
+   },
+   {
+    "campo": "nombre",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Nombre del indicador."
+   },
+   {
+    "campo": "unidad",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Unidad de medida."
+   }
+  ]
+ },
+ {
+  "tabla": "regla_alerta",
+  "desc": "Regla de umbral que dispara alertas sobre un indicador.",
+  "campos": [
+   {
+    "campo": "id",
+    "tipo": "UUID",
+    "clave": "PK",
+    "desc": "Identificador único de la regla."
+   },
+   {
+    "campo": "indicador_id",
+    "tipo": "UUID",
+    "clave": "FK",
+    "desc": "Indicador monitoreado."
+   },
+   {
+    "campo": "condicion",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Condición de disparo (mayor que, menor que, igual a)."
+   },
+   {
+    "campo": "valor_corte",
+    "tipo": "DECIMAL",
+    "clave": "",
+    "desc": "Valor umbral de corte."
+   },
+   {
+    "campo": "estado",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Estado de la regla (activa, pausada)."
+   },
+   {
+    "campo": "centro_id",
+    "tipo": "UUID",
+    "clave": "FK",
+    "desc": "Centro al que pertenece la regla."
+   }
+  ]
+ },
+ {
+  "tabla": "modelo_ml",
+  "desc": "Modelo de Machine Learning versionado.",
+  "campos": [
+   {
+    "campo": "id",
+    "tipo": "UUID",
+    "clave": "PK",
+    "desc": "Identificador único del modelo."
+   },
+   {
+    "campo": "tipo",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Tipo de modelo (vacancia, mix, anomalía)."
+   },
+   {
+    "campo": "version",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Versión del modelo."
+   }
+  ]
+ },
+ {
+  "tabla": "alerta",
+  "desc": "Alerta generada por una regla o por el motor de ML.",
+  "campos": [
+   {
+    "campo": "id",
+    "tipo": "UUID",
+    "clave": "PK",
+    "desc": "Identificador único de la alerta."
+   },
+   {
+    "campo": "regla_id",
+    "tipo": "UUID",
+    "clave": "FK",
+    "desc": "Regla que originó la alerta (si aplica)."
+   },
+   {
+    "campo": "zona_id",
+    "tipo": "UUID",
+    "clave": "FK",
+    "desc": "Zona afectada."
+   },
+   {
+    "campo": "tipo",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Tipo de alerta (umbral, ML)."
+   },
+   {
+    "campo": "severidad",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Severidad (baja, media, alta)."
+   },
+   {
+    "campo": "estado",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Estado (nueva, en revisión, resuelta)."
+   },
+   {
+    "campo": "confianza",
+    "tipo": "DECIMAL",
+    "clave": "",
+    "desc": "Nivel de confianza del modelo (0.0 a 1.0)."
+   },
+   {
+    "campo": "fecha",
+    "tipo": "TIMESTAMP",
+    "clave": "",
+    "desc": "Fecha y hora de generación."
+   },
+   {
+    "campo": "modelo_id",
+    "tipo": "UUID",
+    "clave": "FK",
+    "desc": "Modelo de ML que generó la alerta. Nulo si proviene de una regla de umbral."
+   },
+   {
+    "campo": "locatario_id",
+    "tipo": "UUID",
+    "clave": "FK",
+    "desc": "Locatario afectado, cuando la alerta es de negocio y no de zona."
+   },
+   {
+    "campo": "asignado_a",
+    "tipo": "UUID",
+    "clave": "FK",
+    "desc": "Usuario responsable de atender la alerta."
+   }
+  ]
+ },
+ {
+  "tabla": "prediccion_vacancia",
+  "desc": "Predicción de riesgo de vacancia de un locatario.",
+  "campos": [
+   {
+    "campo": "id",
+    "tipo": "UUID",
+    "clave": "PK",
+    "desc": "Identificador único de la predicción."
+   },
+   {
+    "campo": "locatario_id",
+    "tipo": "UUID",
+    "clave": "FK",
+    "desc": "Locatario evaluado."
+   },
+   {
+    "campo": "modelo_id",
+    "tipo": "UUID",
+    "clave": "FK",
+    "desc": "Modelo de ML que la generó."
+   },
+   {
+    "campo": "score",
+    "tipo": "DECIMAL",
+    "clave": "",
+    "desc": "Puntaje de riesgo (0.0 a 1.0)."
+   },
+   {
+    "campo": "tendencia",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Tendencia (ascendente, estable, descendente)."
+   },
+   {
+    "campo": "fecha",
+    "tipo": "DATE",
+    "clave": "",
+    "desc": "Fecha del cálculo."
+   }
+  ]
+ },
+ {
+  "tabla": "accion_retencion",
+  "desc": "Acción de retención derivada de una predicción.",
+  "campos": [
+   {
+    "campo": "id",
+    "tipo": "UUID",
+    "clave": "PK",
+    "desc": "Identificador único de la acción."
+   },
+   {
+    "campo": "prediccion_id",
+    "tipo": "UUID",
+    "clave": "FK",
+    "desc": "Predicción que la origina."
+   },
+   {
+    "campo": "tipo",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Tipo de acción de retención."
+   },
+   {
+    "campo": "estado",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Estado de seguimiento."
+   },
+   {
+    "campo": "fecha_seguimiento",
+    "tipo": "DATE",
+    "clave": "",
+    "desc": "Fecha de próximo seguimiento."
+   }
+  ]
+ },
+ {
+  "tabla": "consentimiento",
+  "desc": "Consentimiento del locatario sobre el uso de sus datos.",
+  "campos": [
+   {
+    "campo": "id",
+    "tipo": "UUID",
+    "clave": "PK",
+    "desc": "Identificador único del consentimiento."
+   },
+   {
+    "campo": "locatario_id",
+    "tipo": "UUID",
+    "clave": "FK",
+    "desc": "Locatario que otorga el consentimiento."
+   },
+   {
+    "campo": "tipo_uso",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Tipo de uso de datos consentido."
+   },
+   {
+    "campo": "estado",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Estado (otorgado, revocado)."
+   },
+   {
+    "campo": "fecha",
+    "tipo": "TIMESTAMP",
+    "clave": "",
+    "desc": "Fecha y hora del registro."
+   }
+  ]
+ },
+ {
+  "tabla": "evento_auditoria",
+  "desc": "Registro inmutable de auditoría de acciones del sistema.",
+  "campos": [
+   {
+    "campo": "id",
+    "tipo": "UUID",
+    "clave": "PK",
+    "desc": "Identificador único del evento."
+   },
+   {
+    "campo": "usuario_id",
+    "tipo": "UUID",
+    "clave": "FK",
+    "desc": "Usuario que realizó la acción."
+   },
+   {
+    "campo": "fecha",
+    "tipo": "TIMESTAMP",
+    "clave": "",
+    "desc": "Fecha y hora de la acción."
+   },
+   {
+    "campo": "accion",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Acción ejecutada."
+   },
+   {
+    "campo": "recurso",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Recurso afectado."
+   },
+   {
+    "campo": "hash",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Hash de integridad del registro."
+   },
+   {
+    "campo": "centro_id",
+    "tipo": "UUID",
+    "clave": "FK",
+    "desc": "Centro sobre el que se ejecutó la acción."
+   }
+  ]
+ },
+ {
+  "tabla": "reporte",
+  "desc": "Reporte generado y exportado por un usuario.",
+  "campos": [
+   {
+    "campo": "id",
+    "tipo": "UUID",
+    "clave": "PK",
+    "desc": "Identificador único del reporte."
+   },
+   {
+    "campo": "usuario_id",
+    "tipo": "UUID",
+    "clave": "FK",
+    "desc": "Usuario que generó el reporte."
+   },
+   {
+    "campo": "tipo",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Tipo de reporte."
+   },
+   {
+    "campo": "formato",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Formato de exportación (PDF, Excel, CSV)."
+   },
+   {
+    "campo": "hash",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Hash/firma de integridad."
+   },
+   {
+    "campo": "fecha",
+    "tipo": "TIMESTAMP",
+    "clave": "",
+    "desc": "Fecha y hora de generación."
+   },
+   {
+    "campo": "centro_id",
+    "tipo": "UUID",
+    "clave": "FK",
+    "desc": "Centro sobre el que se generó el reporte."
+   }
+  ]
+ },
+ {
+  "tabla": "notificacion",
+  "desc": "Notificación enviada a un usuario por algún canal.",
+  "campos": [
+   {
+    "campo": "id",
+    "tipo": "UUID",
+    "clave": "PK",
+    "desc": "Identificador único de la notificación."
+   },
+   {
+    "campo": "usuario_id",
+    "tipo": "UUID",
+    "clave": "FK",
+    "desc": "Usuario destinatario."
+   },
+   {
+    "campo": "mensaje",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Contenido del mensaje."
+   },
+   {
+    "campo": "tipo",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Tipo de notificación."
+   },
+   {
+    "campo": "canal",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Canal de envío (push, WhatsApp, email)."
+   },
+   {
+    "campo": "fecha",
+    "tipo": "TIMESTAMP",
+    "clave": "",
+    "desc": "Fecha y hora de envío."
+   }
+  ]
+ },
+ {
+  "tabla": "preferencia_notificacion",
+  "desc": "Preferencias de notificación de un usuario.",
+  "campos": [
+   {
+    "campo": "id",
+    "tipo": "UUID",
+    "clave": "PK",
+    "desc": "Identificador único de la preferencia."
+   },
+   {
+    "campo": "usuario_id",
+    "tipo": "UUID",
+    "clave": "FK",
+    "desc": "Usuario propietario."
+   },
+   {
+    "campo": "canal",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Canal preferido."
+   },
+   {
+    "campo": "tipo_alerta",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Tipo de alerta a la que aplica."
+   },
+   {
+    "campo": "silencio_nocturno",
+    "tipo": "BOOLEAN",
+    "clave": "",
+    "desc": "Indica si silencia notificaciones de noche."
+   }
+  ]
+ },
+ {
+  "tabla": "regla_destinatario",
+  "desc": "Destinatarios de una regla de alerta y canal por el que se les notifica.",
+  "campos": [
+   {
+    "campo": "regla_id",
+    "tipo": "UUID",
+    "clave": "PK, FK",
+    "desc": "Regla de alerta."
+   },
+   {
+    "campo": "usuario_id",
+    "tipo": "UUID",
+    "clave": "PK, FK",
+    "desc": "Usuario destinatario."
+   },
+   {
+    "campo": "canal",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Canal de envío (push, email, WhatsApp)."
+   }
+  ]
+ },
+ {
+  "tabla": "resolucion_alerta",
+  "desc": "Resolución en terreno de una alerta, con su causa, la acción tomada y el operario que la cerró.",
+  "campos": [
+   {
+    "campo": "id",
+    "tipo": "UUID",
+    "clave": "PK",
+    "desc": "Identificador único de la resolución."
+   },
+   {
+    "campo": "alerta_id",
+    "tipo": "UUID",
+    "clave": "FK",
+    "desc": "Alerta resuelta."
+   },
+   {
+    "campo": "usuario_id",
+    "tipo": "UUID",
+    "clave": "FK",
+    "desc": "Operario que la resolvió."
+   },
+   {
+    "campo": "causa",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Causa identificada (máx. 500 caracteres)."
+   },
+   {
+    "campo": "accion_tomada",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Acción tomada (resolver, escalar, derivar)."
+   },
+   {
+    "campo": "checklist_resumen",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Resumen del resultado del checklist ejecutado."
+   },
+   {
+    "campo": "fecha_resolucion",
+    "tipo": "TIMESTAMP",
+    "clave": "",
+    "desc": "Fecha y hora de cierre de la alerta."
+   }
+  ]
+ },
+ {
+  "tabla": "recomendacion",
+  "desc": "Recomendación generada por un modelo de optimización, de mix del centro o de acción para un local.",
+  "campos": [
+   {
+    "campo": "id",
+    "tipo": "UUID",
+    "clave": "PK",
+    "desc": "Identificador único de la recomendación."
+   },
+   {
+    "campo": "modelo_id",
+    "tipo": "UUID",
+    "clave": "FK",
+    "desc": "Modelo de ML que la generó."
+   },
+   {
+    "campo": "centro_id",
+    "tipo": "UUID",
+    "clave": "FK",
+    "desc": "Centro sobre el que aplica."
+   },
+   {
+    "campo": "locatario_id",
+    "tipo": "UUID",
+    "clave": "FK",
+    "desc": "Locatario destinatario. Nulo si la recomendación es de mix del centro."
+   },
+   {
+    "campo": "tipo",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Tipo (sumar rubro, reducir rubro, reubicar, acción de local)."
+   },
+   {
+    "campo": "rubro_objetivo",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Rubro sobre el que recae la recomendación."
+   },
+   {
+    "campo": "impacto_estimado",
+    "tipo": "DECIMAL",
+    "clave": "",
+    "desc": "Impacto estimado en facturación."
+   },
+   {
+    "campo": "confianza",
+    "tipo": "DECIMAL",
+    "clave": "",
+    "desc": "Nivel de confianza del modelo (0.0 a 1.0)."
+   },
+   {
+    "campo": "prioridad",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Prioridad (alta, media, baja)."
+   },
+   {
+    "campo": "fecha",
+    "tipo": "TIMESTAMP",
+    "clave": "",
+    "desc": "Fecha y hora de generación."
+   }
+  ]
+ },
+ {
+  "tabla": "recomendacion_decision",
+  "desc": "Decisión del usuario sobre una recomendación; realimenta el modelo.",
+  "campos": [
+   {
+    "campo": "id",
+    "tipo": "UUID",
+    "clave": "PK",
+    "desc": "Identificador único de la decisión."
+   },
+   {
+    "campo": "recomendacion_id",
+    "tipo": "UUID",
+    "clave": "FK",
+    "desc": "Recomendación evaluada."
+   },
+   {
+    "campo": "usuario_id",
+    "tipo": "UUID",
+    "clave": "FK",
+    "desc": "Usuario que decide."
+   },
+   {
+    "campo": "decision",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Decisión (adoptada, descartada)."
+   },
+   {
+    "campo": "fecha",
+    "tipo": "TIMESTAMP",
+    "clave": "",
+    "desc": "Fecha y hora de la decisión."
+   }
+  ]
+ },
+ {
+  "tabla": "parametro_sistema",
+  "desc": "Parámetro general de configuración del sistema, por centro.",
+  "campos": [
+   {
+    "campo": "id",
+    "tipo": "UUID",
+    "clave": "PK",
+    "desc": "Identificador único del parámetro."
+   },
+   {
+    "campo": "centro_id",
+    "tipo": "UUID",
+    "clave": "FK",
+    "desc": "Centro al que aplica el parámetro."
+   },
+   {
+    "campo": "usuario_id",
+    "tipo": "UUID",
+    "clave": "FK",
+    "desc": "Usuario que realizó la última modificación."
+   },
+   {
+    "campo": "clave",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Nombre del parámetro."
+   },
+   {
+    "campo": "valor",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Valor configurado."
+   },
+   {
+    "campo": "tipo_dato",
+    "tipo": "VARCHAR",
+    "clave": "",
+    "desc": "Tipo de dato del valor."
+   },
+   {
+    "campo": "fecha_modificacion",
+    "tipo": "TIMESTAMP",
+    "clave": "",
+    "desc": "Fecha y hora del último cambio."
+   }
+  ]
+ }
+]
