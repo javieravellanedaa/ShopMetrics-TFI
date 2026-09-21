@@ -1,0 +1,339 @@
+RECETA PARA AGREGAR LOS FRAGMENTOS 'alt' EN ENTERPRISE ARCHITECT
+======================================================================
+Cómo: abrí el diagrama del CU, arrastrá un 'Combined Fragment' (Interaction
+Fragment) desde el toolbox sobre los mensajes indicados, elegí operador 'alt'
+y escribí la guarda. Repetir por cada rama listada.
+(Los números son el orden del mensaje en el diagrama, de arriba hacia abajo.)
+======================================================================
+
+### CU-001-001 — Monitorear estado de las integraciones
+  [alt]  guarda: "La acción resuelve el problema"  ->  mensajes 13 a 15
+        13. Actualiza estado y registra en log de auditoría
+        14. Resultado exitoso
+        15. Integración restablecida
+  [alt]  guarda: "La acción no resuelve el problema (CA-1)"  ->  mensajes 16 a 17
+        16. La acción no resolvió el problema
+        17. Sugiere escalar a soporte (crear ticket)
+
+### CU-002-001 — Registrar conector POS de un locatario
+  [alt]  guarda: "Conexión exitosa"  ->  mensajes 10 a 15
+        10. 200 OK
+        11. Almacena credenciales encriptadas
+        12. Inicia ingesta automatizada de facturación
+        13. Registra acción en log de auditoría
+        14. Conector creado y activo
+        15. Muestra conector en estado "Activo"
+  [alt]  guarda: "Credenciales inválidas o timeout (CA-1)"  ->  mensajes 16 a 18
+        16. Error de conexión
+        17. Motivo del fallo
+        18. Solicita corregir datos y reintentar
+
+### CU-003-001 — Registrar dispositivo IoT de conteo
+  [alt]  guarda: "Dispositivo responde correctamente"  ->  mensajes 6 a 11
+        6. OK
+        7. Registra dispositivo y zona
+        8. Inicia recepción de eventos de tráfico
+        9. Registra acción en log de auditoría
+        10. Dispositivo activo
+        11. Muestra eventos en tiempo real de la zona
+  [alt]  guarda: "No responde al test de conexión (CA-1)"  ->  mensajes 12 a 14
+        12. Timeout / sin respuesta
+        13. Error de conexión
+        14. Ofrece asistente de diagnóstico y reintentar
+
+### CU-004-001 — Consultar mapa del centro y zonas
+  [alt]  guarda: "La zona tiene dispositivos activos"  ->  mensaje 10
+        10. Muestra detalle de tráfico de la zona
+  [alt]  guarda: "Zona sin dispositivos de conteo (CA-1)"  ->  mensaje 11
+        11. Indica cobertura nula y sugiere registrar un dispositivo IoT
+
+### CU-005-001 — Gestionar listado y detalle de locatarios
+  [alt]  guarda: "El locatario tiene conector activo"  ->  mensaje 12
+        12. Muestra detalle con métricas e integración
+  [alt]  guarda: "Locatario sin conector POS (CA-1)"  ->  mensaje 13
+        13. Muestra ficha y ofrece registrar un conector POS
+
+### CU-006-001 — Configurar alerta basada en umbral
+  [alt]  guarda: "Regla válida"  ->  mensajes 12 a 14
+        12. Activa la regla y registra en log de auditoría
+        13. Alerta activa
+        14. Confirma que la alerta quedó activa
+  [alt]  guarda: "Valor de corte fuera de rango histórico (CA-1)"  ->  mensajes 15 a 16
+        15. Advertencia: umbral fuera de rango típico
+        16. Solicita confirmar o ajustar el umbral
+
+### CU-007-001 — Recibir y gestionar alerta generada por Machine Learning
+  [alt]  guarda: "Anomalía real — el operario resuelve"  ->  mensajes 9 a 14
+        9. Ejecuta checklist y marca "Resuelta" (causa + acción)
+        10. Envía resolución
+        11. Almacena resultado, tiempo de respuesta y log de auditoría
+        12. Incorpora feedback al reentrenamiento
+        13. Confirma cierre
+        14. Alerta en estado "Resuelta"
+  [alt]  guarda: "Falso positivo (CA-1)"  ->  mensajes 15 a 19
+        15. Marca la alerta como falso positivo
+        16. Registra falso positivo
+        17. Realimenta el modelo (falso positivo)
+        18. Confirmado
+        19. Alerta cerrada como falso positivo
+
+### CU-008-001 — Consultar predicción de riesgo de vacancia
+  [alt]  guarda: "Locatario con historia suficiente (>= 6 meses)"  ->  mensajes 11 a 15
+        11. Registra acción de retención
+        12. Guarda acción y programa seguimiento
+        13. Almacena acción y registra en log de auditoría
+        14. Acción registrada
+        15. Seguimiento programado
+  [alt]  guarda: "Locatario con menos de 6 meses de historia (CA-1)"  ->  mensajes 16 a 17
+        16. Datos insuficientes para predicción confiable
+        17. Muestra aviso de baja confiabilidad
+
+### CU-010-001 — Consultar recomendaciones para mi local
+  [alt]  guarda: "Plan Pro"  ->  mensajes 2 a 12
+        2. Solicita recomendaciones del local
+        3. Lee datos del local
+        4. Tráfico, ventas, horarios
+        5. Genera sugerencias accionables con impacto estimado
+        6. Recomendaciones priorizadas
+        7. Muestra sugerencias (horarios, promos, vidriera)
+        8. Marca una sugerencia como aplicada
+        9. Registra el feedback
+        10. Persiste para medir resultado
+        11. Confirmación
+        12. Sugerencia marcada
+  [alt]  guarda: "Plan Freemium (CA-1)"  ->  mensaje 13
+        13. Sugerencias bloqueadas · vista previa + CTA Pro
+
+### CU-011-001 — Consultar dashboard general y KPIs del centro
+  [alt]  guarda: "Datos completos"  ->  mensajes 12 a 15
+        12. Indicadores actualizados
+        13. Actualiza el dashboard
+        14. Drill-down en un KPI
+        15. Muestra el detalle del indicador
+  [alt]  guarda: "Datos incompletos de una fuente (CA-1)"  ->  mensajes 16 a 17
+        16. KPI con marca de "dato parcial"
+        17. Muestra aviso y fuente afectada
+
+### CU-012-001 — Comparar desempeño entre locatarios
+  [alt]  guarda: "Todos con datos suficientes"  ->  mensajes 11 a 12
+        11. Comparación actualizada
+        12. Actualiza y permite exportar
+  [alt]  guarda: "Un locatario sin datos suficientes (CA-1)"  ->  mensajes 13 a 14
+        13. Marca "datos insuficientes" en su columna
+        14. Excluye ese locatario de los promedios
+
+### CU-013-001 — Comparar mi desempeño contra la categoría
+  [alt]  guarda: "Plan Pro y categoría con masa crítica"  ->  mensajes 2 a 10
+        2. Solicita benchmark de la categoría
+        3. Lee métricas anonimizadas de la categoría
+        4. Promedios de la categoría
+        5. Compara local vs. categoría (percentil y brechas)
+        6. Posición relativa + brechas
+        7. Muestra percentil y comparación
+        8. Cambia métrica o período
+        9. Recalcula benchmark
+        10. Resultado actualizado
+  [alt]  guarda: "Plan Freemium (CA-1)"  ->  mensaje 11
+        11. Benchmarking bloqueado · vista previa + CTA Pro
+  [alt]  guarda: "Categoría con pocos locales (CA-2)"  ->  mensaje 12
+        12. No disponible para preservar el anonimato
+
+### CU-014-001 — Consultar métricas en vivo y detalle de día
+  [loop]  guarda: "Cada intervalo (mientras la vista está activa)"  ->  mensajes 3 a 4
+        3. Tráfico actual / visitantes
+        4. Actualiza contadores en vivo
+
+### CU-015-001 — Generar y exportar reportes
+  [alt]  guarda: "Hay datos en el período"  ->  mensajes 6 a 13
+        6. Vista previa (KPIs + gráficos)
+        7. Muestra la vista previa
+        8. Confirma y solicita exportar
+        9. Genera el archivo (PDF / CSV / JSON firmado)
+        10. Calcula hash de integridad
+        11. Archivo + hash
+        12. Descarga del reporte
+        13. Registra la generación en el log de auditoría
+  [alt]  guarda: "Período sin datos (CA-1)"  ->  mensajes 14 a 15
+        14. Sin datos para el período
+        15. Avisa y sugiere otro rango
+
+### CU-016-001 — Exportar datos para auditoría externa
+  [alt]  guarda: "Alcance dentro de permisos"  ->  mensajes 5 a 10
+        5. Recupera el conjunto de datos / registros
+        6. Datos
+        7. Genera paquete, calcula hash y firma digital
+        8. Registra la exportación en el log de auditoría
+        9. Paquete + comprobante de integridad
+        10. Descarga del paquete firmado
+  [alt]  guarda: "El alcance excede los permisos (CA-1)"  ->  mensajes 11 a 12
+        11. Exportación rechazada
+        12. Informa el motivo
+
+### CU-017-001 — Autenticarse en la plataforma (multi-rol)
+  [opt]  guarda: "Requiere 2FA (CA-2)"  ->  mensajes 5 a 8
+        5. Solicita código de verificación
+        6. Pide el segundo factor
+        7. Ingresa el código
+        8. Verifica el código
+  [alt]  guarda: "Credenciales válidas"  ->  mensajes 5 a 12
+        5. Solicita código de verificación
+        6. Pide el segundo factor
+        7. Ingresa el código
+        8. Verifica el código
+        9. Genera token de sesión
+        10. Registra el inicio de sesión en el log
+        11. Sesión + rol + centro
+        12. Redirige al panel correspondiente al rol
+  [alt]  guarda: "Credenciales inválidas (CA-1)"  ->  mensajes 13 a 14
+        13. Error de autenticación
+        14. Muestra error y ofrece reintentar / recuperar contraseña
+
+### CU-018-001 — Configurar permisos granulares de acceso a datos
+  [alt]  guarda: "Permisos consistentes"  ->  mensajes 11 a 14
+        11. Aplica permisos y registra en log de auditoría
+        12. Notifica a los usuarios afectados
+        13. Permisos aplicados en tiempo real
+        14. Confirma los cambios
+  [alt]  guarda: "El permiso excede las atribuciones del usuario (CA-1)"  ->  mensajes 15 a 16
+        15. Rechaza: excede atribuciones propias
+        16. Informa y solicita ajustar los permisos
+
+### CU-019-001 — Seleccionar o cambiar de centro comercial
+  [alt]  guarda: "Acceso a varios centros"  ->  mensajes 5 a 11
+        5. Lista de centros
+        6. Muestra el selector
+        7. Selecciona un centro
+        8. Cambia el contexto activo
+        9. Recarga datos y permisos del centro y registra el cambio
+        10. Contexto actualizado
+        11. Entra al panel del centro seleccionado
+  [alt]  guarda: "Acceso a un solo centro (CA-1)"  ->  mensajes 12 a 13
+        12. Único centro disponible
+        13. Entra directo sin mostrar el selector
+
+### CU-020-001 — Auditar accesos a información sensible
+  [alt]  guarda: "Consulta dentro del período de retención"  ->  mensajes 13 a 18
+        13. Exporta reporte (PDF / CSV / JSON firmado)
+        14. Genera reporte de eventos filtrados
+        15. Calcula hash de integridad
+        16. Archivo + hash
+        17. Descarga del reporte
+        18. Registra la consulta y exportación como nuevo evento
+  [alt]  guarda: "Registros fuera del período de retención (CA-1)"  ->  mensajes 19 a 20
+        19. Datos no disponibles (fuera de retención)
+        20. Informa el límite de retención
+
+### CU-021-001 — Gestionar consentimiento del locatario sobre uso de sus datos
+  [alt]  guarda: "Modificación de impacto estándar"  ->  mensajes 11 a 14
+        11. Aplica cambio y registra en log de auditoría (timestamp)
+        12. Notifica al Administrador del centro
+        13. Genera comprobante de cambio
+        14. Muestra estado actualizado y descarga del comprobante
+  [alt]  guarda: "Revocación total de consentimientos (CA-1)"  ->  mensajes 15 a 18
+        15. Revoca todo y suspende los conectores asociados
+        16. Notifica a Administrador y Oficial de Cumplimiento
+        17. Confirma revocación total
+        18. Informa consecuencias aplicadas y entrega comprobante
+
+### CU-022-001 — Configurar preferencias de notificación
+  [alt]  guarda: "Configuración válida"  ->  mensajes 10 a 12
+        10. Persiste y aplica a notificaciones futuras
+        11. Preferencias guardadas
+        12. Confirma los cambios
+  [alt]  guarda: "Deshabilita todos los canales de alertas críticas (CA-1)"  ->  mensajes 13 a 14
+        13. Advertencia de riesgo
+        14. Pide confirmación explícita
+
+### CU-023-001 — Gestionar perfil de usuario y notificaciones
+  [alt]  guarda: "Cambios válidos"  ->  mensajes 9 a 11
+        9. Persiste y aplica preferencias
+        10. Confirmación
+        11. Cambios guardados
+  [alt]  guarda: "Contraseña actual incorrecta (CA-1)"  ->  mensajes 12 a 13
+        12. Rechaza el cambio de contraseña
+        13. Muestra el error
+
+### CU-024-001 — Configurar parámetros generales del sistema
+  [alt]  guarda: "Valores válidos"  ->  mensajes 9 a 11
+        9. Persiste la configuración y registra en el log
+        10. Configuración aplicada
+        11. Confirma los cambios
+  [alt]  guarda: "Valor inválido (CA-1)"  ->  mensajes 12 a 13
+        12. Error de validación
+        13. Marca el campo y no guarda
+
+### CU-025-001 — Completar onboarding de nuevo locatario
+  [alt]  guarda: "Onboarding completo"  ->  mensajes 10 a 12
+        10. Crea/activa el perfil del local
+        11. Perfil activo
+        12. Muestra el dashboard inicial
+  [alt]  guarda: "El locatario abandona (CA-1)"  ->  mensajes 13 a 15
+        13. Guarda el progreso parcial
+        14. Progreso guardado
+        15. Podrá retomar en el próximo ingreso
+
+### CU-026-001 — Monitorear centro de alertas críticas
+  [alt]  guarda: "Reasigna o escala la alerta"  ->  mensajes 11 a 16
+        11. Reasigna responsable / escala + comentario
+        12. Actualiza la alerta
+        13. Persiste cambio y registra en log de auditoría
+        14. Notifica al nuevo responsable
+        15. Confirmación
+        16. Estado actualizado
+  [alt]  guarda: "No hay alertas activas (CA-1)"  ->  mensajes 17 a 18
+        17. Sin alertas activas
+        18. Muestra estado "Todo en orden"
+
+### CU-027-001 — Consultar dashboard y métricas del local (locatario)
+  [alt]  guarda: "Plan Pro (acceso completo)"  ->  mensaje 10
+        10. Muestra todo y permite drill-down al día
+  [alt]  guarda: "Plan Freemium (CA-1)"  ->  mensaje 11
+        11. Muestra dato con overlay "Pro" y CTA de upgrade
+
+### CU-028-001 — Resolver alerta en terreno
+  [alt]  guarda: "El operario resuelve la situación"  ->  mensajes 6 a 11
+        6. Completa formulario de resolución y confirma
+        7. Envía la resolución
+        8. Calcula tiempo de respuesta, cierra alerta y registra en log
+        9. Realimenta el resultado al reentrenamiento
+        10. Alerta resuelta
+        11. Confirma cierre
+  [alt]  guarda: "No puede resolver (CA-1)"  ->  mensajes 12 a 16
+        12. Escala la alerta indicando el motivo
+        13. Marca como escalada
+        14. Registra escalamiento
+        15. Pendiente de reasignación
+        16. Alerta escalada
+
+### CU-028-002 — Consultar historial de turno y estadísticas del operario
+  [alt]  guarda: "Hay actividad en el período"  ->  mensajes 12 a 13
+        12. Resultados + métricas
+        13. Actualiza la vista
+  [alt]  guarda: "Sin alertas en el período (CA-1)"  ->  mensajes 14 a 15
+        14. Conjunto vacío
+        15. Estado vacío con resumen del turno
+
+### CU-029-001 — Gestionar alerta crítica desde la app móvil (Admin)
+  [alt]  guarda: "Con conexión"  ->  mensajes 12 a 17
+        12. Acción (reasignar / escalar / seguimiento)
+        13. Aplica la acción
+        14. Persiste y registra en log
+        15. Notifica a los involucrados
+        16. Confirmación
+        17. Acción aplicada
+  [alt]  guarda: "Sin conexión (CA-1)"  ->  mensajes 18 a 19
+        18. Muestra datos cacheados
+        19. Encola la acción para sincronizar
+
+### CU-030-001 — Consultar mi local desde el móvil
+  [alt]  guarda: "Con conexión"  ->  mensajes 3 a 8
+        3. Consulta tráfico, ventas y alertas
+        4. Métricas del local
+        5. Resumen + accesos rápidos
+        6. Muestra el resumen del local
+        7. Consulta alertas o métricas en vivo
+        8. Muestra el detalle solicitado
+  [alt]  guarda: "Sin conexión (CA-1)"  ->  mensaje 9
+        9. Muestra el último dato cacheado (indicador de desactualización)
+
+TOTAL fragmentos a crear: 61

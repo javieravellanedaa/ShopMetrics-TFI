@@ -1,0 +1,28 @@
+# Solo se versiona el trabajo de la entrega y el modelo de Enterprise Architect.
+# Todo lo demas de esta carpeta queda fuera del repositorio.
+/*
+!/.gitignore
+!/README.md
+!/scripts/
+
+!/STF/
+/STF/*
+!/STF/STF/
+/STF/STF/*
+!/STF/STF/Primera entrega/
+
+!/shopMetrics/
+/shopMetrics/*
+!/shopMetrics/shopMetrics/
+/shopMetrics/shopMetrics/*
+!/shopMetrics/shopMetrics/enterprise_architect/
+
+# Copias de seguridad: el historial de git las reemplaza
+Backups/
+*.backup.eapx
+*.backup
+
+# Archivos temporales y de bloqueo de Office / Access
+~$*
+*.ldb
+*.tmp
