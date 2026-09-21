@@ -58,8 +58,9 @@ for col, a, h in zip(COLUMNAS, anchos, alturas):
     print("   %-2d ent  ancho %3d  alto %3d   %s" % (len(col), a, h, ", ".join(col)[:52]))
 
 # ================= emision del XML de draw.io =================
-GRIS, TENUE = "#4A5A68", "#7C8C9A"
-C_PK, C_FK = "#9A5B0C", "#1F6B5E"
+GRIS, TENUE = "#333333", "#606060"
+BORDE, ENCABEZADO = "#333333", "#DCDCDC"
+C_PK, C_FK = "#000000", "#000000"
 
 def sid(t): return "t_" + t
 
@@ -75,12 +76,11 @@ for col, an in zip(COLUMNAS, anchos):
 fila_de = {}
 for t, e in ents.items():
     px, py, an = xy[t]
-    dom, col_d, claro = DOM[t]
     h = ENC + len(e['campos'])*FILA
     cel.append(
       f'<mxCell id="{sid(t)}" value="{esc(t)}" style="shape=table;startSize={ENC};container=1;'
       f'collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;columnLines=0;html=1;'
-      f'whiteSpace=nowrap;fillColor={col_d};strokeColor={col_d};fontColor=#FFFFFF;fontSize={FS_ENT};'
+      f'whiteSpace=nowrap;fillColor={ENCABEZADO};strokeColor={BORDE};fontColor=#000000;fontSize={FS_ENT};'
       f'fontStyle=1;align=center;swimlaneFillColor=#FFFFFF;resizeLast=1;" vertex="1" parent="1">'
       f'<mxGeometry x="{px}" y="{py}" width="{an}" height="{h}" as="geometry"/></mxCell>')
     an_n = an - COL_K - COL_T

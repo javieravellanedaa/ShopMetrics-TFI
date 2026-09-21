@@ -7,7 +7,8 @@ MARG_X, GAP_X, GAP_Y = 12, 8, 12
 TIPO = {'UUID':'UUID','VARCHAR':'String','INT':'int','TIMESTAMP':'DateTime',
         'DECIMAL':'Decimal','BOOLEAN':'bool','DATE':'Date'}
 FS, FILA, ENC, SEP = 8, 17, 24, 9
-GRIS, TENUE, LINEA = "#4A5A68", "#7C8C9A", "#C7D3DC"
+GRIS, TENUE, LINEA = "#333333", "#606060", "#9A9A9A"
+BORDE, ENCABEZADO = "#333333", "#DCDCDC"
 
 ents, rels = cargar()
 
@@ -67,12 +68,11 @@ TXT = ('text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spa
        'rotatable=0;whiteSpace=nowrap;html=1;')
 for t in ents:
     px, py, an, h = xy[t]
-    dom, col_d, claro = DOM[t]
     cel.append(
       f'<mxCell id="{cid(t)}" value="{esc(clase(t))}" style="swimlane;fontStyle=1;align=center;'
       f'verticalAlign=middle;childLayout=stackLayout;horizontal=1;startSize={ENC};horizontalStack=0;'
       f'resizeParent=0;resizeParentMax=0;html=1;whiteSpace=nowrap;collapsible=0;marginBottom=0;'
-      f'fillColor={col_d};strokeColor={col_d};fontColor=#FFFFFF;swimlaneFillColor=#FFFFFF;'
+      f'fillColor={ENCABEZADO};strokeColor={BORDE};fontColor=#000000;swimlaneFillColor=#FFFFFF;'
       f'fontSize={FS};" vertex="1" parent="1">'
       f'<mxGeometry x="{px}" y="{py}" width="{an}" height="{h}" as="geometry"/></mxCell>')
     yy = ENC
