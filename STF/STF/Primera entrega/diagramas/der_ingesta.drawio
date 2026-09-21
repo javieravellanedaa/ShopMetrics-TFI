@@ -1,120 +1,515 @@
-<mxfile host="app.diagrams.net" agent="ShopMetrics" version="24.7.17">
+<mxfile host="Electron" agent="ShopMetrics">
   <diagram id="der-ingesta" name="Ingesta de datos">
-    <mxGraphModel dx="1200" dy="800" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1123" pageHeight="794" math="0" shadow="0">
+    <mxGraphModel grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="0" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
-        <mxCell id="0"/>
-        <mxCell id="1" parent="0"/>
-        <mxCell id="tit" value="Ingesta de datos" style="text;html=1;align=left;verticalAlign=middle;fontSize=14;fontStyle=1;fontColor=#000000;" vertex="1" parent="1"><mxGeometry x="14" y="10" width="640" height="22" as="geometry"/></mxCell><mxCell id="tit2" value="4 entidades del dominio y 2 referenciadas de otros, en gris" style="text;html=1;align=right;verticalAlign=middle;fontSize=8;fontColor=#606060;" vertex="1" parent="1"><mxGeometry x="689" y="12" width="420" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_conector_pos" value="conector_pos" style="shape=table;startSize=25;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;columnLines=0;html=1;whiteSpace=nowrap;fillColor=#DCDCDC;strokeColor=#333333;fontColor=#000000;fontSize=9;fontStyle=1;align=center;swimlaneFillColor=#FFFFFF;resizeLast=1;" vertex="1" parent="1"><mxGeometry x="20" y="60" width="133" height="151" as="geometry"/></mxCell>
-        <mxCell id="t_conector_pos_r0" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" vertex="1" parent="t_conector_pos"><mxGeometry y="25" width="133" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_conector_pos_r0_k" value="PK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" vertex="1" parent="t_conector_pos_r0"><mxGeometry width="17" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_conector_pos_r0_n" value="id" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=1;" vertex="1" parent="t_conector_pos_r0"><mxGeometry x="17" width="70" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_conector_pos_r0_t" value="UUID" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" vertex="1" parent="t_conector_pos_r0"><mxGeometry x="87" width="46" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_conector_pos_r1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" vertex="1" parent="t_conector_pos"><mxGeometry y="43" width="133" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_conector_pos_r1_k" value="FK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" vertex="1" parent="t_conector_pos_r1"><mxGeometry width="17" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_conector_pos_r1_n" value="locatario_id" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=1;" vertex="1" parent="t_conector_pos_r1"><mxGeometry x="17" width="70" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_conector_pos_r1_t" value="UUID" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" vertex="1" parent="t_conector_pos_r1"><mxGeometry x="87" width="46" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_conector_pos_r2" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" vertex="1" parent="t_conector_pos"><mxGeometry y="61" width="133" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_conector_pos_r2_k" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" vertex="1" parent="t_conector_pos_r2"><mxGeometry width="17" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_conector_pos_r2_n" value="tipo" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=0;" vertex="1" parent="t_conector_pos_r2"><mxGeometry x="17" width="70" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_conector_pos_r2_t" value="VARCHAR" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" vertex="1" parent="t_conector_pos_r2"><mxGeometry x="87" width="46" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_conector_pos_r3" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" vertex="1" parent="t_conector_pos"><mxGeometry y="79" width="133" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_conector_pos_r3_k" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" vertex="1" parent="t_conector_pos_r3"><mxGeometry width="17" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_conector_pos_r3_n" value="url_endpoint" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=0;" vertex="1" parent="t_conector_pos_r3"><mxGeometry x="17" width="70" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_conector_pos_r3_t" value="VARCHAR" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" vertex="1" parent="t_conector_pos_r3"><mxGeometry x="87" width="46" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_conector_pos_r4" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" vertex="1" parent="t_conector_pos"><mxGeometry y="97" width="133" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_conector_pos_r4_k" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" vertex="1" parent="t_conector_pos_r4"><mxGeometry width="17" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_conector_pos_r4_n" value="api_key_enc" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=0;" vertex="1" parent="t_conector_pos_r4"><mxGeometry x="17" width="70" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_conector_pos_r4_t" value="VARCHAR" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" vertex="1" parent="t_conector_pos_r4"><mxGeometry x="87" width="46" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_conector_pos_r5" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" vertex="1" parent="t_conector_pos"><mxGeometry y="115" width="133" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_conector_pos_r5_k" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" vertex="1" parent="t_conector_pos_r5"><mxGeometry width="17" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_conector_pos_r5_n" value="estado" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=0;" vertex="1" parent="t_conector_pos_r5"><mxGeometry x="17" width="70" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_conector_pos_r5_t" value="VARCHAR" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" vertex="1" parent="t_conector_pos_r5"><mxGeometry x="87" width="46" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_conector_pos_r6" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" vertex="1" parent="t_conector_pos"><mxGeometry y="133" width="133" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_conector_pos_r6_k" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" vertex="1" parent="t_conector_pos_r6"><mxGeometry width="17" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_conector_pos_r6_n" value="fecha_alta" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=0;" vertex="1" parent="t_conector_pos_r6"><mxGeometry x="17" width="70" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_conector_pos_r6_t" value="DATE" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" vertex="1" parent="t_conector_pos_r6"><mxGeometry x="87" width="46" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_registro_pos" value="registro_pos" style="shape=table;startSize=25;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;columnLines=0;html=1;whiteSpace=nowrap;fillColor=#DCDCDC;strokeColor=#333333;fontColor=#000000;fontSize=9;fontStyle=1;align=center;swimlaneFillColor=#FFFFFF;resizeLast=1;" vertex="1" parent="1"><mxGeometry x="30" y="70" width="148" height="115" as="geometry"/></mxCell>
-        <mxCell id="t_registro_pos_r0" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" vertex="1" parent="t_registro_pos"><mxGeometry y="25" width="148" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_registro_pos_r0_k" value="PK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" vertex="1" parent="t_registro_pos_r0"><mxGeometry width="17" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_registro_pos_r0_n" value="id" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=1;" vertex="1" parent="t_registro_pos_r0"><mxGeometry x="17" width="85" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_registro_pos_r0_t" value="UUID" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" vertex="1" parent="t_registro_pos_r0"><mxGeometry x="102" width="46" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_registro_pos_r1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" vertex="1" parent="t_registro_pos"><mxGeometry y="43" width="148" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_registro_pos_r1_k" value="FK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" vertex="1" parent="t_registro_pos_r1"><mxGeometry width="17" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_registro_pos_r1_n" value="conector_id" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=1;" vertex="1" parent="t_registro_pos_r1"><mxGeometry x="17" width="85" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_registro_pos_r1_t" value="UUID" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" vertex="1" parent="t_registro_pos_r1"><mxGeometry x="102" width="46" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_registro_pos_r2" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" vertex="1" parent="t_registro_pos"><mxGeometry y="61" width="148" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_registro_pos_r2_k" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" vertex="1" parent="t_registro_pos_r2"><mxGeometry width="17" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_registro_pos_r2_n" value="fecha" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=0;" vertex="1" parent="t_registro_pos_r2"><mxGeometry x="17" width="85" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_registro_pos_r2_t" value="TIMESTAMP" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" vertex="1" parent="t_registro_pos_r2"><mxGeometry x="102" width="46" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_registro_pos_r3" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" vertex="1" parent="t_registro_pos"><mxGeometry y="79" width="148" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_registro_pos_r3_k" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" vertex="1" parent="t_registro_pos_r3"><mxGeometry width="17" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_registro_pos_r3_n" value="monto_facturado" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=0;" vertex="1" parent="t_registro_pos_r3"><mxGeometry x="17" width="85" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_registro_pos_r3_t" value="DECIMAL" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" vertex="1" parent="t_registro_pos_r3"><mxGeometry x="102" width="46" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_registro_pos_r4" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" vertex="1" parent="t_registro_pos"><mxGeometry y="97" width="148" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_registro_pos_r4_k" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" vertex="1" parent="t_registro_pos_r4"><mxGeometry width="17" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_registro_pos_r4_n" value="tickets" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=0;" vertex="1" parent="t_registro_pos_r4"><mxGeometry x="17" width="85" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_registro_pos_r4_t" value="INT" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" vertex="1" parent="t_registro_pos_r4"><mxGeometry x="102" width="46" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_dispositivo_iot" value="dispositivo_iot" style="shape=table;startSize=25;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;columnLines=0;html=1;whiteSpace=nowrap;fillColor=#DCDCDC;strokeColor=#333333;fontColor=#000000;fontSize=9;fontStyle=1;align=center;swimlaneFillColor=#FFFFFF;resizeLast=1;" vertex="1" parent="1"><mxGeometry x="40" y="80" width="123" height="151" as="geometry"/></mxCell>
-        <mxCell id="t_dispositivo_iot_r0" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" vertex="1" parent="t_dispositivo_iot"><mxGeometry y="25" width="123" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_dispositivo_iot_r0_k" value="PK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" vertex="1" parent="t_dispositivo_iot_r0"><mxGeometry width="17" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_dispositivo_iot_r0_n" value="id" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=1;" vertex="1" parent="t_dispositivo_iot_r0"><mxGeometry x="17" width="60" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_dispositivo_iot_r0_t" value="UUID" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" vertex="1" parent="t_dispositivo_iot_r0"><mxGeometry x="77" width="46" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_dispositivo_iot_r1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" vertex="1" parent="t_dispositivo_iot"><mxGeometry y="43" width="123" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_dispositivo_iot_r1_k" value="FK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" vertex="1" parent="t_dispositivo_iot_r1"><mxGeometry width="17" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_dispositivo_iot_r1_n" value="zona_id" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=1;" vertex="1" parent="t_dispositivo_iot_r1"><mxGeometry x="17" width="60" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_dispositivo_iot_r1_t" value="UUID" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" vertex="1" parent="t_dispositivo_iot_r1"><mxGeometry x="77" width="46" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_dispositivo_iot_r2" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" vertex="1" parent="t_dispositivo_iot"><mxGeometry y="61" width="123" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_dispositivo_iot_r2_k" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" vertex="1" parent="t_dispositivo_iot_r2"><mxGeometry width="17" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_dispositivo_iot_r2_n" value="tipo" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=0;" vertex="1" parent="t_dispositivo_iot_r2"><mxGeometry x="17" width="60" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_dispositivo_iot_r2_t" value="VARCHAR" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" vertex="1" parent="t_dispositivo_iot_r2"><mxGeometry x="77" width="46" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_dispositivo_iot_r3" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" vertex="1" parent="t_dispositivo_iot"><mxGeometry y="79" width="123" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_dispositivo_iot_r3_k" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" vertex="1" parent="t_dispositivo_iot_r3"><mxGeometry width="17" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_dispositivo_iot_r3_n" value="modelo" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=0;" vertex="1" parent="t_dispositivo_iot_r3"><mxGeometry x="17" width="60" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_dispositivo_iot_r3_t" value="VARCHAR" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" vertex="1" parent="t_dispositivo_iot_r3"><mxGeometry x="77" width="46" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_dispositivo_iot_r4" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" vertex="1" parent="t_dispositivo_iot"><mxGeometry y="97" width="123" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_dispositivo_iot_r4_k" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" vertex="1" parent="t_dispositivo_iot_r4"><mxGeometry width="17" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_dispositivo_iot_r4_n" value="ip" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=0;" vertex="1" parent="t_dispositivo_iot_r4"><mxGeometry x="17" width="60" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_dispositivo_iot_r4_t" value="VARCHAR" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" vertex="1" parent="t_dispositivo_iot_r4"><mxGeometry x="77" width="46" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_dispositivo_iot_r5" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" vertex="1" parent="t_dispositivo_iot"><mxGeometry y="115" width="123" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_dispositivo_iot_r5_k" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" vertex="1" parent="t_dispositivo_iot_r5"><mxGeometry width="17" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_dispositivo_iot_r5_n" value="estado" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=0;" vertex="1" parent="t_dispositivo_iot_r5"><mxGeometry x="17" width="60" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_dispositivo_iot_r5_t" value="VARCHAR" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" vertex="1" parent="t_dispositivo_iot_r5"><mxGeometry x="77" width="46" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_dispositivo_iot_r6" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" vertex="1" parent="t_dispositivo_iot"><mxGeometry y="133" width="123" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_dispositivo_iot_r6_k" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" vertex="1" parent="t_dispositivo_iot_r6"><mxGeometry width="17" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_dispositivo_iot_r6_n" value="fecha_alta" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=0;" vertex="1" parent="t_dispositivo_iot_r6"><mxGeometry x="17" width="60" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_dispositivo_iot_r6_t" value="DATE" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" vertex="1" parent="t_dispositivo_iot_r6"><mxGeometry x="77" width="46" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_evento_trafico" value="evento_trafico" style="shape=table;startSize=25;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;columnLines=0;html=1;whiteSpace=nowrap;fillColor=#DCDCDC;strokeColor=#333333;fontColor=#000000;fontSize=9;fontStyle=1;align=center;swimlaneFillColor=#FFFFFF;resizeLast=1;" vertex="1" parent="1"><mxGeometry x="50" y="90" width="143" height="97" as="geometry"/></mxCell>
-        <mxCell id="t_evento_trafico_r0" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" vertex="1" parent="t_evento_trafico"><mxGeometry y="25" width="143" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_evento_trafico_r0_k" value="PK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" vertex="1" parent="t_evento_trafico_r0"><mxGeometry width="17" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_evento_trafico_r0_n" value="id" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=1;" vertex="1" parent="t_evento_trafico_r0"><mxGeometry x="17" width="80" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_evento_trafico_r0_t" value="UUID" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" vertex="1" parent="t_evento_trafico_r0"><mxGeometry x="97" width="46" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_evento_trafico_r1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" vertex="1" parent="t_evento_trafico"><mxGeometry y="43" width="143" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_evento_trafico_r1_k" value="FK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" vertex="1" parent="t_evento_trafico_r1"><mxGeometry width="17" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_evento_trafico_r1_n" value="dispositivo_id" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=1;" vertex="1" parent="t_evento_trafico_r1"><mxGeometry x="17" width="80" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_evento_trafico_r1_t" value="UUID" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" vertex="1" parent="t_evento_trafico_r1"><mxGeometry x="97" width="46" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_evento_trafico_r2" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" vertex="1" parent="t_evento_trafico"><mxGeometry y="61" width="143" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_evento_trafico_r2_k" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" vertex="1" parent="t_evento_trafico_r2"><mxGeometry width="17" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_evento_trafico_r2_n" value="ts" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=0;" vertex="1" parent="t_evento_trafico_r2"><mxGeometry x="17" width="80" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_evento_trafico_r2_t" value="TIMESTAMP" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" vertex="1" parent="t_evento_trafico_r2"><mxGeometry x="97" width="46" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_evento_trafico_r3" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" vertex="1" parent="t_evento_trafico"><mxGeometry y="79" width="143" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_evento_trafico_r3_k" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" vertex="1" parent="t_evento_trafico_r3"><mxGeometry width="17" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_evento_trafico_r3_n" value="conteo" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=0;" vertex="1" parent="t_evento_trafico_r3"><mxGeometry x="17" width="80" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_evento_trafico_r3_t" value="INT" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" vertex="1" parent="t_evento_trafico_r3"><mxGeometry x="97" width="46" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_locatario" value="locatario" style="shape=table;startSize=25;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;columnLines=0;html=1;whiteSpace=nowrap;fillColor=#F2F2F2;strokeColor=#9A9A9A;dashed=1;fontColor=#000000;fontSize=9;fontStyle=1;align=center;swimlaneFillColor=#FFFFFF;resizeLast=1;" vertex="1" parent="1"><mxGeometry x="600" y="60" width="83" height="43" as="geometry"/></mxCell>
-        <mxCell id="t_locatario_r0" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" vertex="1" parent="t_locatario"><mxGeometry y="25" width="83" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_locatario_r0_k" value="PK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" vertex="1" parent="t_locatario_r0"><mxGeometry width="17" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_locatario_r0_n" value="id" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=1;" vertex="1" parent="t_locatario_r0"><mxGeometry x="17" width="20" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_locatario_r0_t" value="UUID" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" vertex="1" parent="t_locatario_r0"><mxGeometry x="37" width="46" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_zona" value="zona" style="shape=table;startSize=25;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;columnLines=0;html=1;whiteSpace=nowrap;fillColor=#F2F2F2;strokeColor=#9A9A9A;dashed=1;fontColor=#000000;fontSize=9;fontStyle=1;align=center;swimlaneFillColor=#FFFFFF;resizeLast=1;" vertex="1" parent="1"><mxGeometry x="610" y="70" width="83" height="43" as="geometry"/></mxCell>
-        <mxCell id="t_zona_r0" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" vertex="1" parent="t_zona"><mxGeometry y="25" width="83" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_zona_r0_k" value="PK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" vertex="1" parent="t_zona_r0"><mxGeometry width="17" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_zona_r0_n" value="id" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=1;" vertex="1" parent="t_zona_r0"><mxGeometry x="17" width="20" height="18" as="geometry"/></mxCell>
-        <mxCell id="t_zona_r0_t" value="UUID" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" vertex="1" parent="t_zona_r0"><mxGeometry x="37" width="46" height="18" as="geometry"/></mxCell>
-        <mxCell id="e0" value="locatario_id" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=ERmandatoryOne;startFill=0;endArrow=ERmany;endFill=0;strokeColor=#333333;strokeWidth=1;fontSize=7;fontColor=#606060;" edge="1" parent="1" source="t_locatario" target="t_conector_pos"><mxGeometry relative="1" as="geometry"/></mxCell>
-        <mxCell id="e1" value="zona_id" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=ERmandatoryOne;startFill=0;endArrow=ERmany;endFill=0;strokeColor=#333333;strokeWidth=1;fontSize=7;fontColor=#606060;" edge="1" parent="1" source="t_zona" target="t_dispositivo_iot"><mxGeometry relative="1" as="geometry"/></mxCell>
-        <mxCell id="e2" value="conector_id" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=ERmandatoryOne;startFill=0;endArrow=ERmany;endFill=0;strokeColor=#333333;strokeWidth=1;fontSize=7;fontColor=#606060;" edge="1" parent="1" source="t_conector_pos" target="t_registro_pos"><mxGeometry relative="1" as="geometry"/></mxCell>
-        <mxCell id="e3" value="dispositivo_id" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=ERmandatoryOne;startFill=0;endArrow=ERmany;endFill=0;strokeColor=#333333;strokeWidth=1;fontSize=7;fontColor=#606060;" edge="1" parent="1" source="t_dispositivo_iot" target="t_evento_trafico"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="tit" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=14;fontStyle=1;fontColor=#000000;" value="Ingesta de datos" vertex="1">
+          <mxGeometry height="22" width="640" x="79" as="geometry" />
+        </mxCell>
+        <mxCell id="tit2" parent="1" style="text;html=1;align=right;verticalAlign=middle;fontSize=8;fontColor=#606060;" value="4 entidades del dominio y 2 referenciadas de otros, en gris" vertex="1">
+          <mxGeometry height="18" width="420" x="189" y="32" as="geometry" />
+        </mxCell>
+        <mxCell id="t_conector_pos" parent="1" style="shape=table;startSize=25;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;columnLines=0;html=1;whiteSpace=nowrap;fillColor=#DCDCDC;strokeColor=#333333;fontColor=#000000;fontSize=9;fontStyle=1;align=center;swimlaneFillColor=#FFFFFF;resizeLast=1;" value="conector_pos" vertex="1">
+          <mxGeometry height="151" width="133" x="297" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="t_conector_pos_r0" parent="t_conector_pos" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
+          <mxGeometry height="18" width="133" y="25" as="geometry" />
+        </mxCell>
+        <mxCell id="t_conector_pos_r0_k" parent="t_conector_pos_r0" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" value="PK" vertex="1">
+          <mxGeometry height="18" width="17" as="geometry">
+            <mxRectangle height="18" width="17" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_conector_pos_r0_n" parent="t_conector_pos_r0" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=1;" value="id" vertex="1">
+          <mxGeometry height="18" width="70" x="17" as="geometry">
+            <mxRectangle height="18" width="70" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_conector_pos_r0_t" parent="t_conector_pos_r0" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" value="UUID" vertex="1">
+          <mxGeometry height="18" width="46" x="87" as="geometry">
+            <mxRectangle height="18" width="46" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_conector_pos_r1" parent="t_conector_pos" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
+          <mxGeometry height="18" width="133" y="43" as="geometry" />
+        </mxCell>
+        <mxCell id="t_conector_pos_r1_k" parent="t_conector_pos_r1" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" value="FK" vertex="1">
+          <mxGeometry height="18" width="17" as="geometry">
+            <mxRectangle height="18" width="17" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_conector_pos_r1_n" parent="t_conector_pos_r1" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=1;" value="locatario_id" vertex="1">
+          <mxGeometry height="18" width="70" x="17" as="geometry">
+            <mxRectangle height="18" width="70" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_conector_pos_r1_t" parent="t_conector_pos_r1" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" value="UUID" vertex="1">
+          <mxGeometry height="18" width="46" x="87" as="geometry">
+            <mxRectangle height="18" width="46" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_conector_pos_r2" parent="t_conector_pos" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
+          <mxGeometry height="18" width="133" y="61" as="geometry" />
+        </mxCell>
+        <mxCell id="t_conector_pos_r2_k" parent="t_conector_pos_r2" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" value="" vertex="1">
+          <mxGeometry height="18" width="17" as="geometry">
+            <mxRectangle height="18" width="17" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_conector_pos_r2_n" parent="t_conector_pos_r2" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=0;" value="tipo" vertex="1">
+          <mxGeometry height="18" width="70" x="17" as="geometry">
+            <mxRectangle height="18" width="70" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_conector_pos_r2_t" parent="t_conector_pos_r2" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" value="VARCHAR" vertex="1">
+          <mxGeometry height="18" width="46" x="87" as="geometry">
+            <mxRectangle height="18" width="46" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_conector_pos_r3" parent="t_conector_pos" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
+          <mxGeometry height="18" width="133" y="79" as="geometry" />
+        </mxCell>
+        <mxCell id="t_conector_pos_r3_k" parent="t_conector_pos_r3" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" value="" vertex="1">
+          <mxGeometry height="18" width="17" as="geometry">
+            <mxRectangle height="18" width="17" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_conector_pos_r3_n" parent="t_conector_pos_r3" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=0;" value="url_endpoint" vertex="1">
+          <mxGeometry height="18" width="70" x="17" as="geometry">
+            <mxRectangle height="18" width="70" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_conector_pos_r3_t" parent="t_conector_pos_r3" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" value="VARCHAR" vertex="1">
+          <mxGeometry height="18" width="46" x="87" as="geometry">
+            <mxRectangle height="18" width="46" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_conector_pos_r4" parent="t_conector_pos" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
+          <mxGeometry height="18" width="133" y="97" as="geometry" />
+        </mxCell>
+        <mxCell id="t_conector_pos_r4_k" parent="t_conector_pos_r4" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" value="" vertex="1">
+          <mxGeometry height="18" width="17" as="geometry">
+            <mxRectangle height="18" width="17" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_conector_pos_r4_n" parent="t_conector_pos_r4" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=0;" value="api_key_enc" vertex="1">
+          <mxGeometry height="18" width="70" x="17" as="geometry">
+            <mxRectangle height="18" width="70" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_conector_pos_r4_t" parent="t_conector_pos_r4" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" value="VARCHAR" vertex="1">
+          <mxGeometry height="18" width="46" x="87" as="geometry">
+            <mxRectangle height="18" width="46" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_conector_pos_r5" parent="t_conector_pos" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
+          <mxGeometry height="18" width="133" y="115" as="geometry" />
+        </mxCell>
+        <mxCell id="t_conector_pos_r5_k" parent="t_conector_pos_r5" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" value="" vertex="1">
+          <mxGeometry height="18" width="17" as="geometry">
+            <mxRectangle height="18" width="17" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_conector_pos_r5_n" parent="t_conector_pos_r5" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=0;" value="estado" vertex="1">
+          <mxGeometry height="18" width="70" x="17" as="geometry">
+            <mxRectangle height="18" width="70" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_conector_pos_r5_t" parent="t_conector_pos_r5" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" value="VARCHAR" vertex="1">
+          <mxGeometry height="18" width="46" x="87" as="geometry">
+            <mxRectangle height="18" width="46" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_conector_pos_r6" parent="t_conector_pos" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
+          <mxGeometry height="18" width="133" y="133" as="geometry" />
+        </mxCell>
+        <mxCell id="t_conector_pos_r6_k" parent="t_conector_pos_r6" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" value="" vertex="1">
+          <mxGeometry height="18" width="17" as="geometry">
+            <mxRectangle height="18" width="17" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_conector_pos_r6_n" parent="t_conector_pos_r6" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=0;" value="fecha_alta" vertex="1">
+          <mxGeometry height="18" width="70" x="17" as="geometry">
+            <mxRectangle height="18" width="70" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_conector_pos_r6_t" parent="t_conector_pos_r6" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" value="DATE" vertex="1">
+          <mxGeometry height="18" width="46" x="87" as="geometry">
+            <mxRectangle height="18" width="46" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_registro_pos" parent="1" style="shape=table;startSize=25;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;columnLines=0;html=1;whiteSpace=nowrap;fillColor=#DCDCDC;strokeColor=#333333;fontColor=#000000;fontSize=9;fontStyle=1;align=center;swimlaneFillColor=#FFFFFF;resizeLast=1;" value="registro_pos" vertex="1">
+          <mxGeometry height="115" width="148" x="638" y="98" as="geometry" />
+        </mxCell>
+        <mxCell id="t_registro_pos_r0" parent="t_registro_pos" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
+          <mxGeometry height="18" width="148" y="25" as="geometry" />
+        </mxCell>
+        <mxCell id="t_registro_pos_r0_k" parent="t_registro_pos_r0" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" value="PK" vertex="1">
+          <mxGeometry height="18" width="17" as="geometry">
+            <mxRectangle height="18" width="17" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_registro_pos_r0_n" parent="t_registro_pos_r0" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=1;" value="id" vertex="1">
+          <mxGeometry height="18" width="85" x="17" as="geometry">
+            <mxRectangle height="18" width="85" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_registro_pos_r0_t" parent="t_registro_pos_r0" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" value="UUID" vertex="1">
+          <mxGeometry height="18" width="46" x="102" as="geometry">
+            <mxRectangle height="18" width="46" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_registro_pos_r1" parent="t_registro_pos" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
+          <mxGeometry height="18" width="148" y="43" as="geometry" />
+        </mxCell>
+        <mxCell id="t_registro_pos_r1_k" parent="t_registro_pos_r1" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" value="FK" vertex="1">
+          <mxGeometry height="18" width="17" as="geometry">
+            <mxRectangle height="18" width="17" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_registro_pos_r1_n" parent="t_registro_pos_r1" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=1;" value="conector_id" vertex="1">
+          <mxGeometry height="18" width="85" x="17" as="geometry">
+            <mxRectangle height="18" width="85" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_registro_pos_r1_t" parent="t_registro_pos_r1" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" value="UUID" vertex="1">
+          <mxGeometry height="18" width="46" x="102" as="geometry">
+            <mxRectangle height="18" width="46" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_registro_pos_r2" parent="t_registro_pos" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
+          <mxGeometry height="18" width="148" y="61" as="geometry" />
+        </mxCell>
+        <mxCell id="t_registro_pos_r2_k" parent="t_registro_pos_r2" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" value="" vertex="1">
+          <mxGeometry height="18" width="17" as="geometry">
+            <mxRectangle height="18" width="17" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_registro_pos_r2_n" parent="t_registro_pos_r2" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=0;" value="fecha" vertex="1">
+          <mxGeometry height="18" width="85" x="17" as="geometry">
+            <mxRectangle height="18" width="85" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_registro_pos_r2_t" parent="t_registro_pos_r2" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" value="TIMESTAMP" vertex="1">
+          <mxGeometry height="18" width="46" x="102" as="geometry">
+            <mxRectangle height="18" width="46" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_registro_pos_r3" parent="t_registro_pos" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
+          <mxGeometry height="18" width="148" y="79" as="geometry" />
+        </mxCell>
+        <mxCell id="t_registro_pos_r3_k" parent="t_registro_pos_r3" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" value="" vertex="1">
+          <mxGeometry height="18" width="17" as="geometry">
+            <mxRectangle height="18" width="17" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_registro_pos_r3_n" parent="t_registro_pos_r3" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=0;" value="monto_facturado" vertex="1">
+          <mxGeometry height="18" width="85" x="17" as="geometry">
+            <mxRectangle height="18" width="85" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_registro_pos_r3_t" parent="t_registro_pos_r3" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" value="DECIMAL" vertex="1">
+          <mxGeometry height="18" width="46" x="102" as="geometry">
+            <mxRectangle height="18" width="46" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_registro_pos_r4" parent="t_registro_pos" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
+          <mxGeometry height="18" width="148" y="97" as="geometry" />
+        </mxCell>
+        <mxCell id="t_registro_pos_r4_k" parent="t_registro_pos_r4" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" value="" vertex="1">
+          <mxGeometry height="18" width="17" as="geometry">
+            <mxRectangle height="18" width="17" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_registro_pos_r4_n" parent="t_registro_pos_r4" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=0;" value="tickets" vertex="1">
+          <mxGeometry height="18" width="85" x="17" as="geometry">
+            <mxRectangle height="18" width="85" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_registro_pos_r4_t" parent="t_registro_pos_r4" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" value="INT" vertex="1">
+          <mxGeometry height="18" width="46" x="102" as="geometry">
+            <mxRectangle height="18" width="46" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_dispositivo_iot" parent="1" style="shape=table;startSize=25;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;columnLines=0;html=1;whiteSpace=nowrap;fillColor=#DCDCDC;strokeColor=#333333;fontColor=#000000;fontSize=9;fontStyle=1;align=center;swimlaneFillColor=#FFFFFF;resizeLast=1;" value="dispositivo_iot" vertex="1">
+          <mxGeometry height="151" width="123" x="302" y="265" as="geometry" />
+        </mxCell>
+        <mxCell id="t_dispositivo_iot_r0" parent="t_dispositivo_iot" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
+          <mxGeometry height="18" width="123" y="25" as="geometry" />
+        </mxCell>
+        <mxCell id="t_dispositivo_iot_r0_k" parent="t_dispositivo_iot_r0" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" value="PK" vertex="1">
+          <mxGeometry height="18" width="17" as="geometry">
+            <mxRectangle height="18" width="17" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_dispositivo_iot_r0_n" parent="t_dispositivo_iot_r0" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=1;" value="id" vertex="1">
+          <mxGeometry height="18" width="60" x="17" as="geometry">
+            <mxRectangle height="18" width="60" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_dispositivo_iot_r0_t" parent="t_dispositivo_iot_r0" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" value="UUID" vertex="1">
+          <mxGeometry height="18" width="46" x="77" as="geometry">
+            <mxRectangle height="18" width="46" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_dispositivo_iot_r1" parent="t_dispositivo_iot" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
+          <mxGeometry height="18" width="123" y="43" as="geometry" />
+        </mxCell>
+        <mxCell id="t_dispositivo_iot_r1_k" parent="t_dispositivo_iot_r1" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" value="FK" vertex="1">
+          <mxGeometry height="18" width="17" as="geometry">
+            <mxRectangle height="18" width="17" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_dispositivo_iot_r1_n" parent="t_dispositivo_iot_r1" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=1;" value="zona_id" vertex="1">
+          <mxGeometry height="18" width="60" x="17" as="geometry">
+            <mxRectangle height="18" width="60" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_dispositivo_iot_r1_t" parent="t_dispositivo_iot_r1" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" value="UUID" vertex="1">
+          <mxGeometry height="18" width="46" x="77" as="geometry">
+            <mxRectangle height="18" width="46" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_dispositivo_iot_r2" parent="t_dispositivo_iot" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
+          <mxGeometry height="18" width="123" y="61" as="geometry" />
+        </mxCell>
+        <mxCell id="t_dispositivo_iot_r2_k" parent="t_dispositivo_iot_r2" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" value="" vertex="1">
+          <mxGeometry height="18" width="17" as="geometry">
+            <mxRectangle height="18" width="17" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_dispositivo_iot_r2_n" parent="t_dispositivo_iot_r2" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=0;" value="tipo" vertex="1">
+          <mxGeometry height="18" width="60" x="17" as="geometry">
+            <mxRectangle height="18" width="60" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_dispositivo_iot_r2_t" parent="t_dispositivo_iot_r2" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" value="VARCHAR" vertex="1">
+          <mxGeometry height="18" width="46" x="77" as="geometry">
+            <mxRectangle height="18" width="46" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_dispositivo_iot_r3" parent="t_dispositivo_iot" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
+          <mxGeometry height="18" width="123" y="79" as="geometry" />
+        </mxCell>
+        <mxCell id="t_dispositivo_iot_r3_k" parent="t_dispositivo_iot_r3" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" value="" vertex="1">
+          <mxGeometry height="18" width="17" as="geometry">
+            <mxRectangle height="18" width="17" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_dispositivo_iot_r3_n" parent="t_dispositivo_iot_r3" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=0;" value="modelo" vertex="1">
+          <mxGeometry height="18" width="60" x="17" as="geometry">
+            <mxRectangle height="18" width="60" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_dispositivo_iot_r3_t" parent="t_dispositivo_iot_r3" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" value="VARCHAR" vertex="1">
+          <mxGeometry height="18" width="46" x="77" as="geometry">
+            <mxRectangle height="18" width="46" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_dispositivo_iot_r4" parent="t_dispositivo_iot" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
+          <mxGeometry height="18" width="123" y="97" as="geometry" />
+        </mxCell>
+        <mxCell id="t_dispositivo_iot_r4_k" parent="t_dispositivo_iot_r4" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" value="" vertex="1">
+          <mxGeometry height="18" width="17" as="geometry">
+            <mxRectangle height="18" width="17" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_dispositivo_iot_r4_n" parent="t_dispositivo_iot_r4" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=0;" value="ip" vertex="1">
+          <mxGeometry height="18" width="60" x="17" as="geometry">
+            <mxRectangle height="18" width="60" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_dispositivo_iot_r4_t" parent="t_dispositivo_iot_r4" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" value="VARCHAR" vertex="1">
+          <mxGeometry height="18" width="46" x="77" as="geometry">
+            <mxRectangle height="18" width="46" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_dispositivo_iot_r5" parent="t_dispositivo_iot" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
+          <mxGeometry height="18" width="123" y="115" as="geometry" />
+        </mxCell>
+        <mxCell id="t_dispositivo_iot_r5_k" parent="t_dispositivo_iot_r5" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" value="" vertex="1">
+          <mxGeometry height="18" width="17" as="geometry">
+            <mxRectangle height="18" width="17" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_dispositivo_iot_r5_n" parent="t_dispositivo_iot_r5" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=0;" value="estado" vertex="1">
+          <mxGeometry height="18" width="60" x="17" as="geometry">
+            <mxRectangle height="18" width="60" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_dispositivo_iot_r5_t" parent="t_dispositivo_iot_r5" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" value="VARCHAR" vertex="1">
+          <mxGeometry height="18" width="46" x="77" as="geometry">
+            <mxRectangle height="18" width="46" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_dispositivo_iot_r6" parent="t_dispositivo_iot" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
+          <mxGeometry height="18" width="123" y="133" as="geometry" />
+        </mxCell>
+        <mxCell id="t_dispositivo_iot_r6_k" parent="t_dispositivo_iot_r6" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" value="" vertex="1">
+          <mxGeometry height="18" width="17" as="geometry">
+            <mxRectangle height="18" width="17" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_dispositivo_iot_r6_n" parent="t_dispositivo_iot_r6" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=0;" value="fecha_alta" vertex="1">
+          <mxGeometry height="18" width="60" x="17" as="geometry">
+            <mxRectangle height="18" width="60" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_dispositivo_iot_r6_t" parent="t_dispositivo_iot_r6" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" value="DATE" vertex="1">
+          <mxGeometry height="18" width="46" x="77" as="geometry">
+            <mxRectangle height="18" width="46" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_evento_trafico" parent="1" style="shape=table;startSize=25;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;columnLines=0;html=1;whiteSpace=nowrap;fillColor=#DCDCDC;strokeColor=#333333;fontColor=#000000;fontSize=9;fontStyle=1;align=center;swimlaneFillColor=#FFFFFF;resizeLast=1;" value="evento_trafico" vertex="1">
+          <mxGeometry height="97" width="143" x="638" y="292" as="geometry" />
+        </mxCell>
+        <mxCell id="t_evento_trafico_r0" parent="t_evento_trafico" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
+          <mxGeometry height="18" width="143" y="25" as="geometry" />
+        </mxCell>
+        <mxCell id="t_evento_trafico_r0_k" parent="t_evento_trafico_r0" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" value="PK" vertex="1">
+          <mxGeometry height="18" width="17" as="geometry">
+            <mxRectangle height="18" width="17" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_evento_trafico_r0_n" parent="t_evento_trafico_r0" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=1;" value="id" vertex="1">
+          <mxGeometry height="18" width="80" x="17" as="geometry">
+            <mxRectangle height="18" width="80" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_evento_trafico_r0_t" parent="t_evento_trafico_r0" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" value="UUID" vertex="1">
+          <mxGeometry height="18" width="46" x="97" as="geometry">
+            <mxRectangle height="18" width="46" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_evento_trafico_r1" parent="t_evento_trafico" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
+          <mxGeometry height="18" width="143" y="43" as="geometry" />
+        </mxCell>
+        <mxCell id="t_evento_trafico_r1_k" parent="t_evento_trafico_r1" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" value="FK" vertex="1">
+          <mxGeometry height="18" width="17" as="geometry">
+            <mxRectangle height="18" width="17" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_evento_trafico_r1_n" parent="t_evento_trafico_r1" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=1;" value="dispositivo_id" vertex="1">
+          <mxGeometry height="18" width="80" x="17" as="geometry">
+            <mxRectangle height="18" width="80" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_evento_trafico_r1_t" parent="t_evento_trafico_r1" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" value="UUID" vertex="1">
+          <mxGeometry height="18" width="46" x="97" as="geometry">
+            <mxRectangle height="18" width="46" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_evento_trafico_r2" parent="t_evento_trafico" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
+          <mxGeometry height="18" width="143" y="61" as="geometry" />
+        </mxCell>
+        <mxCell id="t_evento_trafico_r2_k" parent="t_evento_trafico_r2" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" value="" vertex="1">
+          <mxGeometry height="18" width="17" as="geometry">
+            <mxRectangle height="18" width="17" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_evento_trafico_r2_n" parent="t_evento_trafico_r2" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=0;" value="ts" vertex="1">
+          <mxGeometry height="18" width="80" x="17" as="geometry">
+            <mxRectangle height="18" width="80" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_evento_trafico_r2_t" parent="t_evento_trafico_r2" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" value="TIMESTAMP" vertex="1">
+          <mxGeometry height="18" width="46" x="97" as="geometry">
+            <mxRectangle height="18" width="46" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_evento_trafico_r3" parent="t_evento_trafico" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
+          <mxGeometry height="18" width="143" y="79" as="geometry" />
+        </mxCell>
+        <mxCell id="t_evento_trafico_r3_k" parent="t_evento_trafico_r3" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" value="" vertex="1">
+          <mxGeometry height="18" width="17" as="geometry">
+            <mxRectangle height="18" width="17" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_evento_trafico_r3_n" parent="t_evento_trafico_r3" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=0;" value="conteo" vertex="1">
+          <mxGeometry height="18" width="80" x="17" as="geometry">
+            <mxRectangle height="18" width="80" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_evento_trafico_r3_t" parent="t_evento_trafico_r3" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" value="INT" vertex="1">
+          <mxGeometry height="18" width="46" x="97" as="geometry">
+            <mxRectangle height="18" width="46" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_locatario" parent="1" style="shape=table;startSize=25;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;columnLines=0;html=1;whiteSpace=nowrap;fillColor=#F2F2F2;strokeColor=#9A9A9A;dashed=1;fontColor=#000000;fontSize=9;fontStyle=1;align=center;swimlaneFillColor=#FFFFFF;resizeLast=1;" value="locatario" vertex="1">
+          <mxGeometry height="45" width="83" x="12" y="134" as="geometry" />
+        </mxCell>
+        <mxCell id="t_locatario_r0" parent="t_locatario" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
+          <mxGeometry height="18" width="83" y="25" as="geometry" />
+        </mxCell>
+        <mxCell id="t_locatario_r0_k" parent="t_locatario_r0" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" value="PK" vertex="1">
+          <mxGeometry height="18" width="17" as="geometry">
+            <mxRectangle height="18" width="17" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_locatario_r0_n" parent="t_locatario_r0" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=1;" value="id" vertex="1">
+          <mxGeometry height="18" width="20" x="17" as="geometry">
+            <mxRectangle height="18" width="20" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_locatario_r0_t" parent="t_locatario_r0" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" value="UUID" vertex="1">
+          <mxGeometry height="18" width="46" x="37" as="geometry">
+            <mxRectangle height="18" width="46" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_zona" parent="1" style="shape=table;startSize=25;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;columnLines=0;html=1;whiteSpace=nowrap;fillColor=#F2F2F2;strokeColor=#9A9A9A;dashed=1;fontColor=#000000;fontSize=9;fontStyle=1;align=center;swimlaneFillColor=#FFFFFF;resizeLast=1;" value="zona" vertex="1">
+          <mxGeometry height="45" width="83" x="12" y="319" as="geometry" />
+        </mxCell>
+        <mxCell id="t_zona_r0" parent="t_zona" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
+          <mxGeometry height="18" width="83" y="25" as="geometry" />
+        </mxCell>
+        <mxCell id="t_zona_r0_k" parent="t_zona_r0" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=center;fontSize=7;fontStyle=1;" value="PK" vertex="1">
+          <mxGeometry height="18" width="17" as="geometry">
+            <mxRectangle height="18" width="17" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_zona_r0_n" parent="t_zona_r0" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=left;spacingLeft=2;fontSize=9;fontStyle=1;" value="id" vertex="1">
+          <mxGeometry height="18" width="20" x="17" as="geometry">
+            <mxRectangle height="18" width="20" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_zona_r0_t" parent="t_zona_r0" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;html=1;whiteSpace=nowrap;align=right;spacingRight=3;fontSize=7;fontColor=#606060;" value="UUID" vertex="1">
+          <mxGeometry height="18" width="46" x="37" as="geometry">
+            <mxRectangle height="18" width="46" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e0" edge="1" parent="1" source="t_locatario" style="rounded=0;html=1;startArrow=ERmandatoryOne;startFill=0;endArrow=ERmany;endFill=0;strokeColor=#333333;strokeWidth=1;fontSize=7;fontColor=#606060;exitX=1;exitY=0.5;entryX=0;entryY=0.5;edgeStyle=orthogonalEdgeStyle;" target="t_conector_pos" value="locatario_id">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="196" y="155.5" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="t_zona" style="rounded=0;html=1;startArrow=ERmandatoryOne;startFill=0;endArrow=ERmany;endFill=0;strokeColor=#333333;strokeWidth=1;fontSize=7;fontColor=#606060;exitX=1;exitY=0.5;entryX=0;entryY=0.5;edgeStyle=orthogonalEdgeStyle;" target="t_dispositivo_iot" value="zona_id">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-2.5" as="offset" />
+            <Array as="points">
+              <mxPoint x="198.5" y="340.5" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="t_conector_pos" style="rounded=0;html=1;startArrow=ERmandatoryOne;startFill=0;endArrow=ERmany;endFill=0;strokeColor=#333333;strokeWidth=1;fontSize=7;fontColor=#606060;exitX=1;exitY=0.5;entryX=0;entryY=0.5;edgeStyle=orthogonalEdgeStyle;" target="t_registro_pos" value="conector_id">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="534" y="155.5" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="t_dispositivo_iot" style="rounded=0;html=1;startArrow=ERmandatoryOne;startFill=0;endArrow=ERmany;endFill=0;strokeColor=#333333;strokeWidth=1;fontSize=7;fontColor=#606060;exitX=1;exitY=0.5;entryX=0;entryY=0.5;edgeStyle=orthogonalEdgeStyle;" target="t_evento_trafico" value="dispositivo_id">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="2.5" as="offset" />
+            <Array as="points">
+              <mxPoint x="531.5" y="340.5" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
