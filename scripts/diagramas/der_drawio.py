@@ -117,11 +117,11 @@ def fila_pk(t):
 for n, r in enumerate(rels):
     fin = 'ERzeroToMany' if r['opcional'] else 'ERmany'
     ar.append(
-      f'<mxCell id="e{n}" value="" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;'
+      f'<mxCell id="e{n}" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;'
       f'startArrow=ERmandatoryOne;startFill=0;endArrow={fin};endFill=0;strokeColor={GRIS};'
-      f'strokeWidth=1;fontSize=6;fontColor={TENUE};exitX=1;exitY=0.5;entryX=0;entryY=0.5;" '
-      f'edge="1" parent="1" source="{fila_pk(r["padre"])}" '
-      f'target="{fila_de[(r["hijo"], r["campo"])]}"><mxGeometry relative="1" as="geometry"/></mxCell>')
+      f'strokeWidth=1;fontSize=6;fontColor={TENUE};" '
+      f'edge="1" parent="1" source="{sid(r["padre"])}" '
+      f'target="{sid(r["hijo"])}"><mxGeometry relative="1" as="geometry"/></mxCell>')
 
 # --- titulo y referencias ---
 tit = (f'<mxCell id="tit" value="ShopMetrics &#8212; Diagrama Entidad-Relaci&#243;n del modelo completo" '
@@ -201,5 +201,9 @@ xml = (f'<mxfile host="app.diagrams.net" agent="ShopMetrics" version="24.7.17">\
        + '\n      </root>\n    </mxGraphModel>\n  </diagram>\n</mxfile>\n')
 
 open('ShopMetrics_DER.drawio','w').write(xml)
+xml_limpio = (xml.split('        <mxCell id="ref"')[0]
+              + "\n        " + "\n        ".join(cel) + "\n        " + "\n        ".join(ar)
+              + '\n      </root>\n    </mxGraphModel>\n  </diagram>\n</mxfile>\n')
+open('der_solo.drawio','w').write(xml_limpio)
 print("\nDER escrito: %d bytes | %d celdas | %d aristas" % (len(xml), len(cel), len(ar)))
 print("ocupa %d x %d px  dentro de A4 apaisado %d x %d" % (total, MARG_Y+TIT+max(alturas), PW, PH))

@@ -98,8 +98,7 @@ for n, r in enumerate(rels):
     m_hijo = '0..*' if r['opcional'] else ('1..*' if r['comp'] else '0..*')
     ar.append(
       f'<mxCell id="as{n}" value="" style="endArrow=none;startArrow={ini}html=1;'
-      f'edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor={GRIS};strokeWidth=1;exitX=1;exitY=0.5;'
-      f'entryX=0;entryY=0.5;" edge="1" parent="1" source="{cid(r["padre"])}" target="{cid(r["hijo"])}">'
+      f'edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor={GRIS};strokeWidth=1;" edge="1" parent="1" source="{cid(r["padre"])}" target="{cid(r["hijo"])}">'
       f'<mxGeometry relative="1" as="geometry"/></mxCell>')
     for suf, val, pos in (("p", "1", -0.82), ("h", m_hijo, 0.82)):
         ar.append(f'<mxCell id="as{n}{suf}" value="{val}" style="edgeLabel;html=1;align=center;'
