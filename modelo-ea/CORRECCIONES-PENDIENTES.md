@@ -14,7 +14,7 @@ hacer**. El criterio que se usó para decidir cuál manda:
 3. Los **diagramas** tienen que reflejar a los dos. Cuando un diagrama dice algo
    distinto, se corrige el diagrama.
 
-Los hallazgos 8, 9, 11 y 12 no son diferencias entre el diagrama y el modelo,
+Los hallazgos 8, 9, 11, 12 y 13 no son diferencias entre el diagrama y el modelo,
 sino huecos del propio diccionario y de los propios casos de uso: la corrección
 no está en Enterprise Architect sino en el Word. Quedan acá igual, para tenerlos
 todos juntos.
@@ -409,6 +409,65 @@ el diagrama, la multiplicidad de `Zona` hacia `Alerta` pasa a `0..1`.
 
 El código ya está preparado: la función que elige la zona está aislada en
 `dominios/alertas/motor.py` y se saca en cuanto el campo lo permita.
+
+---
+
+## 13. La matriz de permisos no tiene noción de «sólo lo mío»
+
+**Dónde aparece**
+
+| Fuente | Qué dice |
+|---|---|
+| CU-018-001, paso 4 | La matriz es por **recurso** y **operación**: cinco recursos, cuatro operaciones. |
+| CU-027-001 | "Portal con las métricas del **propio local**." |
+| CU-013-001 | "Benchmarking **anonimizado** contra la media del rubro." |
+| Semilla, rol Locatario | `datos_pos:lectura` y `datos_trafico:lectura`. |
+
+**El problema**
+
+`datos_pos:lectura` le da al locatario **toda** la facturación, no la suya. La
+matriz dice sobre *qué tipo de dato* puede operar cada rol, pero no *sobre qué
+filas*. Con los permisos que la semilla le asigna hoy, un locatario que entra y
+pide los indicadores del centro recibe la facturación agregada de todos los
+locatarios del centro.
+
+Verificado contra el sistema corriendo, entrando como locatario:
+
+```
+GET /metricas/centro?periodo=7dias   ->  200
+     trafico      28.433
+     conversion   15,12 %
+     ventas       $ 53.160,53      <- la de todos los locatarios
+```
+
+Los otros tres roles no tienen este problema: administrador, gerente y
+operaciones trabajan sobre el centro entero por definición del rol.
+
+**Qué hacer**
+
+No alcanza con sacarle el permiso: sin `datos_pos:lectura` el locatario tampoco
+podría ver lo suyo. Hace falta que el alcance sea parte de la decisión, y hay
+dos caminos:
+
+1. **Acotar en el servicio, según el rol.** Cuando quien consulta es un
+   locatario, la consulta se filtra por su propio `locatario_id`. Es lo más
+   directo y no toca el modelo de datos.
+2. **Agregar el alcance a la matriz**, por ejemplo una columna `alcance` en
+   `permiso` con los valores `centro` y `propio`. Queda explícito en el
+   diccionario y se puede auditar, pero agrega un campo a una entidad que el
+   documento ya cerró.
+
+**Cuándo**
+
+La semana 8 construye el portal del locatario (CU-027-001) y la gestión de
+consentimientos (CU-021-001). Es el momento natural para resolverlo, porque son
+los casos de uso que necesitan el alcance acotado para funcionar.
+
+**Mientras tanto**
+
+La pantalla que ve el locatario al entrar dice, en la lista de secciones
+disponibles, que los indicadores "todavía no están acotados a tu local". Es
+menos que resolverlo, pero no lo esconde.
 
 ---
 

@@ -167,9 +167,12 @@ def portada() -> Image.Image:
     pincel.text((ANCHO // 2, 462), "Recorrido del sistema de punta a punta",
                 font=NORMAL(40), fill=LILA, anchor="mm")
     pincel.line([(ANCHO // 2 - 90, 524), (ANCHO // 2 + 90, 524)], fill=VIOLETA, width=4)
-    pincel.text((ANCHO // 2, 588),
-                "Siete casos de uso, veintiún pasos, sobre el sistema funcionando",
+    pincel.text((ANCHO // 2, 582),
+                "Los cuatro roles del sistema y todos los controles de cada pantalla",
                 font=NORMAL(30), fill=LILA, anchor="mm")
+    pincel.text((ANCHO // 2, 626),
+                "Ocho casos de uso · treinta y siete pasos · sobre el sistema funcionando",
+                font=NORMAL(26), fill=(140, 137, 190), anchor="mm")
     pincel.text((ANCHO // 2, 700), "Javier Gómez Avellaneda",
                 font=NORMAL(30), fill=BLANCO, anchor="mm")
     pincel.text((ANCHO // 2, 744), "Trabajo Final de Ingeniería · UAI",
@@ -182,12 +185,14 @@ def cierre() -> Image.Image:
     pincel = ImageDraw.Draw(lienzo)
     pincel.text((ANCHO // 2, 396), "Todo lo que se vio corre de verdad",
                 font=NEGRITA(52), fill=BLANCO, anchor="mm")
-    y = 492
+    y = 476
     for renglon in ("Base de datos PostgreSQL con TimescaleDB, la API, el panel web,",
                     "los dos simuladores de sistemas externos y el generador de datos.",
                     "",
                     "Ningún número de este video está escrito en la pantalla:",
-                    "todos salen de la base."):
+                    "todos salen de la base.",
+                    "",
+                    "Los rechazos tampoco están actuados: son los que devuelve el sistema."):
         pincel.text((ANCHO // 2, y), renglon, font=NORMAL(30), fill=LILA, anchor="mm")
         y += 46
     return lienzo
