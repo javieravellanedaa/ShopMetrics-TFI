@@ -27,11 +27,15 @@ RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CODIGO = os.path.join(os.path.dirname(RAIZ), "shopmetrics")
 PLANTILLA = os.path.join(RAIZ, "documento", "STF_Gomez_Javier_E1_v1.docx")
 IMAGENES = os.path.join(RAIZ, "documento", "img_cierre")
+CAPTURAS = os.path.join(RAIZ, "documento", "img_video")
 SALIDA = os.path.join(RAIZ, "documento", "STF_Gomez_Javier_Construccion.docx")
 
 sys.path.insert(0, os.path.join(CODIGO, "herramientas"))
 from fichas import (COMMITS, REPO, SEMANA_DE_COMMIT, SEMANAS,  # noqa: E402
                     TARJETAS)
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from guion_video import CASOS, PASOS  # noqa: E402
 
 # El ancho util de la pagina es 162,5 mm --A4 menos los margenes-- pero las
 # figuras se dejan en 159: a ancho exacto, el redondeo del renderizador recorta
@@ -110,14 +114,14 @@ def sin_cortar(fila) -> None:
 
 
 def figura(documento, archivo: str, epigrafe: str, ancho_mm=None,
-           alto_maximo_mm=None) -> bool:
+           alto_maximo_mm=None, carpeta=None) -> bool:
     """Pega una imagen con su epigrafe, sin que se separen ni se desborden.
 
     La imagen y su epigrafe van dentro de una tabla de una sola celda que no se
     puede partir: sin eso, Word manda el epigrafe solo a la pagina siguiente y
     queda huerfano de su figura.
     """
-    ruta = os.path.join(IMAGENES, archivo)
+    ruta = os.path.join(carpeta or IMAGENES, archivo)
     if not os.path.exists(ruta):
         print("    falta la imagen %s" % archivo)
         return False
@@ -759,6 +763,239 @@ def cierre(d) -> None:
         p.add_run("   " + que)
 
 
+
+USUARIOS = [
+    ("admin@shopmetrics.com.ar", "Javier Gómez", "Administrador del centro",
+     "Ve y hace todo: las cinco secciones del menú, las acciones correctivas "
+     "sobre las integraciones, crear y pausar reglas, atender alertas."),
+    ("gerente@shopmetrics.com.ar", "Marina Acuña", "Gerente",
+     "Ve las cinco secciones y puede exportar, pero no escribe: cualquier "
+     "acción correctiva o cambio de configuración se rechaza."),
+    ("operaciones@shopmetrics.com.ar", "Ana Pérez", "Operaciones",
+     "Entra a «Mi turno». El menú se recorta: sin Reglas de alerta ni "
+     "Integraciones, porque su rol no opera sobre configuración."),
+    ("locatario@shopmetrics.com.ar", "Indumentaria K", "Locatario",
+     "Entra a «Mi local». Sólo lectura. Su portal propio se construye en la "
+     "semana 8."),
+]
+
+CLAVE = "Shop2026x"
+
+
+def guia(d) -> None:
+    """El manual de uso: como se instala, como se entra y que hace cada rol.
+
+    Los pasos no se reescriben: son los mismos del guion del recorrido, que ya
+    esta redactado en segunda persona y cubre los cuatro roles y todos los
+    controles de cada pantalla. Tener una sola fuente evita que el video y el
+    informe digan cosas distintas.
+    """
+    contadores = {"figura": 0, "tabla": 0}
+
+    d.add_paragraph("11. Guía de uso", style="Heading 1")
+    parrafo(d, "Este capítulo es para quien tiene que poner el sistema a andar "
+               "sin haberlo construido. Primero qué hace falta y con qué "
+               "comandos se levanta, después con qué usuario se entra, y al "
+               "final el recorrido completo: los ocho casos de uso que hoy "
+               "funcionan, con los cuatro roles y todos los botones de cada "
+               "pantalla, incluidos los que rechazan.")
+
+    # ------------------------------------------------------------ instalacion
+    d.add_paragraph("11.1 Qué hace falta", style="Heading 2")
+    parrafo(d, "Tres programas, y nada más. El sistema no necesita que se "
+               "instale ninguna base de datos a mano: la levanta él mismo "
+               "dentro de un contenedor.")
+    contadores["tabla"] += 1
+    tabla_de(d,
+             ["Programa", "Versión", "Para qué"],
+             [["Docker", "cualquiera reciente",
+               "Corre la base de datos PostgreSQL con TimescaleDB y los dos "
+               "simuladores de los sistemas externos."],
+              ["Python", "3.11 o más nuevo",
+               "La API y las herramientas de línea de comandos."],
+              ["Node.js", "20 o más nuevo",
+               "El panel web."]],
+             anchos_mm=[26, 36, 97],
+             epigrafe="Tabla 11.%d. Lo que hay que tener instalado antes de "
+                      "empezar. Fuente: elaboración propia."
+                      % contadores["tabla"])
+
+    parrafo(d, "", despues=6)
+    parrafo(d, "No hace falta verificarlos de antemano: el primer comando los "
+               "controla y, si falta alguno, dice cuál y cómo conseguirlo en "
+               "lugar de fallar a la mitad.")
+
+    # ------------------------------------------------------------- los pasos
+    parrafo(d, "", despues=6)
+    d.add_paragraph("11.2 Instalación en una máquina nueva", style="Heading 2")
+    parrafo(d, "Dos comandos, una sola vez:")
+    for orden, comando, que in (
+            ("1", "git clone https://github.com/javieravellanedaa/shopmetrics",
+             "Trae el código."),
+            ("2", "cd shopmetrics && make instalar",
+             "Comprueba los tres programas, instala las dependencias de la API "
+             "y del panel, crea la base, aplica las cuatro migraciones y da de "
+             "alta los usuarios de los cuatro roles.")):
+        p = parrafo(d, "", despues=2)
+        p.paragraph_format.left_indent = Mm(8)
+        p.add_run(orden + ".  ").bold = True
+        c = p.add_run(comando)
+        c.font.name = "Courier New"
+        c.font.size = Pt(10)
+        p = parrafo(d, que, despues=6)
+        p.paragraph_format.left_indent = Mm(14)
+
+    parrafo(d, "La instalación tarda unos minutos, casi todos en bajar las "
+               "dependencias. Termina informando cuántas tablas quedaron "
+               "creadas; si dice 30, está completa.")
+
+    contadores["figura"] += 1
+    figura(d, "guia-instalar.png",
+           "Figura 11.%d. Salida de make instalar sobre una máquina sin nada "
+           "instalado. Fuente: elaboración propia."
+           % contadores["figura"], alto_maximo_mm=70)
+
+    # ------------------------------------------------------------- arrancar
+    parrafo(d, "", despues=6)
+    d.add_paragraph("11.3 Cómo se pone en marcha", style="Heading 2")
+    parrafo(d, "Una vez instalado, todo se maneja con cuatro comandos. Se "
+               "corren parados en la carpeta del proyecto.")
+    contadores["tabla"] += 1
+    tabla_de(d,
+             ["Comando", "Qué hace"],
+             [["make instalar",
+               "Deja la máquina lista. Sólo la primera vez."],
+              ["make arrancar",
+               "Levanta la base, los dos simuladores, la API y el panel. "
+               "Espera a que cada uno responda y termina mostrando las "
+               "direcciones y los usuarios."],
+              ["make demostracion",
+               "Lo mismo, y además arma el centro —zonas, locatarios, "
+               "conectores y sensores— y genera datos, para que el panel abra "
+               "con números en lugar de vacío. Es el que conviene para "
+               "mostrarlo."],
+              ["make parar",
+               "Apaga todo."]],
+             anchos_mm=[38, 121],
+             epigrafe="Tabla 11.%d. Los cuatro comandos que manejan el "
+                      "sistema. Fuente: elaboración propia."
+                      % contadores["tabla"])
+
+    parrafo(d, "", despues=6)
+    parrafo(d, "Escribir make a secas lista todos los comandos disponibles con "
+               "su descripción.")
+
+    contadores["figura"] += 1
+    figura(d, "guia-demostracion.png",
+           "Figura 11.%d. Final de make demostracion: el centro armado, los "
+           "datos generados y las direcciones donde queda escuchando cada "
+           "parte. Fuente: elaboración propia." % contadores["figura"],
+           alto_maximo_mm=95)
+
+    # ---------------------------------------------------------- direcciones
+    parrafo(d, "", despues=6)
+    d.add_paragraph("11.4 Dónde queda cada cosa", style="Heading 2")
+    contadores["tabla"] += 1
+    tabla_de(d,
+             ["Qué", "Dirección", "Para qué"],
+             [["Panel", "http://localhost:3000",
+               "La aplicación. Es por donde se entra."],
+              ["API", "http://localhost:8000/docs",
+               "La documentación de los endpoints, generada sola, donde se "
+               "los puede probar uno por uno."],
+              ["Base de datos", "http://localhost:8080",
+               "Adminer: permite mirar las 30 tablas y lo que hay cargado."],
+              ["Simulador de puntos de venta", "http://localhost:9001/docs",
+               "El sistema externo que emula las cinco cajas. Desde acá se lo "
+               "puede hacer fallar a propósito."],
+              ["Simulador de sensores", "http://localhost:9002/docs",
+               "El que emula los tres sensores de conteo."]],
+             anchos_mm=[44, 48, 67],
+             epigrafe="Tabla 11.%d. Direcciones del sistema levantado. Fuente: "
+                      "elaboración propia." % contadores["tabla"])
+
+    parrafo(d, "", despues=6)
+    parrafo(d, "Las direcciones son locales: el sistema escucha únicamente en "
+               "la máquina donde se lo levantó. Publicarlo en un servidor es "
+               "parte de la semana 10 del plan.", tamano=10, cursiva=True)
+
+    # ------------------------------------------------------------- usuarios
+    parrafo(d, "", despues=6)
+    d.add_paragraph("11.5 Con qué usuario se entra", style="Heading 2")
+    parrafo(d, "La instalación da de alta un usuario por cada uno de los "
+               "cuatro roles. Los cuatro tienen la misma clave: ")
+    p = parrafo(d, "", despues=6)
+    p.paragraph_format.left_indent = Mm(8)
+    c = p.add_run(CLAVE)
+    c.bold = True
+    c.font.name = "Courier New"
+    c.font.size = Pt(12)
+
+    contadores["tabla"] += 1
+    tabla_de(d,
+             ["Correo", "Rol", "Qué puede hacer"],
+             [[correo, "%s\n%s" % (rol, nombre), que]
+              for correo, nombre, rol, que in USUARIOS],
+             anchos_mm=[62, 28, 69],
+             epigrafe="Tabla 11.%d. Usuarios creados por la instalación. La "
+                      "clave de los cuatro es %s. Fuente: elaboración propia."
+                      % (contadores["tabla"], CLAVE))
+
+    parrafo(d, "", despues=6)
+    parrafo(d, "Las claves están a la vista a propósito. Estos cuatro usuarios "
+               "existen sólo dentro de una base que se recrea desde cero en "
+               "cada instalación y que no contiene ningún dato real; fuera de "
+               "ella no sirven para nada. En un entorno de verdad los usuarios "
+               "se cargan desde variables de entorno, que nunca se versionan.")
+    parrafo(d, "Conviene entrar con los cuatro. Es la forma de ver que la "
+               "matriz de permisos se aplica de verdad: el menú cambia según "
+               "el rol, y lo que el menú esconde el backend igual lo rechaza "
+               "si se fuerza la dirección a mano.")
+
+    salto(d)
+
+    # ------------------------------------------------------------- recorrido
+    d.add_paragraph("11.6 El recorrido, paso a paso", style="Heading 2")
+    parrafo(d, "Los %d pasos que siguen recorren los ocho casos de uso que hoy "
+               "funcionan, pasando por los cuatro roles y por todos los "
+               "controles de cada pantalla, incluidos los que rechazan: el "
+               "ingreso con credenciales que no sirven, el gerente que no "
+               "puede escribir, la acción correctiva que no resuelve, la "
+               "validación que frena un umbral imposible."
+               % len(PASOS))
+    parrafo(d, "Es el mismo recorrido del video ShopMetrics-recorrido.mp4 que "
+               "acompaña a este informe. Cada paso lleva la captura de lo que "
+               "se ve en la pantalla en ese momento.")
+
+    caso_actual = None
+    for orden, (archivo, caso, titulo, detalle, nota) in enumerate(PASOS, start=1):
+        if caso != caso_actual:
+            caso_actual = caso
+            info = CASOS[caso]
+            parrafo(d, "", despues=4)
+            d.add_paragraph("%s · %s" % (caso, info["nombre"]),
+                            style="Heading 3")
+            parrafo(d, info["resumen"], cursiva=True, despues=6)
+
+        p = parrafo(d, "", antes=6, despues=2)
+        p.add_run("Paso %d. " % orden).bold = True
+        p.add_run(titulo).bold = True
+
+        p = parrafo(d, detalle, despues=2)
+        p.paragraph_format.left_indent = Mm(6)
+
+        if nota:
+            p = parrafo(d, nota, tamano=10, cursiva=True, despues=4)
+            p.paragraph_format.left_indent = Mm(6)
+
+        contadores["figura"] += 1
+        figura(d, "%s.jpg" % archivo,
+               "Figura 11.%d. Paso %d: %s Fuente: elaboración propia."
+               % (contadores["figura"], orden,
+                  titulo[0].lower() + titulo[1:] + "."),
+               carpeta=CAPTURAS, alto_maximo_mm=68)
+
+
 def limpiar_medios(ruta: str) -> int:
     """Saca del .docx las imagenes que ya no usa nadie.
 
@@ -841,6 +1078,8 @@ def main() -> int:
         semana(d, numero, contadores)
     deuda(d)
     cierre(d)
+    salto(d)
+    guia(d)
 
     d.save(SALIDA)
     antes = os.path.getsize(SALIDA)
