@@ -70,18 +70,12 @@ for dom, nombre, _c, _cl, miembros in DOMINIOS:
                   f'strokeColor={GRIS};strokeWidth=1;fontSize=7;fontColor={TENUE};" edge="1" parent="1" '
                   f'source="t_{r["padre"]}" target="t_{r["hijo"]}">'
                   f'<mxGeometry relative="1" as="geometry"/></mxCell>')
-    tit = (f'<mxCell id="tit" value="{esc(nombre)}" style="text;html=1;align=left;'
-           f'verticalAlign=middle;fontSize=14;fontStyle=1;fontColor=#000000;" vertex="1" parent="1">'
-           f'<mxGeometry x="{MARG_X}" y="10" width="640" height="22" as="geometry"/></mxCell>'
-           f'<mxCell id="tit2" value="{len(miembros)} entidades del dominio y '
-           f'{len(externas)} referenciadas de otros, en gris" style="text;html=1;align=right;'
-           f'verticalAlign=middle;fontSize=8;fontColor={TENUE};" vertex="1" parent="1">'
-           f'<mxGeometry x="{PW-MARG_X-420}" y="12" width="420" height="18" as="geometry"/></mxCell>')
+    tit = ''
     xml = (f'<mxfile host="app.diagrams.net" agent="ShopMetrics" version="24.7.17">\n'
            f'  <diagram id="der-{dom}" name="{esc(nombre)}">\n'
            f'    <mxGraphModel dx="1200" dy="800" grid="0" gridSize="10" guides="1" tooltips="1" '
-           f'connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="{PW}" '
-           f'pageHeight="{PH}" math="0" shadow="0">\n      <root>\n        <mxCell id="0"/>\n'
+           f'connect="1" arrows="1" fold="1" page="0" pageScale="1" '
+           f'math="0" shadow="0">\n      <root>\n        <mxCell id="0"/>\n'
            f'        <mxCell id="1" parent="0"/>\n        ' + tit + "\n        "
            + "\n        ".join(cel) + "\n        " + "\n        ".join(ar)
            + '\n      </root>\n    </mxGraphModel>\n  </diagram>\n</mxfile>\n')

@@ -4,14 +4,8 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="tit" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=14;fontStyle=1;fontColor=#000000;" value="Estructura comercial" vertex="1">
-          <mxGeometry height="22" width="640" x="77.5" as="geometry" />
-        </mxCell>
-        <mxCell id="tit2" parent="1" style="text;html=1;align=right;verticalAlign=middle;fontSize=8;fontColor=#606060;" value="4 entidades del dominio y 0 referenciadas de otros, en gris" vertex="1">
-          <mxGeometry height="18" width="420" x="187.5" y="32" as="geometry" />
-        </mxCell>
         <mxCell id="t_centro_comercial" parent="1" style="shape=table;startSize=25;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;columnLines=0;html=1;whiteSpace=nowrap;fillColor=#DCDCDC;strokeColor=#333333;fontColor=#000000;fontSize=9;fontStyle=1;align=center;swimlaneFillColor=#FFFFFF;resizeLast=1;" value="centro_comercial" vertex="1">
-          <mxGeometry height="79" width="118" x="12" y="102.17" as="geometry" />
+          <mxGeometry height="79" width="118" x="12" y="34.17" as="geometry" />
         </mxCell>
         <mxCell id="t_centro_comercial_r0" parent="t_centro_comercial" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
           <mxGeometry height="18" width="118" y="25" as="geometry" />
@@ -68,7 +62,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="t_zona" parent="1" style="shape=table;startSize=25;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;columnLines=0;html=1;whiteSpace=nowrap;fillColor=#DCDCDC;strokeColor=#333333;fontColor=#000000;fontSize=9;fontStyle=1;align=center;swimlaneFillColor=#FFFFFF;resizeLast=1;" value="zona" vertex="1">
-          <mxGeometry height="97" width="123" x="325" y="80" as="geometry" />
+          <mxGeometry height="97" width="123" x="325" y="12" as="geometry" />
         </mxCell>
         <mxCell id="t_zona_r0" parent="t_zona" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
           <mxGeometry height="18" width="123" y="25" as="geometry" />
@@ -143,7 +137,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="t_locatario" parent="1" style="shape=table;startSize=25;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;columnLines=0;html=1;whiteSpace=nowrap;fillColor=#DCDCDC;strokeColor=#333333;fontColor=#000000;fontSize=9;fontStyle=1;align=center;swimlaneFillColor=#FFFFFF;resizeLast=1;" value="locatario" vertex="1">
-          <mxGeometry height="115" width="118" x="327.5" y="211" as="geometry" />
+          <mxGeometry height="115" width="118" x="327.5" y="143" as="geometry" />
         </mxCell>
         <mxCell id="t_locatario_r0" parent="t_locatario" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
           <mxGeometry height="18" width="118" y="25" as="geometry" />
@@ -236,7 +230,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="t_local" parent="1" style="shape=table;startSize=25;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;columnLines=0;html=1;whiteSpace=nowrap;fillColor=#DCDCDC;strokeColor=#333333;fontColor=#000000;fontSize=9;fontStyle=1;align=center;swimlaneFillColor=#FFFFFF;resizeLast=1;" value="local" vertex="1">
-          <mxGeometry height="115" width="133" x="650" y="90.17" as="geometry" />
+          <mxGeometry height="115" width="133" x="650" y="22.17" as="geometry" />
         </mxCell>
         <mxCell id="t_local_r0" parent="t_local" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
           <mxGeometry height="18" width="133" y="25" as="geometry" />
@@ -332,7 +326,7 @@
           <mxGeometry relative="1" as="geometry">
             <mxPoint as="offset" />
             <Array as="points">
-              <mxPoint x="227.5" y="128.5" />
+              <mxPoint x="227.5" y="60.5" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -340,8 +334,8 @@
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="55.59" as="offset" />
             <Array as="points">
-              <mxPoint x="146" y="154.82999999999998" />
-              <mxPoint x="146" y="268.5" />
+              <mxPoint x="146" y="86.83" />
+              <mxPoint x="146" y="200.5" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -349,8 +343,8 @@
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="-37" y="12.59" as="offset" />
             <Array as="points">
-              <mxPoint x="586" y="268.5" />
-              <mxPoint x="586" y="166.82999999999998" />
+              <mxPoint x="586" y="200.5" />
+              <mxPoint x="586" y="98.83" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -358,7 +352,7 @@
           <mxGeometry relative="1" as="geometry">
             <mxPoint as="offset" />
             <Array as="points">
-              <mxPoint x="549" y="128.5" />
+              <mxPoint x="549" y="60.5" />
             </Array>
           </mxGeometry>
         </mxCell>

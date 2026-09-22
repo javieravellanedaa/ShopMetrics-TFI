@@ -4,14 +4,8 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="tit" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=14;fontStyle=1;fontColor=#000000;" value="Identidad y permisos" vertex="1">
-          <mxGeometry height="22" width="559" x="12" as="geometry" />
-        </mxCell>
-        <mxCell id="tit2" parent="1" style="text;html=1;align=right;verticalAlign=middle;fontSize=8;fontColor=#606060;" value="6 entidades del dominio y 1 referenciadas de otros, en gris" vertex="1">
-          <mxGeometry height="18" width="420" x="81.5" y="32" as="geometry" />
-        </mxCell>
         <mxCell id="t_usuario" parent="1" style="shape=table;startSize=25;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;columnLines=0;html=1;whiteSpace=nowrap;fillColor=#DCDCDC;strokeColor=#333333;fontColor=#000000;fontSize=9;fontStyle=1;align=center;swimlaneFillColor=#FFFFFF;resizeLast=1;" value="usuario" vertex="1">
-          <mxGeometry height="97" width="138" x="144" y="80" as="geometry" />
+          <mxGeometry height="97" width="138" x="144" y="12" as="geometry" />
         </mxCell>
         <mxCell id="t_usuario_r0" parent="t_usuario" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
           <mxGeometry height="18" width="138" y="25" as="geometry" />
@@ -86,7 +80,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="t_rol" parent="1" style="shape=table;startSize=25;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;columnLines=0;html=1;whiteSpace=nowrap;fillColor=#DCDCDC;strokeColor=#333333;fontColor=#000000;fontSize=9;fontStyle=1;align=center;swimlaneFillColor=#FFFFFF;resizeLast=1;" value="rol" vertex="1">
-          <mxGeometry height="61" width="103" x="316" y="116" as="geometry" />
+          <mxGeometry height="61" width="103" x="316" y="48" as="geometry" />
         </mxCell>
         <mxCell id="t_rol_r0" parent="t_rol" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
           <mxGeometry height="18" width="103" y="25" as="geometry" />
@@ -125,7 +119,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="t_permiso" parent="1" style="shape=table;startSize=25;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;columnLines=0;html=1;whiteSpace=nowrap;fillColor=#DCDCDC;strokeColor=#333333;fontColor=#000000;fontSize=9;fontStyle=1;align=center;swimlaneFillColor=#FFFFFF;resizeLast=1;" value="permiso" vertex="1">
-          <mxGeometry height="79" width="118" x="453" y="98" as="geometry" />
+          <mxGeometry height="79" width="118" x="453" y="30" as="geometry" />
         </mxCell>
         <mxCell id="t_permiso_r0" parent="t_permiso" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
           <mxGeometry height="18" width="118" y="25" as="geometry" />
@@ -182,7 +176,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="t_usuario_rol" parent="1" style="shape=table;startSize=25;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;columnLines=0;html=1;whiteSpace=nowrap;fillColor=#DCDCDC;strokeColor=#333333;fontColor=#000000;fontSize=9;fontStyle=1;align=center;swimlaneFillColor=#FFFFFF;resizeLast=1;" value="usuario_rol" vertex="1">
-          <mxGeometry height="61" width="123" x="273" y="341" as="geometry" />
+          <mxGeometry height="61" width="123" x="273" y="293" as="geometry" />
         </mxCell>
         <mxCell id="t_usuario_rol_r0" parent="t_usuario_rol" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
           <mxGeometry height="18" width="123" y="25" as="geometry" />
@@ -221,7 +215,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="t_rol_permiso" parent="1" style="shape=table;startSize=25;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;columnLines=0;html=1;whiteSpace=nowrap;fillColor=#DCDCDC;strokeColor=#333333;fontColor=#000000;fontSize=9;fontStyle=1;align=center;swimlaneFillColor=#FFFFFF;resizeLast=1;" value="rol_permiso" vertex="1">
-          <mxGeometry height="61" width="123" x="430" y="341" as="geometry" />
+          <mxGeometry height="61" width="123" x="430" y="293" as="geometry" />
         </mxCell>
         <mxCell id="t_rol_permiso_r0" parent="t_rol_permiso" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
           <mxGeometry height="18" width="123" y="25" as="geometry" />
@@ -260,7 +254,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="t_centro_acceso" parent="1" style="shape=table;startSize=25;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;columnLines=0;html=1;whiteSpace=nowrap;fillColor=#DCDCDC;strokeColor=#333333;fontColor=#000000;fontSize=9;fontStyle=1;align=center;swimlaneFillColor=#FFFFFF;resizeLast=1;" value="centro_acceso" vertex="1">
-          <mxGeometry height="79" width="123" x="116" y="341" as="geometry" />
+          <mxGeometry height="79" width="123" x="116" y="293" as="geometry" />
         </mxCell>
         <mxCell id="t_centro_acceso_r0" parent="t_centro_acceso" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
           <mxGeometry height="18" width="123" y="25" as="geometry" />
@@ -317,7 +311,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="t_centro_comercial" parent="1" style="shape=table;startSize=25;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;columnLines=0;html=1;whiteSpace=nowrap;fillColor=#F2F2F2;strokeColor=#9A9A9A;dashed=1;fontColor=#000000;fontSize=9;fontStyle=1;align=center;swimlaneFillColor=#FFFFFF;resizeLast=1;" value="centro_comercial" vertex="1">
-          <mxGeometry height="45" width="98" x="12" y="134" as="geometry" />
+          <mxGeometry height="45" width="98" x="12" y="66" as="geometry" />
         </mxCell>
         <mxCell id="t_centro_comercial_r0" parent="t_centro_comercial" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" value="" vertex="1">
           <mxGeometry height="18" width="98" y="25" as="geometry" />
@@ -341,8 +335,8 @@
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="-1" y="-38" as="offset" />
             <Array as="points">
-              <mxPoint x="236" y="297" />
-              <mxPoint x="314" y="297" />
+              <mxPoint x="236" y="239" />
+              <mxPoint x="314" y="239" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -350,8 +344,8 @@
           <mxGeometry relative="1" as="geometry">
             <mxPoint y="6.25" as="offset" />
             <Array as="points">
-              <mxPoint x="367.5" y="193" />
-              <mxPoint x="355" y="193" />
+              <mxPoint x="367.5" y="125" />
+              <mxPoint x="355" y="125" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -359,8 +353,8 @@
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="-10.87" y="-28" as="offset" />
             <Array as="points">
-              <mxPoint x="393.25" y="287" />
-              <mxPoint x="471" y="287" />
+              <mxPoint x="393.25" y="229" />
+              <mxPoint x="471" y="229" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -368,7 +362,7 @@
           <mxGeometry relative="1" as="geometry">
             <mxPoint as="offset" />
             <Array as="points">
-              <mxPoint x="512" y="259" />
+              <mxPoint x="512" y="201" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -376,8 +370,8 @@
           <mxGeometry relative="1" as="geometry">
             <mxPoint y="6.25" as="offset" />
             <Array as="points">
-              <mxPoint x="190" y="193" />
-              <mxPoint x="177.5" y="193" />
+              <mxPoint x="190" y="125" />
+              <mxPoint x="177.5" y="125" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -385,8 +379,8 @@
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="-14.87" y="-28" as="offset" />
             <Array as="points">
-              <mxPoint x="61" y="287" />
-              <mxPoint x="146.75" y="287" />
+              <mxPoint x="61" y="229" />
+              <mxPoint x="146.75" y="229" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -394,10 +388,10 @@
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="17" y="-28" as="offset" />
             <Array as="points">
-              <mxPoint x="341.75" y="193" />
-              <mxPoint x="320" y="193" />
-              <mxPoint x="320" y="287" />
-              <mxPoint x="208.25" y="287" />
+              <mxPoint x="341.75" y="125" />
+              <mxPoint x="320" y="125" />
+              <mxPoint x="320" y="229" />
+              <mxPoint x="208.25" y="229" />
             </Array>
           </mxGeometry>
         </mxCell>
