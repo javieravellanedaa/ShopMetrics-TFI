@@ -14,14 +14,17 @@ hacer**. El criterio que se usó para decidir cuál manda:
 3. Los **diagramas** tienen que reflejar a los dos. Cuando un diagrama dice algo
    distinto, se corrige el diagrama.
 
-Los hallazgos 8 y 9 no son diferencias entre el diagrama y el modelo, sino
-huecos del propio diccionario y del propio caso de uso: la corrección no está en
-Enterprise Architect sino en el Word. Quedan acá igual, para tenerlos todos
-juntos.
+Los hallazgos 8, 9, 11 y 12 no son diferencias entre el diagrama y el modelo,
+sino huecos del propio diccionario y de los propios casos de uso: la corrección
+no está en Enterprise Architect sino en el Word. Quedan acá igual, para tenerlos
+todos juntos.
 
-Estado al 22 de septiembre de 2026. Revisados en detalle: CU-017-001, CU-018-001,
-CU-002-001, CU-003-001, CU-001-001, CU-004-001 y CU-011-001. Los demás se revisan
-a medida que se construyen.
+El hallazgo 10 **ya está corregido** en el Word y en el esquema, porque bloqueaba
+la construcción de la semana 6. Lo que queda es poner al día el diagrama.
+
+Estado al 22 de septiembre de 2026. Revisados en detalle: CU-001-001, CU-002-001,
+CU-003-001, CU-004-001, CU-006-001, CU-007-001, CU-011-001, CU-017-001, CU-018-001
+y CU-026-001. Los demás se revisan a medida que se construyen.
 
 ---
 
@@ -298,6 +301,114 @@ que el mismo paso 5 pide y que hoy tampoco tiene dónde vivir.
 Mientras no se decida, conviene cambiar el texto del caso de uso de "latencia
 promedio" a "latencia del último sondeo", para que el documento describa lo que
 el sistema hace.
+
+---
+
+## 10. La entidad `alerta` tenía tres claves foráneas obligatorias que no podían serlo
+
+**Ya está corregido en el Word y en el esquema.** Queda anotado para que el
+modelo de Enterprise Architect se ponga al día.
+
+**Qué pasaba**
+
+| Fuente | Qué decía |
+|---|---|
+| Diccionario, `alerta.regla_id` | "Regla que originó la alerta **(si aplica)**." |
+| Diccionario, `alerta.locatario_id` | "Locatario afectado, **cuando** la alerta es de negocio y no de zona." |
+| Diccionario, `alerta.asignado_a` | "Usuario responsable de atender la alerta." |
+
+Las tres descripciones dicen o implican que el campo puede estar vacío, pero
+ninguna usa la palabra «nulo», que es la que el generador del esquema reconoce.
+Las tres columnas salieron `NOT NULL`, y con eso puesto **no se puede guardar
+ninguna alerta**:
+
+- Una alerta recién generada no tiene responsable. El paso 7 del CU-026-001 es
+  justamente donde el gerente lo asigna.
+- Una alerta del modelo no nace de ninguna regla de umbral. El paso 2 del
+  CU-007-001 la genera sin regla.
+- `locatario_id` sólo se completa cuando la alerta es de negocio.
+
+**Qué se hizo**
+
+Las descripciones del diccionario pasaron a decirlo con la palabra que el
+generador entiende, sin cambiar lo que significaban:
+
+| Campo | Descripción nueva |
+|---|---|
+| `regla_id` | Regla de umbral que originó la alerta. **Nulo** si la alerta la generó el modelo. |
+| `locatario_id` | Locatario afectado. **Nulo** cuando la alerta es de zona y no de negocio. |
+| `asignado_a` | Usuario responsable de atender la alerta. **Nulo** mientras no se asigne. |
+
+`001_esquema_inicial.sql` se regeneró con `make esquema` y se agregó
+`004_alerta_opcionales.sql` para las bases que ya existían. Esa migración suma
+además una restricción que el diccionario describe pero no podía expresar:
+`regla_id` y `modelo_id` son **excluyentes**, porque una alerta nace de una
+regla de umbral o del modelo, nunca de las dos ni de ninguna.
+
+**Qué hay que hacer en Enterprise Architect**
+
+En el diagrama de clases del dominio de alertas, las multiplicidades hacia
+`Alerta` pasan de `1` a `0..1` en las tres asociaciones: `ReglaAlerta`,
+`Locatario` y `Usuario` (el responsable). Y conviene dejar anotada la
+restricción de origen excluyente como nota sobre la clase.
+
+---
+
+## 11. El estado de la alerta se llama distinto en tres lugares
+
+**Dónde aparece**
+
+| Fuente | Qué dice |
+|---|---|
+| Diccionario, `alerta.estado` | "Estado (**nueva, en revisión, resuelta**)." |
+| CU-007-001, paso 2 | "estado: selector [**abierta/en proceso/resuelta**]" |
+| CU-026-001, paso 2 | "estado de la alerta: selector [**activa/en seguimiento/resuelta**]" |
+
+**El problema**
+
+Son tres vocabularios para el mismo campo. No es una diferencia de redacción:
+si el tribunal lee el CU-026-001 y después mira la base, no va a encontrar
+ningún «activa». Y dos casos de uso que hablan de la misma alerta la nombran
+distinto entre ellos.
+
+**Qué se hizo por ahora**
+
+El código usa los del diccionario —`nueva`, `en revisión`, `resuelta`— porque el
+criterio acordado es que el diccionario manda sobre la estructura, y una lista
+de valores admitidos es estructura.
+
+**Qué hay que decidir**
+
+Unificar los tres a un solo vocabulario y corregir los dos casos de uso. El del
+diccionario es el más claro de los tres: «nueva» dice que nadie la miró todavía,
+que es información que «activa» no da.
+
+---
+
+## 12. `alerta.zona_id` es obligatorio, pero no toda alerta es de una zona
+
+**Dónde aparece**
+
+| Fuente | Qué dice |
+|---|---|
+| Diccionario, `alerta.zona_id` | "Zona afectada." Sin marca de nulo, así que sale `NOT NULL`. |
+| CU-006-001 | Las reglas se definen sobre indicadores **del centro**: tráfico, conversión, ventas, vacancia. |
+
+**El problema**
+
+Una regla de umbral sobre la conversión del centro entero no es de ninguna zona
+en particular. Hoy la alerta se cuelga de la primera zona del centro, que es
+arbitrario y engañoso: el tablero la muestra como si el problema fuera de esa
+zona.
+
+**Qué hacer**
+
+Lo mismo que se hizo con los otros tres campos: que `zona_id` admita nulos, con
+la descripción "Zona afectada. Nulo cuando la alerta es del centro entero." En
+el diagrama, la multiplicidad de `Zona` hacia `Alerta` pasa a `0..1`.
+
+El código ya está preparado: la función que elige la zona está aislada en
+`dominios/alertas/motor.py` y se saca en cuanto el campo lo permita.
 
 ---
 
