@@ -14,8 +14,14 @@ hacer**. El criterio que se usó para decidir cuál manda:
 3. Los **diagramas** tienen que reflejar a los dos. Cuando un diagrama dice algo
    distinto, se corrige el diagrama.
 
-Estado al 22 de septiembre de 2026. Revisados en detalle: CU-017-001, CU-018-001
-y CU-002-001. Los demás se revisan a medida que se construyen.
+Los hallazgos 8 y 9 no son diferencias entre el diagrama y el modelo, sino
+huecos del propio diccionario y del propio caso de uso: la corrección no está en
+Enterprise Architect sino en el Word. Quedan acá igual, para tenerlos todos
+juntos.
+
+Estado al 22 de septiembre de 2026. Revisados en detalle: CU-017-001, CU-018-001,
+CU-002-001, CU-003-001, CU-001-001, CU-004-001 y CU-011-001. Los demás se revisan
+a medida que se construyen.
 
 ---
 
@@ -208,6 +214,90 @@ agregarlo.
 En el código, la notificación todavía no se implementa: llega con el dominio de
 notificaciones, que el plan no ubica en ninguna semana explícita. Conviene
 decidir en qué semana entra.
+
+---
+
+## 8. Un local vacante no se puede representar, y la vacancia es uno de los KPIs
+
+**Dónde aparece**
+
+| Fuente | Qué dice |
+|---|---|
+| Punto 4, tablero del centro | "Indicadores clave (tráfico actual, conversión, ventas del día, **vacancia**)" |
+| CU-011-001, paso 2 | "vacancia: solo lectura, decimal, expresada como porcentaje, calculado, no se almacena" |
+| Diccionario de datos, entidad `local` | `locatario_id` — "Locatario que ocupa el local." Sin marca de nulo, así que el esquema lo genera `NOT NULL`. |
+
+**El problema**
+
+Si todo local tiene que tener un locatario, un local vacío no existe en el
+modelo. La vacancia calculada sobre esa base da cero siempre, y no porque el
+centro esté lleno: porque la pregunta no se puede formular.
+
+Es el único de los cuatro indicadores del tablero que el modelo de datos no
+sostiene. Los otros tres --tráfico, conversión y ventas-- salen de las series y
+ya están calculándose contra datos reales.
+
+**Qué hacer**
+
+Hay dos caminos y conviene elegir a conciencia, porque significan cosas
+distintas:
+
+1. **`locatario_id` pasa a admitir nulos.** Un local sin locatario es un local
+   vacante. Es lo más simple y no agrega entidades.
+2. **Agregar `local.estado`** con los valores `ocupado`, `vacante` y `en obra`.
+   Distingue el local que se está refaccionando del que está disponible para
+   alquilar, que para un centro comercial no es lo mismo.
+
+Si se elige el primero, en el diccionario de datos, entidad `local`, la
+descripción del campo pasa a:
+
+| Campo | Tipo | Clave | Descripción |
+|---|---|---|---|
+| `locatario_id` | UUID | FK | Locatario que ocupa el local. Nulo si el local está vacante. |
+
+La palabra «nulo» en la descripción es lo que hace que el generador del esquema
+emita la columna sin `NOT NULL`, así que el texto importa.
+
+En el diagrama de clases, la multiplicidad de `Locatario` hacia `Local` pasa de
+`1` a `0..1`.
+
+El cálculo ya está escrito y no hay que tocarlo: `dominios/metricas/servicio.py`
+cuenta los locales sin locatario sobre el total. Mientras tanto el indicador
+viaja marcado como dato parcial, con el aviso que nombra esta corrección, que es
+el curso alternativo CA-1 del propio caso de uso.
+
+---
+
+## 9. La latencia promedio del paso 5 del CU-001-001 no tiene dónde guardarse
+
+**Dónde aparece**
+
+| Fuente | Qué dice |
+|---|---|
+| CU-001-001, paso 5 | "latencia promedio (solo lectura, decimal, en milisegundos, **calculado, no se almacena**)" |
+| Diccionario de datos | No hay ninguna entidad que registre los tiempos de respuesta de un conector. |
+
+**El problema**
+
+Un **promedio** es de varias mediciones, y sin guardarlas no hay sobre qué
+promediar. El caso de uso pide las dos cosas a la vez: que sea promedio y que no
+se almacene.
+
+**Qué hacer**
+
+Lo implementado hoy es lo único consistente con "no se almacena": la latencia
+que muestra el detalle es la del sondeo de ese momento --el ida y vuelta real
+contra el sistema externo-- y no un promedio. Alcanza para lo que el paso
+necesita, que es diagnosticar.
+
+Si se quiere el promedio de verdad hay que decidirlo y agregarlo al diccionario,
+por ejemplo una entidad `sondeo_integracion` con `conector_id`, `ts`,
+`latencia_ms` y `resultado`, que además daría el "historial de errores recientes"
+que el mismo paso 5 pide y que hoy tampoco tiene dónde vivir.
+
+Mientras no se decida, conviene cambiar el texto del caso de uso de "latencia
+promedio" a "latencia del último sondeo", para que el documento describa lo que
+el sistema hace.
 
 ---
 
