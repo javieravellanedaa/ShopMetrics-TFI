@@ -306,7 +306,7 @@ def portada(d) -> None:
 
 
 def introduccion(d) -> None:
-    d.add_paragraph("Sobre este informe", style="Heading 1")
+    d.add_paragraph("1. Sobre este informe", style="Heading 1")
 
     parrafo(d, "Este informe documenta la construcción del sistema ShopMetrics "
                "durante las primeras seis semanas del plan de trabajo presentado "
@@ -327,7 +327,7 @@ def introduccion(d) -> None:
                "de lo que este informe describe, mientras que un enlace fijado a "
                "un commit muestra siempre el mismo código.")
 
-    d.add_paragraph("Cómo se verifica lo que dice este informe", style="Heading 2")
+    d.add_paragraph("1.1 Cómo se verifica lo que dice este informe", style="Heading 2")
     parrafo(d, "Todo lo que sigue es reproducible desde el repositorio. Con Docker "
                "levantado, estos cuatro comandos reconstruyen el entorno desde "
                "cero, corren las pruebas de los dos lados y verifican que el "
@@ -343,7 +343,7 @@ def introduccion(d) -> None:
         t.font.size = Pt(10)
         p.add_run("   " + que).font.size = Pt(10)
 
-    d.add_paragraph("Criterio para dar una tarea por terminada", style="Heading 2")
+    d.add_paragraph("1.2 Criterio para dar una tarea por terminada", style="Heading 2")
     parrafo(d, "Una tarea se cierra cuando cumple cuatro condiciones, no sólo la "
                "primera: el código está escrito y subido; hay pruebas que cubren "
                "todos los escenarios y no únicamente el que sale bien —cada curso "
@@ -355,7 +355,7 @@ def introduccion(d) -> None:
 
 
 def resumen(d) -> None:
-    d.add_paragraph("Resumen de lo construido", style="Heading 1")
+    d.add_paragraph("2. Resumen de lo construido", style="Heading 1")
 
     parrafo(d, "Las seis semanas produjeron un backend, un panel web, dos "
                "simuladores de sistemas externos y un generador de datos, además "
@@ -387,7 +387,7 @@ def resumen(d) -> None:
                "cuentan una sola vez, en la semana en que apareció el archivo "
                "que las contiene, y por eso sí suman.", tamano=10, cursiva=True)
 
-    d.add_paragraph("Casos de uso construidos", style="Heading 2")
+    d.add_paragraph("2.1 Casos de uso construidos", style="Heading 2")
     parrafo(d, "De los 31 casos de uso especificados en el punto 10.5.3 del "
                "documento de análisis, diez tienen endpoints construidos y "
                "verificados. Cada endpoint cita en su documentación el caso de "
@@ -759,6 +759,67 @@ def cierre(d) -> None:
         p.add_run("   " + que)
 
 
+def limpiar_medios(ruta: str) -> int:
+    """Saca del .docx las imagenes que ya no usa nadie.
+
+    El documento se arma sobre el Word del trabajo final, que trae casi veinte
+    megas de figuras. Al vaciar el cuerpo esas imagenes dejan de mostrarse, pero
+    siguen adentro del paquete porque **sacar un parrafo no saca su relacion**:
+    el archivo pesa lo mismo y arrastra material de otra entrega.
+
+    Hay que ir por los dos lados: primero sacar de `document.xml.rels` las
+    relaciones de imagen que ningun `r:embed` del cuerpo nombra, y recien
+    despues borrar los archivos que quedaron sin nadie que los apunte. Se
+    conservan las del encabezado y el pie, que traen el escudo de la
+    Universidad.
+    """
+    import re
+    import zipfile
+
+    with zipfile.ZipFile(ruta) as paquete:
+        contenido = {n: paquete.read(n) for n in paquete.namelist()}
+
+    cuerpo = contenido["word/document.xml"].decode("utf-8", "ignore")
+    en_uso = set(re.findall(r'r:(?:embed|id|link)="([^"]+)"', cuerpo))
+
+    rels = contenido["word/_rels/document.xml.rels"].decode("utf-8", "ignore")
+    sacadas = []
+
+    def decidir(coincidencia):
+        entrada = coincidencia.group(0)
+        ident = re.search(r'Id="([^"]+)"', entrada)
+        destino = re.search(r'Target="([^"]+)"', entrada)
+        if (ident and destino and "media/" in destino.group(1)
+                and ident.group(1) not in en_uso):
+            sacadas.append(destino.group(1))
+            return ""
+        return entrada
+
+    rels = re.sub(r"<Relationship\b[^>]*/>", decidir, rels)
+    contenido["word/_rels/document.xml.rels"] = rels.encode("utf-8")
+
+    # Que medios quedan nombrados por alguna relacion, del cuerpo o de otra parte.
+    vivos = set()
+    for interno, datos in contenido.items():
+        if interno.endswith(".rels"):
+            for destino in re.findall(r'Target="([^"]+)"',
+                                      datos.decode("utf-8", "ignore")):
+                if "media/" in destino:
+                    vivos.add("word/" + destino.lstrip("./"))
+
+    huerfanos = [n for n in contenido
+                 if n.startswith("word/media/") and n not in vivos]
+    for n in huerfanos:
+        del contenido[n]
+
+    temporal = ruta + ".tmp"
+    with zipfile.ZipFile(temporal, "w", zipfile.ZIP_DEFLATED) as nuevo:
+        for interno, datos in contenido.items():
+            nuevo.writestr(interno, datos)
+    shutil.move(temporal, ruta)
+    return len(huerfanos)
+
+
 def main() -> int:
     if not os.path.exists(PLANTILLA):
         print("No encuentro la plantilla en %s" % PLANTILLA)
@@ -782,7 +843,11 @@ def main() -> int:
     cierre(d)
 
     d.save(SALIDA)
+    antes = os.path.getsize(SALIDA)
+    sacadas = limpiar_medios(SALIDA)
     print("escrito: %s (%.1f MB)" % (SALIDA, os.path.getsize(SALIDA) / 1e6))
+    print("  se sacaron %d imágenes de la plantilla (%.1f MB menos)"
+          % (sacadas, (antes - os.path.getsize(SALIDA)) / 1e6))
     return 0
 
 
