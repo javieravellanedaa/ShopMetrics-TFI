@@ -8,6 +8,7 @@ esquema de base de datos, entorno de desarrollo y código.
 | Carpeta | Contenido |
 |---|---|
 | `documento/` | El informe (`.docx` y su PDF), el presupuesto financiero (`.xlsx`), las capturas del punto 8 (`img_punto8/`) y los diagramas en draw.io con sus exportaciones (`diagramas/`). |
+| `modelo-ea/CORRECCIONES-PENDIENTES.md` | Diferencias encontradas entre los diagramas, las especificaciones de casos de uso y el diccionario de datos, con qué hacer en cada una. Se aplican desde la máquina con Enterprise Architect. |
 | `modelo-ea/` | Proyecto de Enterprise Architect (`shopMetrics.eapx`) y sus exportaciones: DER por área, y diagramas de clases y de secuencia de los 31 casos de uso. |
 | `scripts/diagramas/` | Generadores de los diagramas del punto 10 a partir del diccionario de datos del Word, más `validar.py` y `balanceo.py`. |
 | `scripts/enterprise-architect/` | Scripts que construyeron el modelo de Enterprise Architect y sus DER. |
