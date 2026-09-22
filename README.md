@@ -1,10 +1,35 @@
 # ShopMetrics — Trabajo Final de Ingeniería (UAI)
 
+Este repositorio guarda **la documentación** del trabajo final. La
+implementación del sistema vive aparte, en
+[javieravellanedaa/shopmetrics](https://github.com/javieravellanedaa/shopmetrics):
+esquema de base de datos, entorno de desarrollo y código.
+
 | Carpeta | Contenido |
 |---|---|
-| `STF/STF/Primera entrega/` | Informe (`STF_Gomez_Javier_E1_v1.docx` y su PDF), presupuesto financiero (`Presupuesto financiero ShopMetrics V1.xlsx`) y las capturas del punto 8 (`img_punto8/`). |
-| `shopMetrics/shopMetrics/enterprise_architect/` | Proyecto de Enterprise Architect (`shopMetrics.eapx`) y los diagramas exportados. El DER completo está en `DER_ShopMetrics_completo_A3.pdf` y los ocho DER por área en `export/der/`. |
-| `scripts/` | Scripts de Python y PowerShell con los que se generaron las correcciones del Excel y del Word. |
-| `scripts_enterprise_architect/` | Scripts que corrigieron el modelo de Enterprise Architect y generaron los DER, con sus datos intermedios. Tiene su propio README con el orden de ejecución. |
+| `documento/` | El informe (`.docx` y su PDF), el presupuesto financiero (`.xlsx`), las capturas del punto 8 (`img_punto8/`) y los diagramas en draw.io con sus exportaciones (`diagramas/`). |
+| `modelo-ea/` | Proyecto de Enterprise Architect (`shopMetrics.eapx`) y sus exportaciones: DER por área, y diagramas de clases y de secuencia de los 31 casos de uso. |
+| `scripts/diagramas/` | Generadores de los diagramas del punto 10 a partir del diccionario de datos del Word, más `validar.py` y `balanceo.py`. |
+| `scripts/enterprise-architect/` | Scripts que construyeron el modelo de Enterprise Architect y sus DER. |
+| `scripts/historico/` | Scripts de PowerShell y Python con los que se corrigieron el Word y el Excel desde la máquina Windows. Tienen rutas absolutas de esa máquina; se conservan como registro. |
 
-Las copias de seguridad (`Backups/`, `*.backup.eapx`) quedan fuera del repositorio: el historial de git cumple esa función.
+## Verificaciones
+
+Desde la raíz del repositorio:
+
+```
+python3 scripts/diagramas/balanceo.py
+```
+
+Cruza el diccionario de datos, el índice de casos de uso, los diagramas de
+secuencia y de clases, las exportaciones de Enterprise Architect y los
+`.drawio`. Controla integridad referencial, correspondencia uno a uno entre
+casos de uso y diagramas, y que ninguna arista atraviese una caja. Devuelve
+código 1 si algún control falla.
+
+```
+python3 scripts/diagramas/validar.py <archivo.drawio> <imagen.png> <escala>
+```
+
+Controla sobre un diagrama que el acomodo automático haya corrido, que ninguna
+caja se superponga y que la exportación contenga el dibujo completo.

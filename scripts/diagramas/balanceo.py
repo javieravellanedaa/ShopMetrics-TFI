@@ -14,9 +14,9 @@ from docx.text.paragraph import Paragraph
 from docx.table import Table
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-WORD = os.path.join(RAIZ, 'STF/STF/Primera entrega/STF_Gomez_Javier_E1_v1.docx')
-DIAG = os.path.join(RAIZ, 'STF/STF/Primera entrega/diagramas')
-EA   = os.path.join(RAIZ, 'shopMetrics/shopMetrics/enterprise_architect/export')
+WORD = os.path.join(RAIZ, 'documento/STF_Gomez_Javier_E1_v1.docx')
+DIAG = os.path.join(RAIZ, 'documento/diagramas')
+EA   = os.path.join(RAIZ, 'modelo-ea/export')
 BLIP = './/{http://schemas.openxmlformats.org/drawingml/2006/main}blip'
 fallas = []
 

@@ -1,29 +1,14 @@
-# Solo se versiona el trabajo de la entrega y el modelo de Enterprise Architect.
-# Todo lo demas de esta carpeta queda fuera del repositorio.
-/*
-!/.gitignore
-!/README.md
-!/scripts/
-!/scripts_enterprise_architect/
-
-!/STF/
-/STF/*
-!/STF/STF/
-/STF/STF/*
-!/STF/STF/Primera entrega/
-
-!/shopMetrics/
-/shopMetrics/*
-!/shopMetrics/shopMetrics/
-/shopMetrics/shopMetrics/*
-!/shopMetrics/shopMetrics/enterprise_architect/
-
-# Copias de seguridad: el historial de git las reemplaza
+# Copias de seguridad: el historial de git cumple esa funcion
 Backups/
-*.backup.eapx
 *.backup
+*.backup.eapx
+*.bak
 
-# Archivos temporales y de bloqueo de Office / Access
+# Temporales y bloqueos de Office / Access
 ~$*
 *.ldb
 *.tmp
+.DS_Store
+
+# Salidas intermedias de los generadores de diagramas
+scripts/diagramas/__pycache__/
