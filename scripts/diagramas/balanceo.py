@@ -124,8 +124,12 @@ for el in els:
             sec = m.group(1) if m else None
             if sec: img.setdefault(sec, 0)
     if sec: img[sec] = img.get(sec, 0) + len(el.findall(BLIP))
-ok("diagramas sin imagen", sum(1 for v in img.values() if v == 0))
-ok("diagramas con mas de una imagen", sum(1 for v in img.values() if v > 1))
+# cada diagrama por caso de uso lleva exactamente una imagen; el 10.5.7.1,
+# que es el de la solucion completa, lleva una lamina por dominio
+por_cu = {k: v for k, v in img.items() if k != '10.5.7.1'}
+ok("diagramas de caso de uso sin imagen", sum(1 for v in por_cu.values() if v == 0))
+ok("diagramas de caso de uso con mas de una", sum(1 for v in por_cu.values() if v > 1))
+ok("laminas del diagrama de clases de la solucion", img.get('10.5.7.1', 0), 5)
 
 # ---------- los .drawio contra el diccionario ----------
 titulo("C. DIAGRAMAS .drawio CONTRA EL DICCIONARIO")
